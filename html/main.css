@@ -54,3 +54,24 @@ a:focus {
   display: block;
   position: absolute;
 }
+
+.footer {
+  background-color: slateblue;
+  color: white;
+  text-align: center;
+}
+
+.my-image {
+  margin: auto;
+  padding-top: 40px;
+  display: block;
+  width: 400px;
+}
+
+.subhead {
+  padding: 40px;
+  list-style-type: none;
+  text-align: center;
+  display: inline-block;
+  color: slateblue;  
+}
