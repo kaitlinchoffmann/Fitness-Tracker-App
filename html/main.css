@@ -5,10 +5,24 @@ h1.title, p.subtitle {
   margin-top: 60px;
 }
 
-a {
-  float:left;
+li {
+  float: left;
+}
+
+li a {
   padding: 20px;
-  margin: 10px;
+}
+
+.icon {
+  float: right;
+  margin-right: 40px;
+}
+
+.icon a {
+  padding: 40px;
+}
+
+a {
   color: rgb(255, 174, 0);
 }
 
@@ -22,4 +36,21 @@ a:focus {
 
 #background {
     background-image: linear-gradient(to top, rgba(0, 225, 255, 0.4),rgba(0, 225, 225, 0));
+}
+
+.dropdown-cnt {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.dropdown-cnt a {
+  display: block;
+  padding-bottom: 0px;
+  text-align: left;
+}
+
+.my-dropdown:hover .dropdown-cnt {
+  display: block;
+  position: absolute;
 }

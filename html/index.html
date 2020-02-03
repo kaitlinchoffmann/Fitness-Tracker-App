@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Healthy Habits</title> 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">    <link rel="stylesheet" type="text/css" href="main.css">
   </head>
   <body>
   <div id="background">
@@ -16,8 +15,25 @@
         <ul>
           <li><a href="#Home">Home</a></li>
           <li><a href="#About">About</a></li>
-          <li><a href="#Track">Track</a></li>
-          <li><a href="#Profile">Profile</a></li> 
+          <li class="my-dropdown">
+            <a href="#Track">Track</a>
+              <div class="dropdown-cnt">
+                <a href="#Goals">Goals</a>
+                <a href="#Exercise">Exercise</a>
+                <a href="#Food">Food</a>
+              </div>  
+          </li>
+          <li class="my-dropdown">
+            <a href="#Profile">Profile</a>
+              <div class="dropdown-cnt">
+                <a href="#Settings">Settings</a>
+                <a href="#Logout">Logout</a>
+              </div>  
+          </li> 
+          <div class="icon">
+            <li class="icon"><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+            <li class="icon"><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram fa-lg" aria-hidden="true"></i></a></li>
+          </div>
         </ul>
       </div>
     </div>
