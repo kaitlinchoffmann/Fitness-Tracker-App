@@ -42,7 +42,14 @@ li a {
 
 .icon {
   float: right;
-  margin-right: 40px;
+  margin-right: 50px;
+}
+
+.icon-content {
+  color: rgb(255, 123, 0);
+  margin-right: 0px;
+  margin-left: 0px;
+  padding-right: 30px;
 }
 
 .icon a {
@@ -117,4 +124,8 @@ div.subtitle {
   padding-top: 40px;
   padding-bottom: 40px;
   color: slateblue;
+}
+
+hr {
+  margin-top: 0px;
 }
