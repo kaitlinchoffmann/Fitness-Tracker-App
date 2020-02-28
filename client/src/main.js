@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import 'bulma'; //this is a module within the bulma package
 
 Vue.config.productionTip = false
 
