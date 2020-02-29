@@ -31,13 +31,6 @@
 
 <style>
 
-h1.title, p.subtitle, #main {
-  color: slateblue;
-  text-align: center;
-  margin-top: 40px;
-  text-shadow: 4px 4px 4px lightblue;
-}
-
 h3.fcolor, label.fcolor {
   color: slateblue;
 }
