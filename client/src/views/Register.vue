@@ -5,7 +5,7 @@
           <p>Already Have an Account? Login Now!</p><br/>
           <button class="button" onclick="window.location.href='login.htm';">Login to Healthy Habits</button>
         </div> 
-    <div style="padding-bottom:100px;"></div>
+    <div style="padding-bottom:50px;"></div>
   </div>
 </template>
 

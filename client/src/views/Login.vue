@@ -5,7 +5,7 @@
           <p>New to Healthy Habits? Sign Up Now!</p><br/>
           <router-link class="button" to="/register">Register Healthy Habits Account</router-link>
         </div> 
-    <div style="padding-bottom:100px;"></div>
+    <div style="padding-bottom:50px;"></div>
   </div>
 </template>
 

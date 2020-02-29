@@ -2,9 +2,9 @@
   <div>
     <div class="container">  
       <h1 class="block title is-2"><router-link id="main" to="/">Healthy Habits</router-link></h1>
-    </div>
     <div>
       <img src="../assets/food.png" alt="Healthy Food" class="my-tiny-image">
+    </div>
     </div>
     <div class="container">      
         <form class="box" style="max-width:500px;margin:auto;" action="#login">

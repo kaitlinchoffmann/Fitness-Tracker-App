@@ -35,7 +35,9 @@
 
 <script>
 export default {
-    
+  data: ()=>({
+    isOpen: false
+  })
 }
 </script>
 
@@ -64,14 +66,6 @@ h3.fcolor, label.fcolor {
 .button:focus{
   color: white;
   background-color: #503cd1;
-}
-
-.to-home {
-  color: slateblue;
-}
-
-.to-home:hover {
-  color: #503cd1;
 }
 
 li {
@@ -140,13 +134,6 @@ a:focus {
   padding-top: 0px;
   display: block;
   width: 400px;
-}
-
-.my-tiny-image {
-  margin: auto;
-  padding-top: 40px;
-  display: block;
-  width: 150px;
 }
 
 .subhead {
