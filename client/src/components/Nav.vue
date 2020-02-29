@@ -14,7 +14,7 @@
               </div>  
           </li>
           <li class="my-dropdown">
-            <a href="#Profile">Profile</a>
+          <router-link to="/profile">Profile</router-link>
               <div class="dropdown-cnt">
                 <a href="#Settings">Settings</a>
                 <a href="#Logout">Logout</a>
