@@ -9,14 +9,14 @@
             <a href="#Track">Track</a>
               <div class="dropdown-cnt">
                 <a href="#Goals">Goals</a>
-                <a href="#Exercise">Exercise</a>
-                <a href="#Food">Food</a>
+                <router-link to="/exercise">Exercise</router-link>
+                <router-link to="/food">Food</router-link>
               </div>  
           </li>
           <li class="my-dropdown">
           <router-link to="/profile">Profile</router-link>
               <div class="dropdown-cnt">
-                <a href="#Settings">Settings</a>
+                <router-link to="/settings">Settings</router-link>
                 <a href="#Logout" @click="logout">Logout</a>
               </div>  
           </li> 
