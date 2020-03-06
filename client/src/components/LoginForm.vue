@@ -8,18 +8,19 @@
       <img src="../assets/food.png" alt="Healthy Food" class="my-tiny-image">
     </div>   
     </div> 
-        <form class="box" style="max-width:500px;margin:auto;" action="#login">
+        <form class="box" style="max-width:500px;margin:auto;" @submit.prevent="login">
+          {{error}}
           <h3 class="title is-3 has-text-centered fcolor">Login</h3><hr>
         <div class="field">    
             <label class="label fcolor">Email</label>  
             <div class="control">  
-              <input type="text" class="input" name="userEmail">
+              <input type="email" class="input" placeholder="Email" v-model="email">
             </div>
         </div>
         <div class="field">
           <label class="label fcolor">Password</label>
           <div class="control">
-            <input type="text" class="input" name="userPw">  
+            <input type="password" class="input" placeholder="Password" v-model="password">  
           </div>
         </div>
           <div class="field">
@@ -75,3 +76,27 @@ h1.title, p.subtitle, #main {
 }
 
 </style>
+
+<script>
+import { Login } from "../models/Profile";
+
+export default {
+  data(){
+    return {
+      email: '',
+      password: '',
+      error: ''
+    }
+  },
+  methods: {
+    login() {
+      try {
+        Login(this.email, this.password)
+        this.$router.push('/profile');
+      } catch(error) {
+        this.error = error;
+      }
+    }
+  }
+}
+</script>

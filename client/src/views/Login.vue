@@ -15,6 +15,7 @@
 
 <script>
 import LogForm from "@/components/LoginForm.vue";
+
 export default {
   components: {
     LogForm

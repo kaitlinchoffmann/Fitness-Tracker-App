@@ -1,3 +1,5 @@
+//const
+
 export const User = [
     {
         Email: 'jill123@fakemail.com',
@@ -11,11 +13,6 @@ export const User = [
         Status: 'Getting those gains!!!'
     }   
 ];
-
-export function findBMI(weight, height) {
-    var bmi = (weight/(height * height)) * 703;
-    return bmi.toFixed(2);
-};
 
 export const Friends = [
     {
@@ -48,6 +45,29 @@ export const Posts = [
         Date: '02/24/2020'
     }
 ]
+
+//let
+
+export let CurrentUser = null;
+
+
+//functions
+
+export function findBMI(weight, height) {
+    var bmi = (weight/(height * height)) * 703;
+    return bmi.toFixed(2);
+};
+
+export function Login(email, password) {
+    const user = User.find(x => x.Email == email);
+    if(!user) throw Error('User not found');
+    if(user.Password != password) throw Error('Wrong password');
+    ;
+    CurrentUser = user;
+
+    return CurrentUser;
+}
+
 
 /* psuedo-code 
 function exercise(type) {
