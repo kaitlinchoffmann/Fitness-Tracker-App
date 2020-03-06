@@ -17,7 +17,7 @@
           <router-link to="/profile">Profile</router-link>
               <div class="dropdown-cnt">
                 <a href="#Settings">Settings</a>
-                <a href="#Logout">Logout</a>
+                <a href="#Logout" @click="logout">Logout</a>
               </div>  
           </li> 
           <div class="icon-content">
@@ -34,10 +34,18 @@
 </template>
 
 <script>
+import { Logout } from "../models/Profile";
+
 export default {
   data: ()=>({
     isOpen: false
-  })
+  }),
+  methods: {
+    logout() {
+        Logout()
+        this.$router.push('/login');
+    }
+}
 }
 </script>
 

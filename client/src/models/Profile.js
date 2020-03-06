@@ -1,4 +1,4 @@
-//const
+//const variables
 
 export const User = [
     {
@@ -46,7 +46,7 @@ export const Posts = [
     }
 ]
 
-//let
+//let variables
 
 export let CurrentUser = null;
 
@@ -65,6 +65,11 @@ export function Login(email, password) {
     ;
     CurrentUser = user;
 
+    return CurrentUser;
+}
+
+export function Logout() {
+    CurrentUser = null;
     return CurrentUser;
 }
 
