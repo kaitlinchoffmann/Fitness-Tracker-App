@@ -1,6 +1,9 @@
 <template>
     <div class="container">
         <h1 class="title is-1">Log Those Exercises!</h1>
+          <nav class="has-text-centered">
+            <router-link to="exhistory">Exercise History</router-link>
+          </nav>
             <div class="section">
                 <div class="columns">
             <div class="column"> 
@@ -150,7 +153,7 @@ export default {
           },
           addExercise() {
             AddExercise(this.exercises);
-            this.$router.push('/profile');
+            this.$router.push('/exhistory');
           },
           submit(){ //function not working yet
               addExercise(this.exercises);
