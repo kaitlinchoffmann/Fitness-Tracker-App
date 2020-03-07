@@ -35,17 +35,17 @@ const routes = [
   {
     path: '/exercise',
     name: 'Exercise',
-    component: Exercise, meta: { IsSecret: true}
+    component: Exercise//, meta: { IsSecret: true}
   },
   {
     path: '/food',
     name: 'Food',
-    component: Food, meta: { IsSecret: true}
+    component: Food//, meta: { IsSecret: true}
   },
   {
     path: '/settings',
     name: 'Settings',
-    component: Settings, meta: { IsSecret: true}
+    component: Settings//, meta: { IsSecret: true}
   },
   {
     path: '/about',
