@@ -8,6 +8,14 @@
       <div style="float:left; margin-left:30px;">
         <img :src="user.Picture" class="card-image" id="profile-pic"/>
         <div id="status">{{user.Status}}<button class="button is-small btn-status">Edit</button></div>
+        
+        <h3 class=title is-3>Test</h3>
+          <div v-for="exx in AddedExercise" :key="exx.exType">
+            {{exx.exType}}<br/>
+            {{exx.exName}}<br/>
+          </div>  
+
+
         <h3 class="title is-3">Recent Exercise</h3>
           <div class = "recent-ex" v-for="ex in ExerciseLog" :key="ex.Exercise">
             Exercise: {{ex.Exercise}}<br/>
@@ -35,7 +43,7 @@
 </template>
 
 <script>
-import { User, Friends, ExerciseLog, Posts } from "../models/Profile";
+import { User, Friends, ExerciseLog, Posts, AddedExercise } from "../models/Profile";
 
 export default {
     name: 'Profile',
@@ -44,7 +52,8 @@ export default {
         User,
         Friends,
         Posts,
-        ExerciseLog
+        ExerciseLog, 
+        AddedExercise
     }),
     components: {
       

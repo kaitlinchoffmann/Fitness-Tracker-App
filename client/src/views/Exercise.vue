@@ -6,6 +6,7 @@
             <div class="column"> 
               <div class="box">
                 <table class="table">
+                  <thead id="error"></thead>
                   <tbody>
                     <tr>
                       <th>Exercise</th>
@@ -15,6 +16,7 @@
                       <th>Weight</th>
                       <th>Time(mins)</th>
                       <th>Intensity</th>
+                      <th>Date</th>
                     </tr>
                     <tr> <!-- Test, get rid of after!-->
                       <td>Squats</td>
@@ -24,6 +26,7 @@
                       <td>0</td>
                       <td>15</td>
                       <td>moderate</td>
+                      <td>03/07/2020</td>
                     </tr>
                     <tr class="" v-for="(x, i) in exercises" :key="(x.exType)">   
                       <td>{{x.exName}}</td>
@@ -33,16 +36,36 @@
                       <td>{{x.weight}}</td>
                       <td>{{x.time}}</td>
                       <td>{{x.intensity}}</td>
+                      <td>{{x.date}}</td>
                       <button class="delete" @click="remove(i)" ></button>
                     </tr>
                     <tr>
-                      <td><input class="input" type="text" placeholder="exercise name" v-model="exName"></td>
-                      <td><input class="input" type="text" placeholder="exercise type" v-model="exType"></td>
-                      <td><input class="input" type="text" placeholder="sets" v-model="sets"></td>
-                      <td><input class="input" type="text" placeholder="reps" v-model="reps"></td>
-                      <td><input class="input" type="text" placeholder="weight" v-model="weight"></td>
-                      <td><input class="input" type="text" placeholder="time in minutes" v-model="time"></td>
-                      <td><input class="input" type="text" placeholder="intensity" v-model="intensity"></td>
+                      <td><input class="input" type="text" placeholder="exercise name" v-model="exName" required></td>
+                      <td>
+                        <select class="input" v-model="exType" id="exType">
+                          <option value="Cardio">Cardio</option>
+                          <option value="Strength">Strength</option>
+                          <option value="Flexibility">Flexibility</option>
+                          <option value="Balance">Balance</option>
+                          <option value="Coordination">Coordination</option>
+                          <option value="Other">Other</option>
+                        </select>
+                      </td>
+                     <!-- <td><input class="input" type="text" placeholder="exercise type" v-model="exType"></td> -->
+                      <td><input class="input" type="number" min="0" max="2000" placeholder="sets" v-model="sets"></td>
+                      <td><input class="input" type="number" min="0" max="2000" placeholder="reps" v-model="reps"></td>
+                      <td><input class="input" type="number" min="0" max="2000" placeholder="weight" v-model="weight"></td>
+                      <td><input class="input" type="number" min="0" max="2000" placeholder="time in minutes" v-model="time"></td>
+                     <!-- <td><input class="input" type="text" placeholder="intensity" v-model="intensity"></td> -->
+                     <td>
+                        <select class="input" v-model="intensity" id="intensity">
+                          <option value="rest">Rest</option>
+                          <option value="low">Low</option>
+                          <option value="moderate">Moderate</option>
+                          <option value="vigorous">Vigorous</option>
+                        </select>
+                      </td>
+                      <td><input class="input" type="date" placeholder="date" v-model="date" required></td>
                     </tr>
                 </tbody>
                   <button class="button is-primary is-light" @click="add()" >Add</button>
@@ -50,17 +73,16 @@
 
             
               </div> 
-              <button class="button is-warning" @click="submit()">Submit</button> 
+              <button class="button is-warning" @click="addExercise">Submit</button> <!-- not working yet -->
             </div>
           </div>
-
-            </div>
-
+        <div style="margin-bottom:220px;"></div>
+      </div>
     </div>
 </template>
 
 <script>
-import { addExercise, removeExercise, CurrentUser } from "../models/Profile";
+import { AddExercise, RemoveExercise, CurrentUser, ExerciseType } from "../models/Profile";
 
 export default {
     name: 'Exercise',
@@ -73,6 +95,7 @@ export default {
           weight: "",
           time: "",
           intensity: "",
+          date:"",
           exercises: []
         }),
         methods: {
@@ -80,6 +103,31 @@ export default {
             this.exercises.splice(i, 1);
           },
           add(){
+            if(this.sets == "") {
+              this.sets = 0;
+            }
+            if(this.reps == "") {
+              this.reps = 0;
+            }
+            if(this.weight == "") {
+              this.weight = 0;
+            }
+            if(this.time == "") {
+              this.time = 0;
+            }
+            if(this.exName == "") {
+              document.getElementById("error").innerHTML="Please input an Exercise";
+            }
+            else if(this.exType == "") {
+              document.getElementById("error").innerHTML="Please input a Exercise Type";
+            }
+            else if(this.intensity == "") {
+              document.getElementById("error").innerHTML="Please input an Exercise Intensity";
+            }
+            else if(this.date == "") {
+              document.getElementById("error").innerHTML="Please input a Date";
+            }
+            else {
                 this.exercises.push({ 
                 exType: this.exType,
                 exName: this.exName,
@@ -87,28 +135,28 @@ export default {
                 sets: this.sets,
                 weight: this.weight,
                 time: this.time,
-                intensity: this.intensity
+                intensity: this.intensity,
+                date: this.date
           });
+             document.getElementById("error").innerHTML="Nice job! Keep it up!";
+              this.exType="";
+              this.exName= "";
+              this.reps="";
+              this.sets="";
+              this.weight="";
+              this.time="";
+              this.intensity="";
+            }
           },
-          submit(){
-              addExercise(this.exercises)
+          addExercise() {
+            AddExercise(this.exercises);
+            this.$router.push('/profile');
+          },
+          submit(){ //function not working yet
+              addExercise(this.exercises);
               //this.$router.push('/history');
           }
         }
-  /*data(){
-    return {
-      email: '',
-      password: '',
-      error: ''
-    }
-  },
-  methods: {
-    remove() {
-        removeExercise()
-      
-    }
-  }
-  */
 }
 
 </script>

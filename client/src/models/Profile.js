@@ -50,13 +50,15 @@ export const Posts = [
         Post: "I'm Beat today, so sleepy..",
         Date: '02/24/2020'
     }
-]
+];
+
+export const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'Coordination', 'Other'];
 
 //let variables
 
 export let CurrentUser = null;
 
-export const Test = [ 'squats', 'barbell'];
+export let AddedExercise = null;
 
 
 //functions
@@ -81,11 +83,12 @@ export function Logout() {
     return CurrentUser;
 };
 
-export function addExercise(user) {    
-    
+export function AddExercise(exerciseList) {
+    AddedExercise = exerciseList;
+    return AddedExercise;
 };
 
-export function removeExercise(i, user, id) {
+export function RemoveExercise(i, user, id) {
     const exercise = ExerciseLog.find(x => (x.Email == user.Email) && (x.id == id));
     exercise.splice(i,1);
 };
