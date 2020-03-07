@@ -15,7 +15,9 @@ export const User = [
 ];
 
 export const Friends = [
-    {
+    {   
+        Email: 'jill123@fakemail.com',
+        FriendEmail: 'jack@fakemail.com',
         Name: 'Jack',
         Picture: 'https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale',
         Status: 'Taking a break!'
@@ -24,6 +26,8 @@ export const Friends = [
 
 export const ExerciseLog = [ /* Maybe create a function for this*/
     {
+        id: 100,
+        Email: 'jill123@fakemail.com',
         Exercise: 'Squats',
         Type: 'Strength',
         Reps: '15',
@@ -37,10 +41,12 @@ export const ExerciseLog = [ /* Maybe create a function for this*/
 
 export const Posts = [
     {
+        Email: 'jill123@fakemail.com',
         Post: 'Fun day at the gym!',
         Date: '02/27/2020' 
     },
     {
+        Email: 'jill123@fakemail.com',
         Post: "I'm Beat today, so sleepy..",
         Date: '02/24/2020'
     }
@@ -49,6 +55,8 @@ export const Posts = [
 //let variables
 
 export let CurrentUser = null;
+
+export const Test = [ 'squats', 'barbell'];
 
 
 //functions
@@ -62,16 +70,25 @@ export function Login(email, password) {
     const user = User.find(x => x.Email == email);
     if(!user) throw Error('User not found');
     if(user.Password != password) throw Error('Wrong password');
-    ;
+    
     CurrentUser = user;
 
     return CurrentUser;
-}
+};
 
 export function Logout() {
     CurrentUser = null;
     return CurrentUser;
-}
+};
+
+export function addExercise(user) {    
+    
+};
+
+export function removeExercise(i, user, id) {
+    const exercise = ExerciseLog.find(x => (x.Email == user.Email) && (x.id == id));
+    exercise.splice(i,1);
+};
 
 
 /* psuedo-code 
