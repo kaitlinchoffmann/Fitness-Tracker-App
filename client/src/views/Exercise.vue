@@ -85,7 +85,7 @@
 </template>
 
 <script>
-import { AddExercise, RemoveExercise, CurrentUser, ExerciseType } from "../models/Profile";
+import { AddExercise, RemoveExercise, CurrentUser, ExerciseType, currentDate } from "../models/Profile";
 
 export default {
     name: 'Exercise',

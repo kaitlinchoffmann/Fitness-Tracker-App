@@ -58,8 +58,11 @@ export const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'C
 
 export let CurrentUser = null;
 
-export let AddedExercise = null;
+export let AddedExercise = {date:currentDate()};
 
+export let cDate = null;
+
+export const Add2 = [];
 
 //functions
 
@@ -99,6 +102,7 @@ export function currentDate() {
     let month = String(current.getMonth()+ 1).padStart(2, '0');
     let year = current.getFullYear();
     current = year + '-' + month + '-' + day; //if not in this format, findRecent() won't work
+    cDate = current;
     return current;
 };
 

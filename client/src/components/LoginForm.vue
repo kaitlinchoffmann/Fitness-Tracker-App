@@ -78,7 +78,7 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { Login } from "../models/Profile";
+import { Login, currentDate } from "../models/Profile";
 
 export default {
   data(){

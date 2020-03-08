@@ -3,24 +3,19 @@
         <div class="container">
         <p class="box" style="width:300px; float:left; margin-left:10%">
             Pick a Past Exercise Log:
-            <select class="input" v-model="AddedExercise.date" id="date">
-                <option v-for="x in AddedExercise" :key="x.date" id:x.date>{{x.date}}</option>
-            </select>
+          <select class="input" v-model="allDates.dates" id="date">
+                <option v-for="x in allDates" :key="x.dates" id:x.dates>{{x}}</option>
+            </select> 
         </p>
         </div>
         <h1 class="title is-1 has-text-left" style="margin-left:40%;">Exercise History</h1><br/>
-     <!--   testing:  <div v-for="x in AddedExercise" :key="x.exType">
-            {{x.exType}}<br/>
-            {{x.exName}}<br/>
-          </div> -->
         <div class="section">
        <div class="box" style="width: 800px; margin:auto;">
- <!--       <button class="button is-warning" @onload="findRecent(currentDate())">Submit</button> -->
         <p class="title is-4">
                 <h3 id="none" class="title is-3"></h3>
-            </p>
+        </p>
         <table class="table" style="margin:auto;">
-                <thead style="font-weight:bold;font-size:20px;">{{history[0].date}}</thead>
+               <thead style="font-weight:bold;font-size:20px;">{{history[0].date}}</thead>
                   <tbody>
                     <tr>
                       <th>Exercise</th>
@@ -32,7 +27,7 @@
                       <th>Intensity</th>
                     </tr>
                   </tbody> 
-                  <tr class="" v-for="(x, i) in history" :key="(x.date)">   
+                  <tr class="" v-for="(x) in history" :key="(x.date)">  
                       <td>{{x.exName}}</td>
                       <td>{{x.exType}}</td> 
                       <td>{{x.sets}}</td>
@@ -40,7 +35,7 @@
                       <td>{{x.weight}}</td>
                       <td>{{x.time}}</td>
                       <td>{{x.intensity}}</td>
-                   </tr> 
+                  </tr>
         </table> 
         </div>
         <div style="margin-bottom:200px;"></div>
@@ -50,6 +45,7 @@
 
 <script>
 import { CurrentUser, AddedExercise, currentDate } from "../models/Profile";
+currentDate();
 
 export default {
     name: 'ExHistory',
@@ -59,13 +55,15 @@ export default {
         AddedExercise,
         history: [{
             date: currentDate()
-        }]
+        }],
+        allDates: []
     }),
     components: {
       
     },
     mounted:function(){
         this.findRecent(currentDate());
+        this.findDates();
     },
     methods: {
         currentDate() {
@@ -84,16 +82,31 @@ export default {
                         hist.push(AddedExercise[index]);
                     }
                 });
-                if(!his) {
+                if(hist.length != 0) {
+                    document.getElementById("none").innerHTML="Logged Exercises for: ";
+                    this.history = hist;
+                    return this.history;
+                }
+                else {
                     document.getElementById("none").innerHTML="No exercises logged today: ";
                 }
-                document.getElementById("none").innerHTML="Logged Exercises for: ";
-                this.history = hist;
-                return this.history;
             }
             else {
                 document.getElementById("none").innerHTML="No exercises logged today: ";
             }
+        },
+        findDates() {
+            let dates = [currentDate()];
+            let date = AddedExercise.map(function(x, index) {
+                if(dates.find(x => (x == AddedExercise[index].date))) {
+                     x=true;
+                }
+                else {
+                     dates.push(AddedExercise[index].date);
+                }
+        });
+            this.allDates = dates;
+            return this.allDates;
         }
     }
 } 
