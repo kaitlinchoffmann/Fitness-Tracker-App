@@ -93,6 +93,14 @@ export function RemoveExercise(i, user, id) {
     exercise.splice(i,1);
 };
 
+export function currentDate() {
+    let current = new Date();
+    let day = String(current.getDate()).padStart(2, '0');
+    let month = String(current.getMonth()+ 1).padStart(2, '0');
+    let year = current.getFullYear();
+    current = year + '-' + month + '-' + day; //if not in this format, findRecent() won't work
+    return current;
+};
 
 /* psuedo-code 
 function exercise(type) {
