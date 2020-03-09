@@ -22,7 +22,7 @@
                       <th>Sugar(g)</th>
                       <th>Date</th>
                     </tr>
-                    <tr> <!-- Test, get rid of after!-->
+                    <tr> 
                       <td>Apple</td>
                       <td>Fruit</td> 
                       <td>95</td>
@@ -74,7 +74,7 @@
 
             
               </div> 
-              <button class="button is-warning" @click="addFood">Submit</button> <!-- not working yet -->
+              <button class="button is-warning" @click="addFood">Submit</button>
             </div>
           </div>
         <div style="margin-bottom:220px;"></div>

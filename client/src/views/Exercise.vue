@@ -21,7 +21,7 @@
                       <th>Intensity</th>
                       <th>Date</th>
                     </tr>
-                    <tr> <!-- Test, get rid of after!-->
+                    <tr> 
                       <td>Squats</td>
                       <td>Strength</td> 
                       <td>4</td>
@@ -76,7 +76,7 @@
 
             
               </div> 
-              <button class="button is-warning" @click="addExercise">Submit</button> <!-- not working yet -->
+              <button class="button is-warning" @click="addExercise">Submit</button>
             </div>
           </div>
         <div style="margin-bottom:220px;"></div>
@@ -85,12 +85,13 @@
 </template>
 
 <script>
-import { AddExercise, RemoveExercise, CurrentUser, ExerciseType, currentDate } from "../models/Profile";
+import { AddExercise, RemoveExercise, CurrentUser, ExerciseType, currentDate, ProfileInfo } from "../models/Profile";
 
 export default {
     name: 'Exercise',
 
     data:()=>({
+          ProfileInfo,
           exType: "",
           exName: "",
           reps: "",

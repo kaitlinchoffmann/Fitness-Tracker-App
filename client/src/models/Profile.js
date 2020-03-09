@@ -64,7 +64,7 @@ export let AddedFood = {date: currentDate()};
 
 export let cDate = null;
 
-export const Add2 = [];
+export let ProfileInfo = null;
 
 //functions
 
@@ -97,6 +97,14 @@ export function AddFood(foodList) {
     AddedFood = foodList;
     return AddedFood;
 };
+
+export function SubmitChanges(changes) {
+    var newBMI = findBMI(changes.Weight, changes.Height);
+    changes.BMI = newBMI;
+    ProfileInfo = changes;
+    return ProfileInfo;
+};
+
 
 export function RemoveExercise(i, user, id) {
     const exercise = ExerciseLog.find(x => (x.Email == user.Email) && (x.id == id));
