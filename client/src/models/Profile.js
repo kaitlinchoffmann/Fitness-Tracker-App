@@ -93,6 +93,11 @@ export function AddExercise(exerciseList) {
     return AddedExercise;
 };
 
+export function AddFood(foodList) {
+    AddedFood = foodList;
+    return AddedFood;
+};
+
 export function RemoveExercise(i, user, id) {
     const exercise = ExerciseLog.find(x => (x.Email == user.Email) && (x.id == id));
     exercise.splice(i,1);

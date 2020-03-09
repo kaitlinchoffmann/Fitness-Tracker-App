@@ -8,6 +8,7 @@ import Exercise from '../views/Exercise.vue'
 import Food from '../views/Food.vue'
 import Settings from '../views/Settings.vue'
 import ExHistory from '../views/ExHistory.vue'
+import FoodHistory from '../views/FoodHistory.vue'
 import { CurrentUser, ExerciseLog } from '../models/Profile'
 
 Vue.use(VueRouter)
@@ -47,6 +48,11 @@ const routes = [
     path: '/food',
     name: 'Food',
     component: Food//, meta: { IsSecret: true}
+  },
+  {
+    path: '/foodhistory',
+    name: 'FoodHistory',
+    component: FoodHistory//, meta: { IsSecret: true}
   },
   {
     path: '/settings',

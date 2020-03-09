@@ -154,10 +154,6 @@ export default {
           addExercise() {
             AddExercise(this.exercises);
             this.$router.push('/exhistory');
-          },
-          submit(){ //function not working yet
-              addExercise(this.exercises);
-              //this.$router.push('/history');
           }
         }
 }
