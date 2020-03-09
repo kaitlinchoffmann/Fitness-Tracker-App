@@ -46,6 +46,7 @@
                       <td><input class="input" type="text" placeholder="exercise name" v-model="exName" required></td>
                       <td>
                         <select class="input" v-model="exType" id="exType">
+                          <option value="" disabled selected>Select Type</option>
                           <option value="Cardio">Cardio</option>
                           <option value="Strength">Strength</option>
                           <option value="Flexibility">Flexibility</option>
@@ -54,14 +55,13 @@
                           <option value="Other">Other</option>
                         </select>
                       </td>
-                     <!-- <td><input class="input" type="text" placeholder="exercise type" v-model="exType"></td> -->
                       <td><input class="input" type="number" min="0" max="2000" placeholder="sets" v-model="sets"></td>
                       <td><input class="input" type="number" min="0" max="2000" placeholder="reps" v-model="reps"></td>
                       <td><input class="input" type="number" min="0" max="2000" placeholder="weight" v-model="weight"></td>
                       <td><input class="input" type="number" min="0" max="2000" placeholder="time in minutes" v-model="time"></td>
-                     <!-- <td><input class="input" type="text" placeholder="intensity" v-model="intensity"></td> -->
                      <td>
                         <select class="input" v-model="intensity" id="intensity">
+                          <option value="" disabled selected>Select Intensity</option>
                           <option value="rest">Rest</option>
                           <option value="low">Low</option>
                           <option value="moderate">Moderate</option>
@@ -98,7 +98,7 @@ export default {
           weight: "",
           time: "",
           intensity: "",
-          date:"",
+          date: currentDate(),
           exercises: []
         }),
         methods: {

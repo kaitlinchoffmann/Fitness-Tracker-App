@@ -58,7 +58,9 @@ export const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'C
 
 export let CurrentUser = null;
 
-export let AddedExercise = {date:currentDate()};
+export let AddedExercise = {date: currentDate()};
+
+export let AddedFood = {date: currentDate()};
 
 export let cDate = null;
 
@@ -106,15 +108,4 @@ export function currentDate() {
     return current;
 };
 
-/* psuedo-code 
-function exercise(type) {
-    if(type=='Strength') {
-        Ask for user input: how many reps, sets(super sets?), did you use weight(s)(if so, how many), minutes, intensity
-    } else if (type='cardo' || type='flexibily') {
-        Ask: how many minutes, intensity (only have light, moderate, hard)
-    } else if (other) {
-        Ask: minutes, intensity, ...
-    }
-} 
-*/
 

@@ -1,14 +1,25 @@
 <template>
     <div class="container">
-        <div class="container">
-        <p class="box" style="width:300px; float:left; margin-left:10%">
-            Pick a Past Exercise Log:
-          <select class="input" v-model="allDates.dates" id="date">
-                <option v-for="x in allDates" :key="x.dates" id:x.dates>{{x}}</option>
-            </select> 
-        </p>
+        <div class="container" style="float:left;margin-left:15%;">
+            <div class="dropdown is-hoverable" style="width:300px;">
+  <div class="dropdown-trigger">
+    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+      <span>Pick a Past Log:</span><br>
+      <span class="icon is-small">
+        <i class="fas fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </button>
+  </div>
+  <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+    <div class="dropdown-content has-text-centered">
+      <div class="dropdown-item" v-for="x in allDates" :key="x.dates" id:x.dates>
+        <button class="button" @click="findRecent(x)">{{x}}</button>
+      </div>
+    </div>
+  </div>
+</div>
         </div>
-        <h1 class="title is-1 has-text-left" style="margin-left:40%;">Exercise History</h1><br/>
+        <h1 class="title is-1 has-text-left">Exercise History</h1><br/>
         <div class="section">
        <div class="box" style="width: 800px; margin:auto;">
         <p class="title is-4">
