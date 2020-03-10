@@ -9,6 +9,7 @@ import Food from '../views/Food.vue'
 import Settings from '../views/Settings.vue'
 import ExHistory from '../views/ExHistory.vue'
 import FoodHistory from '../views/FoodHistory.vue'
+import Admin from '../views/Admin.vue'
 import { CurrentUser, ExerciseLog } from '../models/Profile'
 
 Vue.use(VueRouter)
@@ -58,6 +59,11 @@ const routes = [
     path: '/settings',
     name: 'Settings',
     component: Settings//, meta: { IsSecret: true}
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: Admin//, meta: { IsSecret: true}
   },
   {
     path: '/about',

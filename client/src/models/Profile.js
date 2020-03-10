@@ -10,8 +10,56 @@ export const User = [
         Weight: 123,
         Picture: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
         BMI: findBMI(123, 63),
-        Status: 'Getting those gains!!!'
+        Status: 'Getting those gains!!!',
+        IsAdmin: false
+    },
+    {
+        Email: "admin@fakemail.com",
+        Name: "Kaitlin",
+        Age: 27,
+        Password: "cool",
+        Height: 64,
+        Weight: '',
+        Picture: 'https://media.wired.com/photos/5932b220f682204f736975f0/4:3/w_660,c_limit/ff_cats_f.jpg',
+        BMI: findBMI(64, 0),
+        Status: "I'm the Admin!!",
+        IsAdmin: true
     }   
+];
+
+export const Exercises = [
+    {
+        Exercise: 'squats', 
+        Type: 'strength'
+    },
+    {
+        Exercise: 'barbell',
+        Type: 'strength'
+    },
+    {
+        Exercise: 'jogging',
+        Type: 'cardio'
+    },
+    {
+        Exercise: 'threadmill',
+        Type: 'cardio'
+    }
+];
+
+export const Food = [
+    { Food: 'apple',
+      Group: 'Fruit'
+    },
+    { Food: 'broccoli', 
+      Group: 'Vegetable'
+    },
+    {
+      Food: 'steak',
+      Group: 'Grain'
+    },
+    { Food: 'pasta',
+      Group: 'Grain'
+    }
 ];
 
 export const Friends = [
@@ -94,11 +142,55 @@ export function AddExercise(exerciseList) {
 };
 
 export function AddFood(foodList) {
-    AddedFood = foodList;
+    AddedFood.push(foodList);
     return AddedFood;
 };
 
-export function SubmitChanges(changes) {
+export function AddNewEx(exercise, type) {
+    const ex = Exercises.find(x => x.Exercise == exercise);
+    if(ex) document.getElementById("exists").innerHTML="Exercise already exists";
+    else {
+        document.getElementById("exists").innerHTML="Exercise Added!";
+        Exercises.push({exercise, type});
+        return Exercises;
+    }
+};
+
+export function AddNewFood(food, group) {
+    const newFood = Food.find(x => x.Food == food);
+    if(newFood) document.getElementById("exists2").innerHTML="Food already exists";
+    else {
+        document.getElementById("exists2").innerHTML="Food Added!";
+        Food.push({food, group});
+        return Food;
+    }
+};
+
+export function AddNewUser(user, email, name, age, pw, h, w) {
+    const newUser = User.find(x => x.Email == email);
+    if(newUser) throw Error('Email already linked to an account');
+    else {
+        User.push({
+            Name: name, 
+            Age: age, 
+            Password: pw, 
+            Height: h, 
+            Weight: w,
+            Picture: '', 
+            BMI: findBMI(h,w),
+            Status: '',
+            IsAdmin: false 
+        });
+        return User;
+    }
+};
+
+export function ChangeCurrent(user) {
+    CurrentUser = user;
+    return CurrentUser;
+};
+
+export function SubmitChanges(changes) {    
     var newBMI = findBMI(changes.Weight, changes.Height);
     changes.BMI = newBMI;
     ProfileInfo = changes;

@@ -7,30 +7,49 @@
     </div>
     </div>
     <div class="container">      
-        <form class="box" style="max-width:500px;margin:auto;" action="#login">
+        <form class="box" style="max-width:500px;margin:auto;" @submit.prevent="register">
+          {{error}}
           <h3 class="title is-3 has-text-centered fcolor">Register</h3><hr>
           <div class="field">    
             <label class="label fcolor">Name</label>  
             <div class="control">  
-              <input type="text" class="input" name="userName">
+              <input type="text" class="input" v-model="name">
             </div>
           </div>
           <div class="field">    
             <label class="label fcolor">Email</label>  
             <div class="control">  
-              <input type="text" class="input" name="userEmail">
+              <input type="email" class="input" v-model="email">
+            </div>
+          </div>
+           <div class="field">    
+            <label class="label fcolor">Age</label>  
+            <div class="control">  
+              <input type="number" class="input" v-model="age">
+            </div>
+          </div>
+          <div class="field">    
+            <label class="label fcolor">Height(inches)</label>  
+            <div class="control">  
+              <input type="number" class="input" v-model="height">
+            </div>
+          </div>
+           <div class="field">    
+            <label class="label fcolor">Weight(lbs)</label>  
+            <div class="control">  
+              <input type="number" class="input" v-model="weight">
             </div>
           </div>
           <div class="field">
           <label class="label fcolor">Password</label>
           <div class="control">
-            <input type="text" class="input" name="userPw">  
+            <input type="password" class="input" v-model="password">  
           </div>
           </div>
           <div class="field">
             <label class="label fcolor">Confirm Password</label>
             <div class="control">
-              <input type="text" class="input" name="confirmPw">  
+              <input type="password" class="input" v-model="cpassword">  
             </div>
             </div>
           <div class="field">
@@ -87,3 +106,54 @@ h1.title, p.subtitle, #main {
 }
 
 </style>
+
+<script>
+import { AddNewUser, CurrentUser, findBMI, ChangeCurrent, User } from "../models/Profile";
+
+export default {
+  data(){
+    return {
+      User,
+      CurrentUser,
+      email: '',
+      name: '',
+      age: '',
+      password: '',
+      cpassword: '',
+      height: '',
+      weight: '',
+      picture: '',
+      Status: '',
+      IsAdmin: false,
+      error: '',
+      user: []
+    }
+  },
+  methods: {
+    changeCurrent() {
+      ChangeCurrent(this.user);
+    },
+    register() {
+      try {
+        this.user.push({
+            Email: this.email,
+            Name: this.name,
+            Age: this.age,
+            password: this.password,
+            Height: this.height,
+            Weight: this.weight,
+            picture: this.picture,
+            BMI: findBMI(this.weight, this.height),
+            Status: '',
+            IsAdmin: false
+        });
+        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.height, this.weight)
+        this.changeCurrent(this.user)
+        this.$router.push('/profile');
+      } catch(error) {
+        this.error = error;
+      }
+    }
+  }
+}
+</script>

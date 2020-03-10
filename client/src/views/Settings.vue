@@ -50,7 +50,7 @@ export default {
           },
           submitChanges() {
             SubmitChanges(this.CurrentUser);
-            this.$router.push('/exercise');
+            this.$router.push('/profile');
           }
         }
 }

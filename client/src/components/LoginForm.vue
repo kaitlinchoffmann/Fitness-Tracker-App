@@ -78,11 +78,13 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { Login, currentDate } from "../models/Profile";
+import { Login, currentDate, CurrentUser, User } from "../models/Profile";
 
 export default {
   data(){
     return {
+      User,
+      CurrentUser,
       email: '',
       password: '',
       error: ''
@@ -92,7 +94,12 @@ export default {
     login() {
       try {
         Login(this.email, this.password)
-        this.$router.push('/profile');
+        if(CurrentUser.IsAdmin == true) {
+          this.$router.push('/admin');
+        }
+        else {
+          this.$router.push('/profile');
+        }
       } catch(error) {
         this.error = error;
       }

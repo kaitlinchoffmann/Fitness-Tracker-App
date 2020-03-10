@@ -1,14 +1,14 @@
 <template>
-<div class="profile">
-  <div class = "section" v-for="user in User" :key="user.Name">
+<div class="container profile">
+  <div class = "section">
     <h1 class="title is-1">
-      {{user.Name}}       
+      {{CurrentUser.Name}}     
     </h1>  
     <div>
       <div style="float:left; margin-left:30px;">
-        <img :src="user.Picture" class="card-image" id="profile-pic"/>
-        <div id="status">{{user.Status}}<button class="button is-small btn-status">Edit</button></div>
-        <h3 class="title is-3">Recent Exercise</h3>
+        <img :src="CurrentUser.Picture" class="card-image" id="profile-pic"/>
+        <div id="status">{{CurrentUser.Status}}<button class="button is-small btn-status">Edit</button></div>
+        <h3 class="title is-3">Recent Exercise</h3> <!-- edit this -->
           <div class = "recent-ex" v-for="ex in ExerciseLog" :key="ex.Exercise">
             Exercise: {{ex.Exercise}}<br/>
             Type: {{ex.Type}}<br/>
@@ -19,7 +19,7 @@
             Intensity: {{ex.Intensity}}
 
           </div>  
-        <h3 class="title is-3">Friends</h3>
+        <h3 class="title is-3">Friends</h3> <!-- edit this -->
         <div class="section friends" v-for="friend in Friends" :key="friend.Name">
           <img :src="friend.Picture" class="tiny-image"> <br/>{{friend.Name}} - {{friend.Status}}
         </div>
@@ -35,13 +35,14 @@
 </template>
 
 <script>
-import { User, Friends, ExerciseLog, Posts, AddedExercise } from "../models/Profile";
+import { Friends, ExerciseLog, Posts, AddedExercise, ProfileInfo, CurrentUser } from "../models/Profile";
 
 export default {
     name: 'Profile',
 
     data:()=>({
-        User,
+        ProfileInfo,
+        CurrentUser,
         Friends,
         Posts,
         ExerciseLog, 
@@ -54,6 +55,10 @@ export default {
 </script>
 
 <style>
+.card-image {
+  max-width: 500px;
+}
+
 #post {
     width: 700px;
     margin-bottom: 40px;
