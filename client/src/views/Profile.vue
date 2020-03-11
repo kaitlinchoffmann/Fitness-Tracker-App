@@ -8,7 +8,7 @@
       <div style="float:left; margin-left:30px;">
         <img :src="CurrentUser.Picture" class="card-image" id="profile-pic"/>
         <div id="status">{{CurrentUser.Status}}<button class="button is-small btn-status">Edit</button></div>
-        <h3 class="title is-3">Recent Exercise</h3> <!-- edit this -->
+    <!--    <h3 class="title is-3">Recent Exercise</h3> 
           <div class = "recent-ex" v-for="ex in ExerciseLog" :key="ex.Exercise">
             Exercise: {{ex.Exercise}}<br/>
             Type: {{ex.Type}}<br/>
@@ -19,17 +19,17 @@
             Intensity: {{ex.Intensity}}
 
           </div>  
-        <h3 class="title is-3">Friends</h3> <!-- edit this -->
+        <h3 class="title is-3">Friends</h3> 
         <div class="section friends" v-for="friend in Friends" :key="friend.Name">
           <img :src="friend.Picture" class="tiny-image"> <br/>{{friend.Name}} - {{friend.Status}}
-        </div>
+        </div> -->
       </div>  
-        <li class="card" id= "post" v-for="posts in Posts" :key="posts.Post">
+      <!--  <li class="card" id= "post" v-for="posts in Posts" :key="posts.Post">
           <div class="inner-post">{{posts.Post}}</div>
           <button class="button is-small btn-post">Like</button>
           <button class="button is-small btn-post">Comment</button>
-        </li>
-    </div>  
+        </li>  Edit this when have time -->
+    </div>          
   </div> 
 </div>
 </template>

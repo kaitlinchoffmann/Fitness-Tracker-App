@@ -142,7 +142,7 @@ export function AddExercise(exerciseList) {
 };
 
 export function AddFood(foodList) {
-    AddedFood.push(foodList);
+    AddedFood = foodList;
     return AddedFood;
 };
 
@@ -171,6 +171,7 @@ export function AddNewUser(user, email, name, age, pw, h, w) {
     if(newUser) throw Error('Email already linked to an account');
     else {
         User.push({
+            Email: email,
             Name: name, 
             Age: age, 
             Password: pw, 
@@ -212,5 +213,3 @@ export function currentDate() {
     cDate = current;
     return current;
 };
-
-

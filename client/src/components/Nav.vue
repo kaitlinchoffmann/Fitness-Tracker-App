@@ -6,11 +6,17 @@
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/about">About</router-link></li>
           <li class="my-dropdown">
-            <a href="#Track">Track</a>
+            <router-link to="/food">Food</router-link>
               <div class="dropdown-cnt">
-                <a href="#Goals">Goals</a>
-                <router-link to="/exercise">Exercise</router-link>
-                <router-link to="/food">Food</router-link>
+                <router-link to="/food">Log Food</router-link>
+                <router-link to="/foodhistory">Food History</router-link>
+              </div>  
+          </li>
+          <li class="my-dropdown">
+            <router-link to="/exercise">Exercise</router-link>
+              <div class="dropdown-cnt">
+                <router-link to="/exercise">Log Exercise</router-link>
+                <router-link to="/exhistory">Exercise History</router-link>
               </div>  
           </li>
           <li class="my-dropdown">

@@ -142,6 +142,7 @@ export default {
                 fat: this.fat,
                 sodium: this.sodium,
                 sugar: this.sugar,
+                email: CurrentUser.Email,
                 date: this.date
           });
              document.getElementById("error").innerHTML="Nice job! Keep it up!";

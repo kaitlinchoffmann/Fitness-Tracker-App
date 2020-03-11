@@ -109,6 +109,7 @@ h1.title, p.subtitle, #main {
 
 <script>
 import { AddNewUser, CurrentUser, findBMI, ChangeCurrent, User } from "../models/Profile";
+ChangeCurrent();
 
 export default {
   data(){
@@ -130,12 +131,9 @@ export default {
     }
   },
   methods: {
-    changeCurrent() {
-      ChangeCurrent(this.user);
-    },
     register() {
       try {
-        this.user.push({
+        this.user = {
             Email: this.email,
             Name: this.name,
             Age: this.age,
@@ -146,9 +144,10 @@ export default {
             BMI: findBMI(this.weight, this.height),
             Status: '',
             IsAdmin: false
-        });
-        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.height, this.weight)
-        this.changeCurrent(this.user)
+            };
+
+        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.height, this.weight);
+        ChangeCurrent(this.user);
         this.$router.push('/profile');
       } catch(error) {
         this.error = error;

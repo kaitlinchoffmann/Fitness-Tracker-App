@@ -140,6 +140,7 @@ export default {
                 weight: this.weight,
                 time: this.time,
                 intensity: this.intensity,
+                email: CurrentUser.Email,
                 date: this.date
           });
              document.getElementById("error").innerHTML="Nice job! Keep it up!";
