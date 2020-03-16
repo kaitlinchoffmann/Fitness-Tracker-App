@@ -62,6 +62,10 @@ export const Food = [
     }
 ];
 
+export const AddedExercise = [];
+
+export const AddedFood = [];
+
 export const Friends = [
     {   
         Email: 'jill123@fakemail.com',
@@ -106,10 +110,6 @@ export const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'C
 
 export let CurrentUser = null;
 
-export let AddedExercise = {date: currentDate()};
-
-export let AddedFood = {date: currentDate()};
-
 export let cDate = null;
 
 export let ProfileInfo = null;
@@ -137,12 +137,16 @@ export function Logout() {
 };
 
 export function AddExercise(exerciseList) {
-    AddedExercise = exerciseList;
+    for(var i = 0; i < exerciseList.length; i++) {
+        AddedExercise.push(exerciseList[i]);
+    }
     return AddedExercise;
 };
 
 export function AddFood(foodList) {
-    AddedFood = foodList;
+    for(var i = 0; i < foodList.length; i++) {
+        AddedFood.push(foodList[i]);
+    }
     return AddedFood;
 };
 
