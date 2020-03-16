@@ -22,12 +22,10 @@
         <h1 class="title is-1 has-text-left">Food History</h1><br/>
         <div class="section">
        <div class="box" style="width: 900px; margin:auto;">
-        <p class="title is-4">
-                <h3 id="none" class="title is-3"></h3>
-        </p>
+                <div id="none"></div>
         <table class="table" style="margin:auto;">
-               <thead style="font-weight:bold;font-size:20px;">{{history[0].date}}</thead>
-                  <tbody>
+               <caption> <h4 class="title is-4">Logged Food For: {{history[0].date}}</h4></caption>
+                  <thead>
                     <tr>
                       <th>Food</th>
                       <th>Group</th>
@@ -38,7 +36,8 @@
                       <th>Sodium(mg)</th>
                       <th>Sugar(g)</th>
                     </tr>
-                  </tbody> 
+                  </thead> 
+                  <tbody>
                   <tr class="" v-for="(x) in history" :key="(x.date)">  
                       <td>{{x.food}}</td>
                       <td>{{x.group}}</td> 
@@ -49,7 +48,59 @@
                       <td>{{x.sodium}}</td>
                       <td>{{x.sugar}}</td>
                   </tr>
-        </table> 
+                  </tbody>
+        </table>
+        </div><br/>
+        <div class="box" style="width:500px;margin:auto;">
+        <table class="table has-text-centered"> 
+          <caption><h4 class="title is-4">Daily Summary: {{history[0].date}}</h4></caption>
+            <thead>  
+            <tr>
+              <th></th>
+              <th>Goal</th>
+              <th>Consumed</th>
+              <th>Remaining</th>  
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Calories</td>  
+              <td>{{goals[0].Calories}}</td>
+              <td>{{nutrition[0]}}</td>
+              <td>{{goalsLeft[0]}}</td>  
+            </tr>
+            <tr>
+              <td>Protein</td>  
+              <td>{{goals[0].Protein}}</td>
+              <td>{{nutrition[1]}}</td>
+              <td>{{goalsLeft[1]}}</td>  
+            </tr>
+            <tr>
+              <td>Carbs</td>  
+              <td>{{goals[0].Carbs}}</td>
+              <td>{{nutrition[3]}}</td>
+              <td>{{goalsLeft[3]}}</td>  
+            </tr>
+            <tr>
+              <td>Fat</td>  
+              <td>{{goals[0].Fat}}</td>
+              <td>{{nutrition[2]}}</td>
+              <td>{{goalsLeft[2]}}</td>  
+            </tr>
+            <tr>
+              <td>Sodium</td>  
+              <td>{{goals[0].Sodium}}</td>
+              <td>{{nutrition[4]}}</td>
+              <td>{{goalsLeft[4]}}</td>  
+            </tr>
+            <tr>
+              <td>Sugar</td>  
+              <td>{{goals[0].Sugar}}</td>
+              <td>{{nutrition[5]}}</td>
+              <td>{{goalsLeft[5]}}</td>  
+            </tr>
+            </tbody>
+        </table>
         </div>
         <div style="margin-bottom:200px;"></div>
         </div> 
@@ -69,7 +120,19 @@ export default {
         history: [{
             date: currentDate()
         }],
-        allDates: []
+        allDates: [],
+        nutrition: [],
+        goals: [
+            {
+                Calories: 2000,
+                Protein: 56,
+                Fat: 44,
+                Carbs: 225,
+                Sodium: 2300,
+                Sugar: 25
+            }
+        ],
+        goalsLeft: [ 0, 0, 0, 0, 0, 0]
     }),
     components: {
       
@@ -89,23 +152,32 @@ export default {
         },
         findRecent(date) {
             if(AddedFood != null) {
+                let nutri = [0,0,0,0,0,0];
                 let hist = [];
                 let his = AddedFood.map(function(x, index) {
                     if(x.date == date) {
                         hist.push(AddedFood[index]);
+                        nutri[0] += AddedFood[index].calories;
+                        nutri[1] += AddedFood[index].protein;
+                        nutri[2] += AddedFood[index].fat;
+                        nutri[3] += AddedFood[index].carbs;
+                        nutri[4] += AddedFood[index].sodium;
+                        nutri[5] += AddedFood[index].sugar;
                     }
                 });
                 if(hist.length != 0) {
-                    document.getElementById("none").innerHTML="Logged Food for: ";
+                    document.getElementById("none").innerHTML="";
+                    this.findRemain(nutri[0],nutri[1],nutri[2],nutri[3],nutri[4],nutri[5]);
+                    this.nutrition = nutri;
                     this.history = hist;
                     return this.history;
                 }
                 else {
-                    document.getElementById("none").innerHTML="No Food logged today: ";
+                    document.getElementById("none").innerHTML="No Food logged today ";
                 }
             }
             else {
-                document.getElementById("none").innerHTML="No Food logged today: ";
+                document.getElementById("none").innerHTML="No Food logged today ";
             }
         },
         findDates() {
@@ -120,11 +192,32 @@ export default {
         });
             this.allDates = dates;
             return this.allDates;
+        },
+        findRemain(cal, p, f, car, so, su) {
+            let cals = this.goals[0].Calories - cal;
+            let pro = this.goals[0].Protein - p;
+            let fat = this.goals[0].Fat - f;
+            let carb = this.goals[0].Carbs - car;
+            let sod = this.goals[0].Sodium - so;
+            let sug = this.goals[0].Sugar - su;
+
+            this.goalsLeft[0] = cals;
+            this.goalsLeft[1] = pro;
+            this.goalsLeft[2] = fat;
+            this.goalsLeft[3] = carb;
+            this.goalsLeft[4] = sod;
+            this.goalsLeft[5] = sug;
+              
+            return this.goalsLeft;
         }
     }
 } 
 </script>
 
 <style scoped>
+
+table,th,td {
+  margin: auto;
+}
     
 </style>

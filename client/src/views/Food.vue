@@ -106,22 +106,22 @@ export default {
           },
           add(){
             if(this.calories == "") {
-              this.calories = "n/a";
+              this.calories = 0;
             }
             if(this.protein == "") {
-              this.protein = "n/a";
+              this.protein = 0;
             }
             if(this.carbs == "") {
-              this.carbs = "n/a";
+              this.carbs = 0;
             }
             if(this.fat == "") {
-              this.fat = "n/a";
+              this.fat = 0;
             }
             if(this.sodium == "") {
-              this.sodium = "n/a";
+              this.sodium = 0;
             }
             if(this.sugar == "") {
-              this.sugar = "n/a";
+              this.sugar = 0;
             }
             if(this.food == "") {
               document.getElementById("error").innerHTML="Please input a Food";
@@ -136,12 +136,12 @@ export default {
                 this.foodList.push({ 
                 food: this.food,
                 group: this.group,
-                calories: this.calories,
-                protein: this.protein,
-                carbs: this.carbs,
-                fat: this.fat,
-                sodium: this.sodium,
-                sugar: this.sugar,
+                calories: Number(this.calories),
+                protein: Number(this.protein),
+                carbs: Number(this.carbs),
+                fat: Number(this.fat),
+                sodium: Number(this.sodium),
+                sugar: Number(this.sugar),
                 email: CurrentUser.Email,
                 date: this.date
           });

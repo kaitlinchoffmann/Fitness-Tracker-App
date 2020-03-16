@@ -138,7 +138,7 @@ export default {
                 reps: this.reps,
                 sets: this.sets,
                 weight: this.weight,
-                time: this.time,
+                time: Number(this.time),
                 intensity: this.intensity,
                 email: CurrentUser.Email,
                 date: this.date

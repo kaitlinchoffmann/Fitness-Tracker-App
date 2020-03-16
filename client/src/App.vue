@@ -9,7 +9,7 @@
 </template>
 
 <style lang="scss"> 
-h1.title, h3.title, p.subtitle {
+h1.title, h3.title, h4.title, p.subtitle {
   color: slateblue;
   text-align: center;
   margin-top: 40px;
