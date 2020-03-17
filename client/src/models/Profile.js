@@ -33,10 +33,7 @@ export const User = [
     }   
 ];
 
-/*export const DRI = [{
-    Email: "jill123@fakemail.com",
-    Protein: findDRI(1988)
-}];*/
+export const DRI = [findDRI(2278, 123, "jill123@fakemail.com")];
 
 export const Exercises = [
     {
@@ -121,6 +118,8 @@ export const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'C
 
 export let CurrentUser = null;
 
+export let CurrentDRI = null;
+
 export let cDate = null;
 
 export let ProfileInfo = null;
@@ -130,6 +129,14 @@ export let ProfileInfo = null;
 export function findBMI(weight, height) {
     var bmi = (weight/(height * height)) * 703;
     return bmi.toFixed(2);
+};
+
+export function currentDRI() {
+    const dri = DRI.find(x => x.Email == CurrentUser.Email);
+    if(!dri) throw Error('DRI not found');
+    
+    CurrentDRI = dri;
+    return CurrentDRI;
 };
 
 export function Login(email, password) {
@@ -331,7 +338,23 @@ export function findEER(age, weight, height, activity, sex) { //Estimate Energy 
     return EER;
 };
 
-/*export function findDRI(eer) {
-    let protein = 0;
+export function findDRI(eer, weight, email) {
+    let lowFat = (eer * .20)/9;
+    let highFat = (eer * .35)/9;
+    let lowCarb = (eer * .45)/4;
+    let  highCarb = (eer * .65)/4;
+    let pro = (weight/2.20462) * 0.8;
+    let sugar = (eer * .05)/4; 
 
-};*/
+    let goals = {
+        Email: email,
+        LowFat: lowFat.toFixed(0),
+        HighFat: highFat.toFixed(0),
+        LowCarb: lowCarb.toFixed(0),
+        HighCarb: highCarb.toFixed(0),
+        Protein: pro.toFixed(0),
+        Sodium: 2300,
+        Sugar: sugar.toFixed(0)
+    };
+    return goals;
+};

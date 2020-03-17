@@ -78,11 +78,12 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { Login, currentDate, CurrentUser, User } from "../models/Profile";
+import { Login, currentDate, CurrentUser, User, currentDRI, CurrentDRI } from "../models/Profile";
 
 export default {
   data(){
     return {
+      CurrentDRI,
       User,
       CurrentUser,
       email: '',
@@ -95,9 +96,11 @@ export default {
       try {
         Login(this.email, this.password)
         if(CurrentUser.IsAdmin == true) {
+          currentDRI();
           this.$router.push('/admin');
         }
         else {
+          currentDRI();
           this.$router.push('/profile');
         }
       } catch(error) {

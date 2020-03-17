@@ -120,7 +120,7 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { AddNewUser, CurrentUser, findBMI, ChangeCurrent, User, findEER } from "../models/Profile";
+import { AddNewUser, CurrentUser, findBMI, ChangeCurrent, User, findEER, findDRI, DRI, CurrentDRI, currentDRI } from "../models/Profile";
 ChangeCurrent();
 
 export default {
@@ -166,6 +166,8 @@ export default {
 
         AddNewUser(this.user, this.email, this.name, this.age, this.password, this.height, this.weight, this.activity, this.sex);
         ChangeCurrent(this.user);
+        DRI.push(findDRI(CurrentUser.EER, this.weight, this.email));
+        currentDRI();
         this.$router.push('/profile');
       } catch(error) {
         this.error = error;
