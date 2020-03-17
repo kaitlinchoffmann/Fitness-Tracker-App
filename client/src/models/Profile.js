@@ -8,6 +8,9 @@ export const User = [
         Password: 'password',
         Height: 63,
         Weight: 123,
+        Activity: "active",
+        Sex: "Female",
+        EER: findEER(31, 123, 63, "active", "female"),
         Picture: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
         BMI: findBMI(123, 63),
         Status: 'Getting those gains!!!',
@@ -20,12 +23,20 @@ export const User = [
         Password: "cool",
         Height: 64,
         Weight: '',
+        Activity: 'low',
+        Sex: 'Female',
+        EER: findEER(27, 107, 64, "low", "female"),
         Picture: 'https://media.wired.com/photos/5932b220f682204f736975f0/4:3/w_660,c_limit/ff_cats_f.jpg',
-        BMI: findBMI(64, 0),
+        BMI: findBMI(107, 64),
         Status: "I'm the Admin!!",
         IsAdmin: true
     }   
 ];
+
+/*export const DRI = [{
+    Email: "jill123@fakemail.com",
+    Protein: findDRI(1988)
+}];*/
 
 export const Exercises = [
     {
@@ -170,7 +181,7 @@ export function AddNewFood(food, group) {
     }
 };
 
-export function AddNewUser(user, email, name, age, pw, h, w) {
+export function AddNewUser(user, email, name, age, pw, h, w, act, sex) {
     const newUser = User.find(x => x.Email == email);
     if(newUser) throw Error('Email already linked to an account');
     else {
@@ -181,6 +192,9 @@ export function AddNewUser(user, email, name, age, pw, h, w) {
             Password: pw, 
             Height: h, 
             Weight: w,
+            Activity: act,
+            Sex: sex,
+            EER: findEER(age, w, h, act, sex),
             Picture: '', 
             BMI: findBMI(h,w),
             Status: '',
@@ -217,3 +231,107 @@ export function currentDate() {
     cDate = current;
     return current;
 };
+
+export function findPA(sex, age, activity) { // PA = Physical Activity Coefficients
+    let PA = 0;
+    if(activity == "sedentary") {
+        PA = 1.0;
+    }
+    else if(sex == "female") {
+        if(age >= 3 && age <= 18) {
+            if(activity == "low") {
+                PA = 1.16;
+            }
+            else if(activity == "active") {
+                PA = 1.31;
+            }
+            else {
+                PA = 1.56;
+            }
+        }
+        else if(age >= 19) {
+            if(activity == "low") {
+                PA = 1.12;
+            }
+            else if(activity == "active") {
+                PA = 1.27;
+            }
+            else {
+                PA = 1.45;
+            }
+        }
+    }
+    else {
+        if(age >= 3 && age <= 18) {
+            if(activity == "low") {
+                PA = 1.13;
+            }
+            else if(activity == "active") {
+                PA = 1.26;
+            }
+            else {
+                PA = 1.42;
+            }
+        }
+        else if(age >= 19) {
+            if(activity == "low") {
+                PA = 1.11;
+            }
+            else if(activity == "active") {
+                PA = 1.25;
+            }
+            else {
+                PA = 1.48;
+            }
+        }
+    }
+    return PA;
+};
+
+export function findEER(age, weight, height, activity, sex) { //Estimate Energy Requirement
+    let EER = 0;
+    let kg = weight / 2.20462;
+    let m = 0.0254 * height;
+    let pa = findPA(sex, age, activity);
+
+    if(age <= 0.3) {
+        EER = (89 * kg - 100) + 175;
+    }
+    else if(age <= 0.6) {
+        EER = (89 * kg - 100) + 56; 
+    }
+    else if(age < 1) {
+        EER = (89 * kg - 100) + 22;
+    }
+    else if(age < 3) {
+        EER = (89 * kg - 100) + 20;
+    }
+    else if(sex == "female") {
+        if(age >= 3 && age <= 8) {
+            EER = 135.3 - (30.8 * age) + pa * ((10.0 * kg) + (934 * m)) + 20;
+        } 
+        else if(age <= 18) {
+            EER = 135.3 - (30.8 * age) + pa * ((10.0 * kg) + (934 * m)) + 25;
+        }
+        else {
+            EER = 354 - (6.91 * age) + pa * ((9.36 * kg) + (726 * m));
+        }
+    } 
+    else {
+        if(age >= 3 && age <= 8) {
+            EER = 88.5 - (61.9 * age) + pa * ((26.7 * kg) + (903 * m)) + 20;
+        } 
+        else if(age <= 18) {
+            EER = 88.5 - (61.9 * age) + pa * ((26.7 * kg) + (903 * m)) + 25;
+        }
+        else {
+            EER = 662 - (9.53 * age) + pa * ((15.91 * kg) + (536.6 * m));
+        }
+    }
+    return EER;
+};
+
+/*export function findDRI(eer) {
+    let protein = 0;
+
+};*/

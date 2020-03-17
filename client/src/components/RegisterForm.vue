@@ -40,6 +40,18 @@
               <input type="number" class="input" v-model="weight">
             </div>
           </div>
+          <div class="field">    
+            <label class="label fcolor">Sex</label>  
+            <div class="control">  
+              <input type="text" class="input" v-model="sex">
+            </div>
+          </div>
+          <div class="field">    
+            <label class="label fcolor">Activity</label>  
+            <div class="control">  
+              <input type="text" class="input" v-model="activity">
+            </div>
+          </div>
           <div class="field">
           <label class="label fcolor">Password</label>
           <div class="control">
@@ -108,7 +120,7 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { AddNewUser, CurrentUser, findBMI, ChangeCurrent, User } from "../models/Profile";
+import { AddNewUser, CurrentUser, findBMI, ChangeCurrent, User, findEER } from "../models/Profile";
 ChangeCurrent();
 
 export default {
@@ -123,6 +135,9 @@ export default {
       cpassword: '',
       height: '',
       weight: '',
+      activity: '',
+      sex: '',
+      eer: '',
       picture: '',
       Status: '',
       IsAdmin: false,
@@ -140,13 +155,16 @@ export default {
             password: this.password,
             Height: this.height,
             Weight: this.weight,
-            picture: this.picture,
+            Activity: this.activity,
+            Sex: this.sex,
+            EER: findEER(this.age, this.weight, this.height, this.activity, this.sex),
+            Picture: this.picture,
             BMI: findBMI(this.weight, this.height),
             Status: '',
             IsAdmin: false
             };
 
-        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.height, this.weight);
+        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.height, this.weight, this.activity, this.sex);
         ChangeCurrent(this.user);
         this.$router.push('/profile');
       } catch(error) {

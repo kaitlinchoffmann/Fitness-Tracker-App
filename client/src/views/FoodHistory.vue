@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import { CurrentUser, AddedFood, currentDate } from "../models/Profile";
+import { CurrentUser, AddedFood, currentDate, findEER } from "../models/Profile";
 currentDate();
 
 export default {
@@ -121,10 +121,10 @@ export default {
             date: currentDate()
         }],
         allDates: [],
-        nutrition: [],
+        nutrition: [0,0,0,0,0,0],
         goals: [
             {
-                Calories: 2000,
+                Calories: CurrentUser.EER.toFixed(0),
                 Protein: 56,
                 Fat: 44,
                 Carbs: 225,
@@ -132,7 +132,7 @@ export default {
                 Sugar: 25
             }
         ],
-        goalsLeft: [ 0, 0, 0, 0, 0, 0]
+        goalsLeft: [ CurrentUser.EER.toFixed(0), 56, 44, 225, 2300, 25]
     }),
     components: {
       
