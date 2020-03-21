@@ -126,4 +126,7 @@ temp/
 npm-debug.log
 yarn-error.log
 
+##test page for js
+client/src/models/test.js
+
 # End of https://www.gitignore.io/api/node,vuejs,dotenv,visualstudiocode

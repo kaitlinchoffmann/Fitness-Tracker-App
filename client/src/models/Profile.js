@@ -358,3 +358,12 @@ export function findDRI(eer, weight, email) {
     };
     return goals;
 };
+
+export function getWeek(currentDate) {
+    if(currentDate.getDay() == 0) {
+        console.log("Sunday");
+    }
+    else {
+        console.log("hi");
+    }
+};
