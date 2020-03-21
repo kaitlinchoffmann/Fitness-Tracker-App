@@ -53,7 +53,7 @@
         </div><br/>
         <div class="box" style="width:500px;margin:auto;">
         <table class="table has-text-centered"> 
-          <caption><h4 class="title is-4">Daily Summary: {{history[0].date}}</h4></caption>
+          <caption><h4 class="title is-4">Daily Summary</h4></caption>
             <thead>  
             <tr>
               <th></th>
@@ -166,11 +166,11 @@ export default {
                     return this.history;
                 }
                 else {
-                    document.getElementById("none").innerHTML="No Food logged today ";
+                    document.getElementById("none").innerHTML="No food logged today ";
                 }
             }
             else {
-                document.getElementById("none").innerHTML="No Food logged today ";
+                document.getElementById("none").innerHTML="No food logged today ";
             }
         },
         findDates() {

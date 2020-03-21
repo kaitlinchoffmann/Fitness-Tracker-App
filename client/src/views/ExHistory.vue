@@ -22,12 +22,10 @@
         <h1 class="title is-1 has-text-left">Exercise History</h1><br/>
         <div class="section">
        <div class="box" style="width: 800px; margin:auto;">
-        <p class="title is-4">
-                <h3 id="none" class="title is-3"></h3>
-        </p>
+         <div id="none"></div>
         <table class="table" style="margin:auto;">
-               <thead style="font-weight:bold;font-size:20px;">{{history[0].date}}</thead>
-                  <tbody>
+            <caption> <h4 class="title is-4">Logged Exercises For: {{history[0].date}}</h4></caption>
+                  <thead>
                     <tr>
                       <th>Exercise</th>
                       <th>Type</th>
@@ -37,7 +35,8 @@
                       <th>Time(mins)</th>
                       <th>Intensity</th>
                     </tr>
-                  </tbody> 
+                  </thead> 
+                  <tbody>
                   <tr class="" v-for="(x) in history" :key="(x.date)">  
                       <td>{{x.exName}}</td>
                       <td>{{x.exType}}</td> 
@@ -47,9 +46,69 @@
                       <td>{{x.time}}</td>
                       <td>{{x.intensity}}</td>
                   </tr>
+                  </tbody>
         </table> 
+        </div><br/>
+        <div class="box" style="width:450px;float:left;margin-left:20%;">
+        <table class="table has-text-centered"> 
+          <caption><h4 class="title is-4">Daily Goal</h4></caption>
+            <thead>  
+            <tr>
+              <th></th>
+              <th>Goal</th>
+              <th>Completed</th>
+              <th>Remaining</th>  
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Time (minutes)</td>  
+              <td>{{goal}}</td>
+              <td>{{time}}</td>
+              <td>{{goalsLeft}}</td>  
+            </tr>
+            </tbody>
+        </table>
+        <span id="note">*Intensity must be moderate or vigrous to count towards goal</span>
         </div>
-        <div style="margin-bottom:200px;"></div>
+        <div class="box" style="width:300px; float:left; margin-left:20px">
+        <table class="table has-text-centered"> 
+          <caption><h4 class="title is-4">Total for Each Type</h4></caption>
+            <thead>  
+            <tr>
+              <th>Type</th>
+              <th>Completed (minutes)</th>  
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>Strength</td>  
+              <td>{{type[0]}}</td>
+            </tr>
+            <tr>
+              <td>Cardio</td>  
+              <td>{{type[1]}}</td>
+            </tr>
+            <tr>
+              <td>Flexibility</td>  
+              <td>{{type[2]}}</td>
+            </tr>
+            <tr>
+              <td>Coordination</td>  
+              <td>{{type[3]}}</td>
+            </tr>
+            <tr>
+              <td>Balance</td>  
+              <td>{{type[4]}}</td>
+            </tr>
+            <tr>
+              <td>Other</td>  
+              <td>{{type[5]}}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+        <div style="margin-bottom:600px;"></div>
         </div> 
     </div>
 </template>
@@ -67,7 +126,11 @@ export default {
         history: [{
             date: currentDate()
         }],
-        allDates: []
+        allDates: [],
+        type: [0,0,0,0,0,0],
+        goal: 30,
+        time: 0,
+        goalsLeft: 30
     }),
     components: {
       
@@ -87,23 +150,49 @@ export default {
         },
         findRecent(date) {
             if(AddedExercise != null) {
+                let totalType = [0,0,0,0,0,0]
+                let completed = 0;
                 let hist = [];
                 let his = AddedExercise.map(function(x, index) {
                     if(x.date == date) {
                         hist.push(AddedExercise[index]);
+                        if(AddedExercise[index].intensity == "moderate" || AddedExercise[index].intensity == "vigorous") {
+                            completed += AddedExercise[index].time;
+                        }
+                        if(AddedExercise[index].exType == "Strength") {
+                            totalType[0] += AddedExercise[index].time;
+                        } 
+                        else if(AddedExercise[index].exType == "Cardio") {
+                            totalType[1] += AddedExercise[index].time;
+                        } 
+                        else if(AddedExercise[index].exType == "Flexibility") {
+                            totalType[2] += AddedExercise[index].time;
+                        } 
+                        else if(AddedExercise[index].exType == "Coordination") {
+                            totalType[3] += AddedExercise[index].time;
+                        } 
+                        else if(AddedExercise[index].exType == "Balance") {
+                            totalType[4] += AddedExercise[index].time;
+                        } 
+                        else {
+                            totalType[5] += AddedExercise[index].time;
+                        } 
                     }
                 });
                 if(hist.length != 0) {
-                    document.getElementById("none").innerHTML="Logged Exercises for: ";
+                    document.getElementById("none").innerHTML="";
+                    this.findRemain(completed);
+                    this.time = completed;
+                    this.type = totalType;
                     this.history = hist;
                     return this.history;
                 }
                 else {
-                    document.getElementById("none").innerHTML="No exercises logged today: ";
+                    document.getElementById("none").innerHTML="No exercises logged today";
                 }
             }
             else {
-                document.getElementById("none").innerHTML="No exercises logged today: ";
+                document.getElementById("none").innerHTML="No exercises logged today";
             }
         },
         findDates() {
@@ -118,11 +207,24 @@ export default {
         });
             this.allDates = dates;
             return this.allDates;
+        },
+        findRemain(completed) {
+            let remaining = this.goal - completed;
+            this.goalsLeft = remaining;
+            return this.goalsLeft;
         }
     }
 } 
 </script>
 
 <style scoped>
+
+table,th,td {
+  margin: auto;
+}
+
+#note {
+  font-size: 14px;  
+}
     
 </style>

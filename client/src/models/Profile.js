@@ -22,7 +22,7 @@ export const User = [
         Age: 27,
         Password: "cool",
         Height: 64,
-        Weight: '',
+        Weight: 107,
         Activity: 'low',
         Sex: 'Female',
         EER: findEER(27, 107, 64, "low", "female"),
@@ -33,7 +33,7 @@ export const User = [
     }   
 ];
 
-export const DRI = [findDRI(2278, 123, "jill123@fakemail.com")];
+export const DRI = [findDRI(2278, 123, "jill123@fakemail.com"), findDRI(1998, 107, "admin@fakemail.com")];
 
 export const Exercises = [
     {
@@ -357,13 +357,4 @@ export function findDRI(eer, weight, email) {
         Sugar: sugar.toFixed(0)
     };
     return goals;
-};
-
-export function getWeek(currentDate) {
-    if(currentDate.getDay() == 0) {
-        console.log("Sunday");
-    }
-    else {
-        console.log("hi");
-    }
 };
