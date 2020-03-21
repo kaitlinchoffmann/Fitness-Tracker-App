@@ -22,17 +22,6 @@
                       <th>Sugar(g)</th>
                       <th>Date</th>
                     </tr>
-                    <tr> 
-                      <td>Apple</td>
-                      <td>Fruit</td> 
-                      <td>95</td>
-                      <td>0.5</td>
-                      <td>25</td>
-                      <td>0.3</td>
-                      <td>2</td>
-                      <td>19</td>
-                      <td>2020-03-08</td>
-                    </tr>
                     <tr class="" v-for="(x, i) in foodList" :key="(x.group)">   
                       <td>{{x.food}}</td>
                       <td>{{x.group}}</td> 

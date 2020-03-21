@@ -25,31 +25,38 @@
            <div class="field">    
             <label class="label fcolor">Age</label>  
             <div class="control">  
-              <input type="number" class="input" v-model="age">
+              <input type="number" class="input" min="0" max="150" v-model="age">
             </div>
           </div>
           <div class="field">    
             <label class="label fcolor">Height(inches)</label>  
             <div class="control">  
-              <input type="number" class="input" v-model="height">
+              <input type="number" class="input" min="0" max="120" v-model="height">
             </div>
           </div>
            <div class="field">    
             <label class="label fcolor">Weight(lbs)</label>  
             <div class="control">  
-              <input type="number" class="input" v-model="weight">
+              <input type="number" class="input" min="0" max="3000" v-model="weight">
             </div>
           </div>
           <div class="field">    
             <label class="label fcolor">Sex</label>  
             <div class="control">  
-              <input type="text" class="input" v-model="sex">
+              <input type="radio" value="male" id="male" v-model="sex">
+              <label for="male"> Male</label><br/>
+              <input type="radio" value="female" id="female" v-model="sex">
+              <label for="male"> Female</label>
             </div>
           </div>
           <div class="field">    
-            <label class="label fcolor">Activity</label>  
-            <div class="control">  
-              <input type="text" class="input" v-model="activity">
+            <label class="label fcolor">Activity Level</label>  
+            <div class="control"> 
+              <select id="activity" v-model="activity"> 
+                <option value="sedentary">Sedentary</option>
+                <option value="low">Low</option>
+                <option value="active">Active</option>
+              </select>
             </div>
           </div>
           <div class="field">
@@ -164,7 +171,7 @@ export default {
             IsAdmin: false
             };
 
-        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.height, this.weight, this.activity, this.sex);
+        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.cpassword, this.height, this.weight, this.activity, this.sex);
         ChangeCurrent(this.user);
         DRI.push(findDRI(CurrentUser.EER, this.weight, this.email));
         currentDRI();

@@ -21,16 +21,6 @@
                       <th>Intensity</th>
                       <th>Date</th>
                     </tr>
-                    <tr> 
-                      <td>Squats</td>
-                      <td>Strength</td> 
-                      <td>4</td>
-                      <td>15</td>
-                      <td>0</td>
-                      <td>15</td>
-                      <td>moderate</td>
-                      <td>03/07/2020</td>
-                    </tr>
                     <tr class="" v-for="(x, i) in exercises" :key="(x.exType)">   
                       <td>{{x.exName}}</td>
                       <td>{{x.exType}}</td> 

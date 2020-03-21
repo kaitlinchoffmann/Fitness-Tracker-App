@@ -188,9 +188,18 @@ export function AddNewFood(food, group) {
     }
 };
 
-export function AddNewUser(user, email, name, age, pw, h, w, act, sex) {
+export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, sex) {
     const newUser = User.find(x => x.Email == email);
     if(newUser) throw Error('Email already linked to an account');
+    if(email == "") throw Error('Please enter an email');
+    if(name == "") throw Error('Please enter a name');
+    if(age == "") throw Error('Please enter an age');
+    if(pw == "") throw Error('Please enter a password');
+    if(h == "") throw Error('Please enter a height');
+    if(w == "") throw Error('Please enter a weight');
+    if(act == "") throw Error('Please enter an activity level');
+    if(sex == "") throw Error('Please enter a sex');
+    if(pw != cpw) throw Error('Passwords must match');
     else {
         User.push({
             Email: email,
