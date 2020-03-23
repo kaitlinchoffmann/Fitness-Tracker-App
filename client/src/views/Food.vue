@@ -9,7 +9,7 @@
             <div class="column"> 
               <div class="box">
                 <table class="table">
-                  <thead id="error">Breakfast</thead>
+                  <thead id="error"></thead>
                   <tbody>
                     <tr>
                       <th>Food</th>

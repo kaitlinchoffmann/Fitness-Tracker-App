@@ -228,6 +228,11 @@ export function ChangeCurrent(user) {
 export function SubmitChanges(changes) {    
     var newBMI = findBMI(changes.Weight, changes.Height);
     changes.BMI = newBMI;
+    var newEER = findEER(changes.Age, changes.Weight, changes.Height, changes.Activity, changes.Sex);
+    changes.EER = newEER;
+    var newDRI = findDRI(newEER, changes.Weight, changes.Email);
+    changes.DRI = newDRI;
+    CurrentDRI = newDRI;
     ProfileInfo = changes;
     return ProfileInfo;
 };
