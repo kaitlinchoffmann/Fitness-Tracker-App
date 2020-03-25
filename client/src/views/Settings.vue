@@ -13,7 +13,7 @@
       </h4> 
       <h4 class="title is-4 has-text-left">
            Email: 
-           <input type="text" class="input" v-model="CurrentUser.Email">
+           <input type="email" class="input" v-model="CurrentUser.Email">
       </h4> 
       <h4 class="title is-4 has-text-left">
            Age: 
@@ -27,12 +27,22 @@
            <input type="radio" value="female" id="female" v-model="CurrentUser.Sex">
            <label for="male"> Female</label>     
       <h4 class="title is-4 has-text-left">
-           Height: 
+           Height (inches): 
            <input type="text" class="input" v-model="CurrentUser.Height">
       </h4>           
       <h4 class="title is-4 has-text-left">
-           Weight: 
+           Weight (pounds): 
            <input type="text" class="input" v-model="CurrentUser.Weight">
+      </h4> 
+      <h4 class="title is-4 has-text-left">
+           Goal: 
+           <select id="activity" v-model="CurrentUser.Goal"> 
+                <option value="loseOne">Lose 1 Pound per Week</option>
+                <option value="loseTwo">Lose 2 Pounds per Week</option>
+                <option value="maintain">Maintain Weight</option>
+                <option value="gainOne">Gain 1 Pound per Week</option>
+                <option value="gainTwo">Gain 2 Pounds per Week</option>
+           </select>
       </h4> 
       <h4 class="title is-4 has-text-left">
            Activity Level: 

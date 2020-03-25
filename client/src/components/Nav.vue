@@ -118,6 +118,10 @@ a:hover {
   color: rgb(255, 81, 0);
 }
 
+a:active {
+  color: rgb(255, 123, 0);
+}
+
 a:focus {
   color: rgb(255, 123, 0);
 }

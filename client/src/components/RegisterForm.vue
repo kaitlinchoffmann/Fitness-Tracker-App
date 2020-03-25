@@ -59,6 +59,18 @@
               </select>
             </div>
           </div>
+          <div class="field">    
+            <label class="label fcolor">Goal</label>  
+            <div class="control"> 
+              <select id="goal" v-model="goal"> 
+                <option value="loseOne">Lose 1 Pound per Week</option>
+                <option value="loseTwo">Lose 2 Pounds per Week</option>
+                <option value="maintain">Maintain Weight</option>
+                <option value="gainOne">Gain 1 Pound per Week</option>
+                <option value="gainTwo">Gain 2 Pounds per Week</option>
+              </select>
+            </div>
+          </div>
           <div class="field">
           <label class="label fcolor">Password</label>
           <div class="control">
@@ -79,7 +91,7 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 
 h3.fcolor, label.fcolor {
   color: slateblue;
@@ -145,6 +157,7 @@ export default {
       activity: '',
       sex: '',
       eer: '',
+      goal: '',
       picture: '',
       Status: '',
       IsAdmin: false,
@@ -152,7 +165,7 @@ export default {
       user: []
     }
   },
-  methods: {
+  methods: { 
     register() {
       try {
         this.user = {
@@ -164,14 +177,15 @@ export default {
             Weight: this.weight,
             Activity: this.activity,
             Sex: this.sex,
-            EER: findEER(this.age, this.weight, this.height, this.activity, this.sex),
+            EER: findEER(this.age, this.weight, this.height, this.activity, this.goal, this.sex),
+            Goal: this.goal,
             Picture: this.picture,
             BMI: findBMI(this.weight, this.height),
             Status: '',
             IsAdmin: false
             };
 
-        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.cpassword, this.height, this.weight, this.activity, this.sex);
+        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.cpassword, this.height, this.weight, this.activity, this.goal, this.sex);
         ChangeCurrent(this.user);
         DRI.push(findDRI(CurrentUser.EER, this.weight, this.email));
         currentDRI();

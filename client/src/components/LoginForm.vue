@@ -30,7 +30,7 @@
   </div>         
 </template>
 
-<style>
+<style scoped>
 
 h3.fcolor, label.fcolor {
   color: slateblue;

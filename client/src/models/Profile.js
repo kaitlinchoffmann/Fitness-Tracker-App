@@ -10,7 +10,8 @@ export const User = [
         Weight: 123,
         Activity: "active",
         Sex: "Female",
-        EER: findEER(31, 123, 63, "active", "female"),
+        EER: findEER(31, 123, 63, "active", "maintain", "female"),
+        Goal: "maintain",
         Picture: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
         BMI: findBMI(123, 63),
         Status: 'Getting those gains!!!',
@@ -25,7 +26,8 @@ export const User = [
         Weight: 107,
         Activity: 'low',
         Sex: 'Female',
-        EER: findEER(27, 107, 64, "low", "female"),
+        EER: findEER(27, 107, 64, "low", "gainOne", "female"),
+        Goal: "gainOne",
         Picture: 'https://media.wired.com/photos/5932b220f682204f736975f0/4:3/w_660,c_limit/ff_cats_f.jpg',
         BMI: findBMI(107, 64),
         Status: "I'm the Admin!!",
@@ -188,7 +190,7 @@ export function AddNewFood(food, group) {
     }
 };
 
-export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, sex) {
+export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, goal, sex) {
     const newUser = User.find(x => x.Email == email);
     if(newUser) throw Error('Email already linked to an account');
     if(email == "") throw Error('Please enter an email');
@@ -198,6 +200,7 @@ export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, sex) {
     if(h == "") throw Error('Please enter a height');
     if(w == "") throw Error('Please enter a weight');
     if(act == "") throw Error('Please enter an activity level');
+    if(goal == "") throw Error('Please enter a goal')
     if(sex == "") throw Error('Please enter a sex');
     if(pw != cpw) throw Error('Passwords must match');
     else {
@@ -210,7 +213,8 @@ export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, sex) {
             Weight: w,
             Activity: act,
             Sex: sex,
-            EER: findEER(age, w, h, act, sex),
+            EER: findEER(age, w, h, act, goal, sex),
+            Goal: goal,
             Picture: '', 
             BMI: findBMI(h,w),
             Status: '',
@@ -228,7 +232,7 @@ export function ChangeCurrent(user) {
 export function SubmitChanges(changes) {    
     var newBMI = findBMI(changes.Weight, changes.Height);
     changes.BMI = newBMI;
-    var newEER = findEER(changes.Age, changes.Weight, changes.Height, changes.Activity, changes.Sex);
+    var newEER = findEER(changes.Age, changes.Weight, changes.Height, changes.Activity, changes.Goal, changes.Sex);
     changes.EER = newEER;
     var newDRI = findDRI(newEER, changes.Weight, changes.Email);
     changes.DRI = newDRI;
@@ -309,7 +313,7 @@ export function findPA(sex, age, activity) { // PA = Physical Activity Coefficie
     return PA;
 };
 
-export function findEER(age, weight, height, activity, sex) { //Estimate Energy Requirement
+export function findEER(age, weight, height, activity, goal, sex) { //Estimate Energy Requirement
     let EER = 0;
     let kg = weight / 2.20462;
     let m = 0.0254 * height;
@@ -347,6 +351,27 @@ export function findEER(age, weight, height, activity, sex) { //Estimate Energy 
         }
         else {
             EER = 662 - (9.53 * age) + pa * ((15.91 * kg) + (536.6 * m));
+        }
+    }
+    
+    if(goal == "gainOne") {
+        EER += 500;
+    }
+    else if(goal == "gainTwo") {
+        EER += 1000;
+    }
+    else if(goal == "loseOne") {
+        EER -= 500;
+        if(EER < 1200) {
+            EER = 1200;
+            alert("Warning: Calorie intake goal cannot be lower than 1200 due to risk of nutrient deficiency.")
+        }
+    }
+    else if(goal == "loseTwo") {
+        EER -= 1000;
+        if(EER < 1200) {
+            EER = 1200;
+            alert("Warning: Calorie intake goal cannot be lower than 1200 due to risk of nutrient deficiency.")
         }
     }
     return EER;
