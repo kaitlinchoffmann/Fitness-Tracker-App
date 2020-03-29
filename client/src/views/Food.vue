@@ -60,9 +60,26 @@
                 </tbody>
                   <button class="button is-primary is-light" @click="add()">Add</button>
                 </table>
-
-            
               </div> 
+                <div class="box" style="max-width:500px;">
+                    <h4>Or Look Up a Food Item</h4>
+                    <input class="input" type="text" v-model="search">
+                    <button class="button is-primary is-small" @click="searchFood(search)">Search</button>
+                    <form id="foodForm" @submit.prevent="add">
+                    <div v-for="item in foodResults" :key="item.data" :id=item.data>
+                       <hr>
+                       <h5 class="title is-5">{{item.food.label}}:</h5> 
+                       <input type="hidden" :value="item.food.foodId" name="foodId">{{item.food.foodId}}
+                       <img id="food-image" :src="item.food.image"><br/>
+                       Food Category: {{item.food.category}}<br/>
+                       Measurement: 
+                       <select name="label">
+                          <option :value="measure.uri" name="label" v-for="measure in item.measures" :key="measure.label" :id=item.label>{{measure.label}} </option>
+                       </select><br/>
+                       Quantity: <input  type="number" min="0" placeholder="input quantity" v-model="quantity"><input type="submit" value="Add" style="float:right;" class="button is-small is-light" @click="addSearchFood()">
+                   <br/></div>
+                   </form>
+                </div>
               <button class="button is-warning" @click="addFood">Submit</button>
             </div>
           </div>
@@ -75,10 +92,21 @@
 import { AddFood, RemoveExercise, CurrentUser, ExerciseType, currentDate } from "../models/Profile";
 
 export default {
-    name: 'Exercise',
+    name: 'Food',
 
     data:()=>({
-          food: "",
+          apiKeyFood: "3749d9c020ee4f0a200708c580d345ce",
+          apiIDFood: "27a679ca",
+          apiKeyNutr: "b90b69a6ac4847d41ed7cb21fe65f3f8",
+          apiIDNutr: "b3490425",
+          search: "",
+          foodId: "",
+          measureURI: "",
+          quantity: "",
+          foodResults: "",
+         /* urlFood: "https://api.edamam.com/api/food-database/parser?ingr=" + this.search + "&app_id=" + this.apiIDFood + "&app_key=" + this.apiKeyFood,
+          urlNutr: "https://api.edamam.com/api/food-database/nutrients?app_id="+ this.apiIDNutr + "&app_key=" + this.apiKeyNutr,
+          */food: "",
           group: "",
           calories: "",
           protein: "",
@@ -148,8 +176,31 @@ export default {
           addFood() {
             AddFood(this.foodList);
             this.$router.push('/foodhistory');
+          },
+          searchFood(search) {
+              var urlFood = "https://api.edamam.com/api/food-database/parser?ingr=" + search + "&app_id=" + this.apiIDFood + "&app_key=" + this.apiKeyFood;
+              this.$axios
+                .get(urlFood)
+                .then(response => (this.foodResults = response.data.hints))                
+          },
+          addSearchFood() {
+              this.foodId = document.getElementById("foodForm").elements[0].value;
+              this.measureURI = document.getElementById("foodForm").elements[1].value;
+              this.quantity = document.getElementById("foodForm").elements[2].value;
+              
+              console.log(document.getElementById("foodForm").elements[0].value);
+              console.log(document.getElementById("foodForm").elements[1].value);
+              console.log(document.getElementById("foodForm").elements[2].value);
+              console.log(document.getElementById("foodForm").elements[2].elements[2].value);
+
           }
         }
-}
+};
 
 </script>
+
+<style>
+#food-image {
+  width: 100px;
+}
+</style>

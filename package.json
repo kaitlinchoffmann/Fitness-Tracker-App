@@ -8,6 +8,7 @@
     "dev": "nodemon server/index.js"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "express": "4.17.1",
     "minimist": "^1.2.5"
   },
