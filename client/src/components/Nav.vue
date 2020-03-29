@@ -6,14 +6,14 @@
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/about">About</router-link></li>
           <li class="my-dropdown">
-            <router-link to="/food">Food</router-link>
+            <router-link to="/foodhistory">Food</router-link>
               <div class="dropdown-cnt">
                 <router-link to="/food">Log Food</router-link>
                 <router-link to="/foodhistory">Food History</router-link>
               </div>  
           </li>
           <li class="my-dropdown">
-            <router-link to="/exercise">Exercise</router-link>
+            <router-link to="/exhistory">Exercise</router-link>
               <div class="dropdown-cnt">
                 <router-link to="/exercise">Log Exercise</router-link>
                 <router-link to="/exhistory">Exercise History</router-link>

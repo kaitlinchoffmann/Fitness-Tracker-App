@@ -200,7 +200,7 @@ export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, goal, sex
     if(h == "") throw Error('Please enter a height');
     if(w == "") throw Error('Please enter a weight');
     if(act == "") throw Error('Please enter an activity level');
-    if(goal == "") throw Error('Please enter a goal')
+    if(goal == "") throw Error('Please enter a goal');
     if(sex == "") throw Error('Please enter a sex');
     if(pw != cpw) throw Error('Passwords must match');
     else {

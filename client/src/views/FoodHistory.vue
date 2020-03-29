@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="container" style="float:left;margin-left:15%;">
+        <div class="container" style="float:left;margin-left:17%;">
             <div class="dropdown is-hoverable" style="width:300px;">
   <div class="dropdown-trigger">
     <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
@@ -19,7 +19,10 @@
   </div>
 </div>
         </div>
-        <h1 class="title is-1 has-text-left">Food History</h1><br/>
+        <h1 class="title is-1 has-text-left">Food History</h1>
+        <nav class="has-text-centered">
+            <router-link to="/food">Add a Food Item</router-link>
+        </nav>
         <div class="section">
        <div class="box" style="width: 900px; margin:auto;">
                 <div id="none"></div>

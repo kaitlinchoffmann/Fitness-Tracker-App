@@ -19,7 +19,10 @@
   </div>
 </div>
         </div>
-        <h1 class="title is-1 has-text-left">Exercise History</h1><br/>
+        <h1 class="title is-1 has-text-left">Exercise History</h1>
+         <nav class="has-text-centered">
+            <router-link to="/exercise">Add an Exercise</router-link>
+         </nav>
         <div class="section">
        <div class="box" style="width: 800px; margin:auto;">
          <div id="none"></div>
