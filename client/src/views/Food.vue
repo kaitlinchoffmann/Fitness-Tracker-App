@@ -193,8 +193,7 @@ export default {
                 .get(urlFood)
                 .then(response => (this.foodResults = response.data.hints))                 
           },
-          addItem() {
-            
+          addItem() {         
             this.foodId = "";
             this.foodMeasures = "";
             const selectedFood = this.foodResults.find(x => x.food.foodId == document.getElementById("foodForm").elements[0].value);
@@ -277,8 +276,5 @@ export default {
 }
 form {
   max-width: 400px;
-}
-#resize {
-  width: 10px;
 }
 </style>
