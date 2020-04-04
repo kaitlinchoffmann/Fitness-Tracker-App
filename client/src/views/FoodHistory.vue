@@ -111,7 +111,8 @@
 </template>
 
 <script>
-import { CurrentUser, AddedFood, currentDate, findEER, DRI, CurrentDRI } from "../models/Profile";
+import { AddedFood, currentDate, findEER, DRI, CurrentDRI } from "../models/Profile";
+import User from "../models/Profile";
 currentDate();
 
 export default {
@@ -119,7 +120,7 @@ export default {
 
     data:()=>({
         CurrentDRI,
-        CurrentUser,
+        User,
         DRI, 
         AddedFood,
         history: [{
@@ -127,8 +128,8 @@ export default {
         }],
         allDates: [],
         nutrition: [0,0,0,0,0,0],
-        calories: CurrentUser.EER.toFixed(0),
-        goalsLeft: [ CurrentUser.EER.toFixed(0), CurrentDRI.Protein, CurrentDRI.HighFat, CurrentDRI.HighCarb, CurrentDRI.Sodium, CurrentDRI.Sugar]
+        calories: User.CurrentUser.EER.toFixed(0),
+        goalsLeft: [ User.CurrentUser.EER.toFixed(0), CurrentDRI.Protein, CurrentDRI.HighFat, CurrentDRI.HighCarb, CurrentDRI.Sodium, CurrentDRI.Sugar]
     }),
     components: {
       

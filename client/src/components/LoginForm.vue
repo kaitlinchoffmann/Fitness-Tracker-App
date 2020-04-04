@@ -78,7 +78,8 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { Login, currentDate, CurrentUser, User, currentDRI, CurrentDRI } from "../models/Profile";
+import { currentDate, CurrentUser, currentDRI, CurrentDRI } from "../models/Profile";
+import User from "../models/Profile";
 
 export default {
   data(){
@@ -94,13 +95,13 @@ export default {
   methods: {
     login() {
       try {
-        Login(this.email, this.password)
-        if(CurrentUser.IsAdmin == true) {
+        User.Login(this.email, this.password);
+        console.log(User.CurrentUser.Email);
+        if(User.CurrentUser.IsAdmin == true) {
           currentDRI();
           this.$router.push('/admin');
         }
         else {
-          currentDRI();
           this.$router.push('/profile');
         }
       } catch(error) {

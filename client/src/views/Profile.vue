@@ -2,12 +2,12 @@
 <div class="container profile">
   <div class = "section">
     <h2 class="title is-2 has-text-left">
-      {{CurrentUser.Name}}     
+      {{User.CurrentUser.Name}}     
     </h2>
     <div>
       <div style="float:left; margin-left:30px;">
-        <img :src="CurrentUser.Picture" class="card-image" id="profile-pic"/>
-        <div id="status">{{CurrentUser.Status}}<button class="button is-small btn-status">Edit</button></div>
+        <img :src="User.CurrentUser.Picture" class="card-image" id="profile-pic"/>
+        <div id="status">{{User.CurrentUser.Status}}<button class="button is-small btn-status">Edit</button></div>
       </div>
           <div class="box" style="float:left;margin-left:7%;">
             <table class="table has-text-centered" style="width:300px;margin:auto;">
@@ -21,7 +21,7 @@
               <tbody>
                 <tr>
                   <td>Calories</td>
-                  <td>{{CurrentUser.EER.toFixed(0)}}</td>
+                  <td>{{User.CurrentUser.EER.toFixed(0)}}</td>
                 </tr>
                 <tr>
                   <td>Protein(g)</td>
@@ -54,17 +54,17 @@
           </div>
           <div class="section" style="width:350px;max-height:200px;float:left;margin-left:4%;">
             <div class="box">
-              <h6 class="title is-6">Body Mass Index (BMI): {{CurrentUser.BMI}}</h6>
-              <div v-if="CurrentUser.BMI < 18.5">
+              <h6 class="title is-6">Body Mass Index (BMI): {{User.CurrentUser.BMI}}</h6>
+              <div v-if="User.CurrentUser.BMI < 18.5">
                 <p>You are Underweight - A Normal BMI is between 18.5-24.9</p>
               </div>
-              <div v-else-if="CurrentUser.BMI < 25">
+              <div v-else-if="User.CurrentUser.BMI < 25">
                 <p>You are Normal Weight</p>
               </div>
-              <div v-else-if="CurrentUser.BMI < 30">
+              <div v-else-if="User.CurrentUser.BMI < 30">
                 <p>You are Overweight - A Normal BMI is between 18.5-24.9</p>
               </div>
-              <div v-else-if="CurrentUser.BMI > 30">
+              <div v-else-if="User.CurrentUser.BMI > 30">
                 <p>You are Obese - A Normal BMI is between 18.5-24.9</p>
               </div>
             </div>
@@ -90,14 +90,15 @@
 </template>
 
 <script>
-import { Friends, Posts, AddedExercise, AddedFood, ProfileInfo, CurrentUser, CurrentDRI } from "../models/Profile";
+import { Friends, Posts, AddedExercise, AddedFood, ProfileInfo, CurrentDRI } from "../models/Profile";
+import User from "../models/Profile";
 
 export default {
     name: 'Profile',
 
     data:()=>({
         ProfileInfo,
-        CurrentUser,
+        User,
         CurrentDRI,
         Friends,
         Posts, 
@@ -120,7 +121,7 @@ export default {
     methods: {
         findExercise(recent) {
             const userExercise = this.AddedExercise.map(function(x, index) {
-                if(x.email == CurrentUser.Email) {
+                if(x.email == User.CurrentUser.Email) {
                     recent.push(AddedExercise[index]);
                 }
             }
@@ -131,7 +132,7 @@ export default {
         },
         findFood(recent) {
             const userFood = this.AddedFood.map(function(x, index) {
-                if(x.email == CurrentUser.Email) {
+                if(x.email == User.CurrentUser.Email) {
                     recent.push(AddedFood[index]);
                 }
             }

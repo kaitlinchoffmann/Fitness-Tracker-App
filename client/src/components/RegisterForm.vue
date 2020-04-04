@@ -139,14 +139,14 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { AddNewUser, CurrentUser, findBMI, ChangeCurrent, User, findEER, findDRI, DRI, CurrentDRI, currentDRI } from "../models/Profile";
+import { AddNewUser, findBMI, ChangeCurrent, findEER, findDRI, DRI, CurrentDRI, currentDRI } from "../models/Profile";
+import User from "../models/Profile";
 ChangeCurrent();
 
 export default {
   data(){
     return {
       User,
-      CurrentUser,
       email: '',
       name: '',
       age: '',
@@ -187,7 +187,7 @@ export default {
 
         AddNewUser(this.user, this.email, this.name, this.age, this.password, this.cpassword, this.height, this.weight, this.activity, this.goal, this.sex);
         ChangeCurrent(this.user);
-        DRI.push(findDRI(CurrentUser.EER, this.weight, this.email));
+        DRI.push(findDRI(User.CurrentUser.EER, this.weight, this.email));
         currentDRI();
         this.$router.push('/profile');
       } catch(error) {

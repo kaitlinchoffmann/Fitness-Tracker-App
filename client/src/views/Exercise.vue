@@ -76,7 +76,7 @@
 
 <script>
 import { AddExercise, RemoveExercise, CurrentUser, ExerciseType, currentDate, ProfileInfo } from "../models/Profile";
-
+import User from "../models/Profile";
 export default {
     name: 'Exercise',
 
@@ -130,7 +130,7 @@ export default {
                 weight: this.weight,
                 time: Number(this.time),
                 intensity: this.intensity,
-                email: CurrentUser.Email,
+                email: User.CurrentUser.Email,
                 date: this.date
           });
              document.getElementById("error").innerHTML="Nice job! Keep it up!";

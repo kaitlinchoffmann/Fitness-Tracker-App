@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1 class="title is-1">Hi, {{CurrentUser.Name}}</h1>
+        <h1 class="title is-1">Hi, {{User.CurrentUser.Name}}</h1>
         <div class="section">
         <div class="box">   
             <div id="exists"></div>
@@ -23,11 +23,11 @@
 </template>
 
 <script>
-import { CurrentUser, User, Exercises, AddNewEx, Food, AddNewFood } from '../models/Profile';
+import { Exercises, AddNewEx, Food, AddNewFood } from '../models/Profile';
+import User from "../models/Profile";
 
 export default {
     data:()=>({
-        CurrentUser,
         User,
         Exercises,
         Food,

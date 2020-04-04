@@ -117,14 +117,15 @@
 </template>
 
 <script>
-import { CurrentUser, AddedExercise, currentDate } from "../models/Profile";
+import { AddedExercise, currentDate } from "../models/Profile";
+import User from "../models/Profile";
 currentDate();
 
 export default {
     name: 'ExHistory',
 
     data:()=>({
-        CurrentUser, 
+        User, 
         AddedExercise,
         history: [{
             date: currentDate()

@@ -101,12 +101,14 @@
 </template>
 
 <script>
-import { AddFood, RemoveExercise, CurrentUser, ExerciseType, currentDate } from "../models/Profile";
+import { AddFood, RemoveExercise, ExerciseType, currentDate } from "../models/Profile";
+import User from "../models/Profile";
 
 export default {
     name: 'Food',
 
     data:()=>({
+          User,
           apiKeyFood: "3749d9c020ee4f0a200708c580d345ce",
           apiIDFood: "27a679ca",
           apiKeyNutr: "b90b69a6ac4847d41ed7cb21fe65f3f8",
@@ -168,7 +170,7 @@ export default {
                 fat: Number(this.fat),
                 sodium: Number(this.sodium),
                 sugar: Number(this.sugar),
-                email: CurrentUser.Email,
+                email: User.CurrentUser.Email,
                 date: this.date
           });
              document.getElementById("error").innerHTML="Nice job! Keep it up!";

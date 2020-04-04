@@ -118,7 +118,20 @@ export const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'C
 
 //let variables
 
-export let CurrentUser = null;
+//export let CurrentUser = null;
+
+let ob = {
+    CurrentUser: null,
+    Login(email, password) {
+        const user = User.find(x => x.Email == email);
+        if(!user) throw Error('User not found');
+        if(user.Password != password) throw Error('Wrong password');
+
+        return this.CurrentUser = user;
+    }
+}
+
+export default ob;
 
 export let CurrentDRI = null;
 
@@ -134,13 +147,14 @@ export function findBMI(weight, height) {
 };
 
 export function currentDRI() {
-    const dri = DRI.find(x => x.Email == CurrentUser.Email);
+    const dri = DRI.find(x => x.Email == ob.CurrentUser.Email);
+    console.log(dri);
     if(!dri) throw Error('DRI not found');
     
     CurrentDRI = dri;
     return CurrentDRI;
 };
-
+/*
 export function Login(email, password) {
     const user = User.find(x => x.Email == email);
     if(!user) throw Error('User not found');
@@ -150,10 +164,10 @@ export function Login(email, password) {
 
     return CurrentUser;
 };
-
+*/
 export function Logout() {
-    CurrentUser = null;
-    return CurrentUser;
+    ob.CurrentUser = null;
+    return ob.CurrentUser;
 };
 
 export function AddExercise(exerciseList) {
@@ -225,8 +239,8 @@ export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, goal, sex
 };
 
 export function ChangeCurrent(user) {
-    CurrentUser = user;
-    return CurrentUser;
+    ob.CurrentUser = user;
+    return ob.CurrentUser;
 };
 
 export function SubmitChanges(changes) {    

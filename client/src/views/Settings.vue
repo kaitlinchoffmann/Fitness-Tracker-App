@@ -4,42 +4,42 @@
     <div class="section">
      <form id="settings-form">
      <div class="box" id="settings">
-      <h5 class="title is-5 has-text-centered">Edit Your Account:</h5>    
+      <h4 class="title is-4 has-text-centered">Edit Your Account</h4>    
       <hr>     
       <h6 class="title is-6 has-text-left">
           Name:
-          <input type="text" id="info" class="input is-small" v-model="CurrentUser.Name">
+          <input type="text" id="info" class="input is-small" v-model="User.CurrentUser.Name">
       </h6> 
       <h6 class="title is-6 has-text-left">
            Profile Photo:
-        <img :src="CurrentUser.Picture" class="card-image" id="settings-pic"/> <button class="button is-small btn-post">Edit</button>
+        <img :src="User.CurrentUser.Picture" class="card-image" id="settings-pic"/> <button class="button is-small btn-post">Edit</button>
       </h6> 
       <h6 class="title is-6 has-text-left">
            Email: 
-           <input type="email" id="info" class="input is-small" v-model="CurrentUser.Email">
+           <input type="email" id="info" class="input is-small" v-model="User.CurrentUser.Email">
       </h6> 
       <h6 class="title is-6 has-text-left">
            Age: 
-           <input type="number" min="0" max="150" id="info" class="input is-small" v-model="CurrentUser.Age">
+           <input type="number" min="0" max="150" id="info" class="input is-small" v-model="User.CurrentUser.Age">
       </h6>
       <h6 class="title is-6 has-text-left">
            Sex:<br/>      
-           <input type="radio" value="male" id="male" v-model="CurrentUser.Sex">
+           <input type="radio" value="male" id="male" v-model="User.CurrentUser.Sex">
            <label for="male" id="info"> Male</label><br/>
-           <input type="radio" value="female" id="female" v-model="CurrentUser.Sex">
+           <input type="radio" value="female" id="female" v-model="User.CurrentUser.Sex">
            <label for="female" id="info"> Female</label>    
      </h6> 
       <h6 class="title is-6 has-text-left">
            Height (inches): 
-           <input type="text" id="info" class="input is-small" v-model="CurrentUser.Height">
+           <input type="text" id="info" class="input is-small" v-model="User.CurrentUser.Height">
       </h6>           
       <h6 class="title is-6 has-text-left">
            Weight (pounds): 
-           <input type="text" class="input is-small" v-model="CurrentUser.Weight">
+           <input type="text" class="input is-small" v-model="User.CurrentUser.Weight">
       </h6> 
       <h6 class="title is-6 has-text-left">
            Goal: 
-           <select id="activity" v-model="CurrentUser.Goal"> 
+           <select id="activity" v-model="User.CurrentUser.Goal"> 
                 <option value="loseOne" id="info">Lose 1 Pound per Week</option>
                 <option value="loseTwo" id="info">Lose 2 Pounds per Week</option>
                 <option value="maintain" id="info">Maintain Weight</option>
@@ -49,7 +49,7 @@
       </h6> 
       <h6 class="title is-6 has-text-left">
            Activity Level: 
-           <select id="activity" v-model="CurrentUser.Activity"> 
+           <select id="activity" v-model="User.CurrentUser.Activity"> 
                 <option value="sedentary">Sedentary</option>
                 <option value="low">Low</option>
                 <option value="active">Active</option>
@@ -65,7 +65,8 @@
 </template>
 
 <script>
-import { AddExercise, RemoveExercise, CurrentUser, User, ExerciseType, currentDate, ProfileInfo, SubmitChanges } from "../models/Profile";
+import { AddExercise, RemoveExercise, ExerciseType, currentDate, ProfileInfo, SubmitChanges } from "../models/Profile";
+import User from "../models/Profile";
 
 export default {
     name: 'Settings',
@@ -73,7 +74,6 @@ export default {
     data:()=>({
         ProfileInfo,
         User,
-        CurrentUser,
         info: []
     }),
         methods: {
@@ -81,7 +81,7 @@ export default {
 
           },
           submitChanges() {
-            SubmitChanges(this.CurrentUser);
+            SubmitChanges(this.User.CurrentUser);
             this.$router.push('/profile');
           }
         }

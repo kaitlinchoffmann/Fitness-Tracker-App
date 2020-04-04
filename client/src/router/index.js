@@ -11,6 +11,7 @@ import ExHistory from '../views/ExHistory.vue'
 import FoodHistory from '../views/FoodHistory.vue'
 import Admin from '../views/Admin.vue'
 import { CurrentUser, ExerciseLog } from '../models/Profile'
+import User from '../models/Profile'
 
 Vue.use(VueRouter)
 
@@ -82,7 +83,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach( (to, from, next) => {
-    if( to.meta.IsSecret && !CurrentUser) next('/login');
+    if( to.meta.IsSecret && !User.CurrentUser) next('/login');
     else next();
 });
 

@@ -1,49 +1,22 @@
 <template>
-<div class="section">
-    <div class="container">
-      <div class="nav">
-        <ul>
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/about">About</router-link></li>
-          <li class="my-dropdown">
-            <router-link to="/foodhistory">Food</router-link>
-              <div class="dropdown-cnt">
-                <router-link to="/food">Log Food</router-link>
-              </div>  
-          </li>
-          <li class="my-dropdown">
-            <router-link to="/exhistory">Exercise</router-link>
-              <div class="dropdown-cnt">
-                <router-link to="/exercise">Log Exercise</router-link>
-              </div>  
-          </li>
-          <li class="my-dropdown">
-          <router-link to="/profile">Profile</router-link>
-              <div class="dropdown-cnt">
-                <router-link to="/settings">Settings</router-link>
-                <a href="#Logout" @click="logout">Logout</a>
-              </div>  
-          </li> 
-          <div class="icon-content">
-            <li class="icon"><router-link to="/register">Register</router-link></li>
-            <li class="icon icon-content">|</li>
-            <li class="icon icon-content"><router-link to="/login">Login</router-link></li>
-            <li class="icon"><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram fa-lg" aria-hidden="true"></i></a></li>
-            <li class="icon"><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-          </div>
-        </ul>
-      </div>
-    </div>
+<div class="section"> 
+  <LoginComp></LoginComp>
   </div>     
 </template>
 
 <script>
-import { Logout } from "../models/Profile";
+import { Logout, CurrentUser } from "../models/Profile";
+import LoginComp from "./LoginComponent";
+import User from "../models/Profile";
 
 export default {
   data: ()=>({
-    isOpen: false
+    isOpen: false, 
+    User: User
   }),
+  components: {
+    LoginComp
+  },
   methods: {
     logout() {
         Logout()
@@ -91,6 +64,12 @@ li a {
 .icon {
   float: right;
   margin-right: 50px;
+}
+
+.icon-name {
+  float: right;
+  margin-right: 0px;
+  width: 4.5rem;
 }
 
 .icon-content {
