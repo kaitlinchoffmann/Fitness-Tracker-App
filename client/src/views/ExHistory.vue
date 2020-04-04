@@ -4,7 +4,7 @@
             <div class="dropdown is-hoverable" style="width:300px;">
   <div class="dropdown-trigger">
     <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-      <span>Pick a Past Log:</span><br>
+      <span>Pick a Past Log </span><br>
       <span class="icon is-small">
         <i class="fas fa-angle-down" aria-hidden="true"></i>
       </span>
@@ -13,7 +13,7 @@
   <div class="dropdown-menu" id="dropdown-menu4" role="menu">
     <div class="dropdown-content has-text-centered">
       <div class="dropdown-item" v-for="x in allDates" :key="x.dates" id:x.dates>
-        <button class="button" @click="findRecent(x)">{{x}}</button>
+        <a @click="findRecent(x)">{{x}}</a>
       </div>
     </div>
   </div>
@@ -209,8 +209,14 @@ export default {
                      dates.push(AddedExercise[index].date);
                 }
         });
-            this.allDates = dates;
+            let datesDesc = this.sortDates;
+            this.allDates = dates.sort(datesDesc);
             return this.allDates;
+        },
+        sortDates(d1, d2){
+          if(d1 > d2) return -1;
+          if(d1 < d2) return 1;
+          return 0;
         },
         findRemain(completed) {
             let remaining = this.goal - completed;
@@ -229,6 +235,35 @@ table,th,td {
 
 #note {
   font-size: 14px;  
+}
+
+#dropdown-menu4 {
+  max-height:150px;
+  overflow-y:scroll;
+}
+
+.dropdown-menu {
+  min-width: 10rem;
+}
+
+.dropdown-content {
+  border: 1px solid lightgrey;
+}
+
+a {
+  color: #ffae00;
+}
+
+a:visited {
+  color: #ffae00;
+}
+
+a:hover {
+  color: #ff7b00;
+}
+
+a:active {
+  color: #ff7b00
 }
     
 </style>

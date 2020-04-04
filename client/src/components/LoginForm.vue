@@ -78,7 +78,7 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { currentDate, CurrentUser, currentDRI, CurrentDRI } from "../models/Profile";
+import { currentDate, currentDRI, CurrentDRI } from "../models/Profile";
 import User from "../models/Profile";
 
 export default {
@@ -86,7 +86,6 @@ export default {
     return {
       CurrentDRI,
       User,
-      CurrentUser,
       email: '',
       password: '',
       error: ''

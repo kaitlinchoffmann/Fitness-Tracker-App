@@ -66,7 +66,7 @@
               </div> 
                 <div class="box" style="max-width:500px;">
                     <h4>Or Look Up a Food Item:</h4><br/>
-                    <input class="input" type="text" v-model="search"><br/><br/>
+                    <input class="input" placeholder="enter food item" type="text" v-model="search"><br/><br/>
                     <button class="button is-primary is-small" @click="searchFood(search)">Search</button>    
                     <div v-if="foodResults!=''">
                     <hr>  

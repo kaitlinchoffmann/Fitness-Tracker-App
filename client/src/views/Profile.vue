@@ -7,7 +7,21 @@
     <div>
       <div style="float:left; margin-left:30px;">
         <img :src="User.CurrentUser.Picture" class="card-image" id="profile-pic"/>
-        <div id="status">{{User.CurrentUser.Status}}<button class="button is-small btn-status">Edit</button></div>
+        <div id="status" v-if="User.CurrentUser.Goal == 'maintain'">
+         <span id="status-first">Goal:</span> Maintain Weight
+        </div>
+        <div id="status" v-else-if="User.CurrentUser.Goal == 'loseOne'">
+          <span id="status-first">Goal:</span> Lose One Pound Per Week
+        </div>
+        <div id="status" v-else-if="User.CurrentUser.Goal == 'loseTwo'">
+          <span id="status-first">Goal:</span> Lose Two Pounds Per Week
+        </div>
+        <div id="status" v-if="User.CurrentUser.Goal == 'gainOne'">
+          <span id="status-first">Goal:</span> Gain One Pound Per Week
+        </div>
+        <div id="status" v-if="User.CurrentUser.Goal == 'gainTwo'">
+          <span id="status-first">Goal:</span> Gain Two Pounds Per Week
+        </div>
       </div>
           <div class="box" style="float:left;margin-left:7%;">
             <table class="table has-text-centered" style="width:300px;margin:auto;">
@@ -54,7 +68,7 @@
           </div>
           <div class="section" style="width:350px;max-height:200px;float:left;margin-left:4%;">
             <div class="box">
-              <h6 class="title is-6">Body Mass Index (BMI): {{User.CurrentUser.BMI}}</h6>
+              <h6 class="title is-6" id="status-first">Body Mass Index (BMI): <span id="bmi">{{User.CurrentUser.BMI}}</span></h6>
               <div v-if="User.CurrentUser.BMI < 18.5">
                 <p>You are Underweight - A Normal BMI is between 18.5-24.9</p>
               </div>
@@ -162,6 +176,18 @@ export default {
   box-shadow: 0px 1px 5px lightgrey;
   padding: 10px;
   margin-top: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+#status-first {
+  font-weight: bold;
+  color: slateblue;
+  font-size: 18px;
+}
+
+#bmi {
+  color: #363636;
 }
 
 .btn-post {

@@ -32,27 +32,12 @@
             <div v-else>
               <li class="icon-name">Hi, {{User.CurrentUser.Name}}!</li>  
             </div> 
-            <li class="icon"><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram fa-lg" aria-hidden="true"></i></a></li>
-            <li class="icon"><a href="https://www.facebook.com/" target="_blank"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+            <li class="icon"><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a></li>
+            <li class="icon"><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f fa-lg" aria-hidden="true"></i></a></li>
           </div>
         </ul>
       </div>
 </div>
-
-<!--
-    <div class="buttons">
-        <div v-if="CurrentUser">
-            Welcome, {{CurrentUser.Name}}
-        </div>
-        <div v-else>
-            <a class="button is-primary">
-                <strong>Sign up</strong>
-            </a>
-            <a class="button is-light" href="/login">
-                Log in
-            </a>
-        </div>
-    </div> -->
 </template>
 
 <script>
