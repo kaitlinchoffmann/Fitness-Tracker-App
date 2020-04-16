@@ -78,12 +78,14 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { currentDate, currentDRI, CurrentDRI } from "../models/Profile";
+import { currentDate, currentDRI, CurrentDRI, findDRI } from "../models/Profile";
 import User from "../models/Profile";
+import { Login, CurrentUser } from "../models/Users"
 
 export default {
   data(){
     return {
+      findDRI,
       CurrentDRI,
       User,
       email: '',
@@ -92,17 +94,16 @@ export default {
     }
   },
   methods: {
-    login() {
+    async login() {
       try {
-        User.Login(this.email, this.password);
-        console.log(User.CurrentUser.Email);
+        this.User.CurrentUser = await Login(this.email, this.password);
+        currentDRI();
         if(User.CurrentUser.IsAdmin == true) {
-          currentDRI();
           this.$router.push('/admin');
-        }
-        else {
+         }
+         else {
           this.$router.push('/profile');
-        }
+         }
       } catch(error) {
         this.error = error;
       }

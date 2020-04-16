@@ -158,7 +158,7 @@ export default {
       sex: '',
       eer: '',
       goal: '',
-      picture: '',
+      picture: 'https://www.seniorcatwellness.com/wp-content/uploads/2019/04/are-bananas-good-for-cats.jpg',
       Status: '',
       IsAdmin: false,
       error: '',

@@ -1,8 +1,22 @@
+const express = require('express');
+
+const router = express.Router();
+
+// router
+//     .post('/login', (req, res) => {
+//         try {
+//             const user = users.Login(req.body.email, req.body.password);
+//             res.send( { ...user, Password: undefined } );
+//         } catch (error) {
+//             res.status(401).send({ message: error.message });
+//         }
+//     });
+
 //const variables
 
-export const User = [
+const User = [
     {
-        Email: 'jill123@fakemail.com',
+        Email: 'jill@fakemail.com',
         Name: 'Jill', 
         Age: 31,
         Password: 'password',
@@ -32,12 +46,28 @@ export const User = [
         BMI: findBMI(107, 64),
         Status: "I'm the Admin!!",
         IsAdmin: true
+    },
+    {
+        Email: 'j@j',
+        Name: 'Jack', 
+        Age: 51,
+        Password: 'password',
+        Height: 69,
+        Weight: 250,
+        Activity: "low",
+        Sex: "male",
+        EER: findEER(51, 300, 69, "low", "maintain", "male"),
+        Goal: "maintain",
+        Picture: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+        BMI: findBMI(123, 63),
+        Status: 'I got this!',
+        IsAdmin: false
     }   
 ];
 
-export const DRI = [findDRI(2278, 123, "jill123@fakemail.com"), findDRI(1998, 107, "admin@fakemail.com"), findDRI(2278, 123, "jill@fakemail.com")];
+const DRI = [findDRI(2278, 123, "jill123@fakemail.com"), findDRI(1998, 107, "admin@fakemail.com")];
 
-export const Exercises = [
+const Exercises = [
     {
         Exercise: 'squats', 
         Type: 'strength'
@@ -56,7 +86,7 @@ export const Exercises = [
     }
 ];
 
-export const Food = [
+const Food = [
     { Food: 'apple',
       Group: 'Fruit'
     },
@@ -72,11 +102,11 @@ export const Food = [
     }
 ];
 
-export const AddedExercise = [];
+const AddedExercise = [];
 
-export const AddedFood = [];
+const AddedFood = [];
 
-export const Friends = [
+const Friends = [
     {   
         Email: 'jill123@fakemail.com',
         FriendEmail: 'jack@fakemail.com',
@@ -86,7 +116,7 @@ export const Friends = [
     }
 ];
 
-export const ExerciseLog = [ /* Maybe create a function for this*/
+const ExerciseLog = [ /* Maybe create a function for this*/
     {
         id: 100,
         Email: 'jill123@fakemail.com',
@@ -101,7 +131,7 @@ export const ExerciseLog = [ /* Maybe create a function for this*/
     }
 ];
 
-export const Posts = [
+const Posts = [
     {
         Email: 'jill123@fakemail.com',
         Post: 'Fun day at the gym!',
@@ -114,39 +144,22 @@ export const Posts = [
     }
 ];
 
-export const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'Coordination', 'Other'];
+const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'Coordination', 'Other'];
 
-//let variables
+let CurrentDRI = null;
 
-//export let CurrentUser = null;
+let cDate = null;
 
-let ob = {
-    CurrentUser: null,
-    Login(email, password) {
-        const user = User.find(x => x.Email == email);
-        if(!user) throw Error('User not found');
-        if(user.Password != password) throw Error('Wrong password');
-
-        return this.CurrentUser = user;
-    }
-}
-
-export default ob;
-
-export let CurrentDRI = null;
-
-export let cDate = null;
-
-export let ProfileInfo = null;
+let ProfileInfo = null;
 
 //functions
 
-export function findBMI(weight, height) {
+function findBMI(weight, height) {
     var bmi = (weight/(height * height)) * 703;
     return bmi.toFixed(2);
 };
 
-export function currentDRI() {
+function currentDRI() {
     const dri = DRI.find(x => x.Email == ob.CurrentUser.Email);
     console.log(dri);
     if(!dri) throw Error('DRI not found');
@@ -155,46 +168,26 @@ export function currentDRI() {
     return CurrentDRI;
 };
 
-export function initCurrentDRI(userEmail) {
-    const dri = DRI.find(x => x.Email == userEmail);
-    console.log(dri);
-    if(!dri) throw Error('DRI not found');
-    
-    CurrentDRI = dri;
-    return CurrentDRI;
-};
-
-/*
-export function Login(email, password) {
-    const user = User.find(x => x.Email == email);
-    if(!user) throw Error('User not found');
-    if(user.Password != password) throw Error('Wrong password');
-    
-    CurrentUser = user;
-
-    return CurrentUser;
-};
-*/
-export function Logout() {
+function Logout() {
     ob.CurrentUser = null;
     return ob.CurrentUser;
 };
 
-export function AddExercise(exerciseList) {
+function AddExercise(exerciseList) {
     for(var i = 0; i < exerciseList.length; i++) {
         AddedExercise.push(exerciseList[i]);
     }
     return AddedExercise;
 };
 
-export function AddFood(foodList) {
+function AddFood(foodList) {
     for(var i = 0; i < foodList.length; i++) {
         AddedFood.push(foodList[i]);
     }
     return AddedFood;
 };
 
-export function AddNewEx(exercise, type) {
+function AddNewEx(exercise, type) {
     const ex = Exercises.find(x => x.Exercise == exercise);
     if(ex) document.getElementById("exists").innerHTML="Exercise already exists";
     else {
@@ -204,7 +197,7 @@ export function AddNewEx(exercise, type) {
     }
 };
 
-export function AddNewFood(food, group) {
+function AddNewFood(food, group) {
     const newFood = Food.find(x => x.Food == food);
     if(newFood) document.getElementById("exists2").innerHTML="Food already exists";
     else {
@@ -214,7 +207,7 @@ export function AddNewFood(food, group) {
     }
 };
 
-export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, goal, sex) {
+function AddNewUser(user, email, name, age, pw, cpw, h, w, act, goal, sex) {
     const newUser = User.find(x => x.Email == email);
     if(newUser) throw Error('Email already linked to an account');
     if(email == "") throw Error('Please enter an email');
@@ -248,12 +241,12 @@ export function AddNewUser(user, email, name, age, pw, cpw, h, w, act, goal, sex
     }
 };
 
-export function ChangeCurrent(user) {
+function ChangeCurrent(user) {
     ob.CurrentUser = user;
     return ob.CurrentUser;
 };
 
-export function SubmitChanges(changes) {    
+function SubmitChanges(changes) {    
     var newBMI = findBMI(changes.Weight, changes.Height);
     changes.BMI = newBMI;
     var newEER = findEER(changes.Age, changes.Weight, changes.Height, changes.Activity, changes.Goal, changes.Sex);
@@ -266,12 +259,12 @@ export function SubmitChanges(changes) {
 };
 
 
-export function RemoveExercise(i, user, id) {
+function RemoveExercise(i, user, id) {
     const exercise = ExerciseLog.find(x => (x.Email == user.Email) && (x.id == id));
     exercise.splice(i,1);
 };
 
-export function currentDate() {
+function currentDate() {
     let current = new Date();
     let day = String(current.getDate()).padStart(2, '0');
     let month = String(current.getMonth()+ 1).padStart(2, '0');
@@ -281,7 +274,7 @@ export function currentDate() {
     return current;
 };
 
-export function findPA(sex, age, activity) { // PA = Physical Activity Coefficients
+function findPA(sex, age, activity) { // PA = Physical Activity Coefficients
     let PA = 0;
     if(activity == "sedentary") {
         PA = 1.0;
@@ -337,7 +330,7 @@ export function findPA(sex, age, activity) { // PA = Physical Activity Coefficie
     return PA;
 };
 
-export function findEER(age, weight, height, activity, goal, sex) { //Estimate Energy Requirement
+function findEER(age, weight, height, activity, goal, sex) { //Estimate Energy Requirement
     let EER = 0;
     let kg = weight / 2.20462;
     let m = 0.0254 * height;
@@ -401,7 +394,7 @@ export function findEER(age, weight, height, activity, goal, sex) { //Estimate E
     return EER;
 };
 
-export function findDRI(eer, weight, email) {
+function findDRI(eer, weight, email) {
     let lowFat = (eer * .20)/9;
     let highFat = (eer * .35)/9;
     let lowCarb = (eer * .45)/4;
@@ -420,4 +413,34 @@ export function findDRI(eer, weight, email) {
         Sugar: sugar.toFixed(0)
     };
     return goals;
+};
+
+// module.exports = {
+//     Login(email, password) {
+//         const user = User.find(x => x.Email == email);
+//         if(!user) throw Error('User not found');
+//         if(user.Password != password) throw Error('Wrong password');
+
+//         return user;
+//     },
+//     Get(userId) {
+//         return User[userId];
+//     }
+// }
+
+module.exports = {
+    router, User, DRI, Exercises, Food, AddedExercise, AddedFood, Friends, ExerciseLog,
+    Posts, ExerciseType, CurrentDRI, cDate, ProfileInfo, findBMI, currentDRI, Logout,
+    AddExercise, AddFood, AddNewEx, AddNewFood, AddNewUser, ChangeCurrent, SubmitChanges,
+    RemoveExercise, currentDate, findPA, findEER, findDRI, Login(email, password) {
+        const user = User.find(x => x.Email == email);
+        if(!user) throw Error('User not found');
+        if(user.Password != password) throw Error('Wrong password');
+
+        return user;
+    },
+    Get(userId) {
+        return User[userId];
+    }
+
 };
