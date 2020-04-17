@@ -78,19 +78,19 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { currentDate, currentDRI, CurrentDRI, findDRI } from "../models/Profile";
+import { currentDRI } from "../models/Profile";
 import User from "../models/Profile";
 import { Login, CurrentUser } from "../models/Users"
+import { Dri } from "../models/DRI"
 
 export default {
   data(){
     return {
-      findDRI,
-      CurrentDRI,
       User,
       email: '',
       password: '',
-      error: ''
+      error: '',
+      dri: ''
     }
   },
   methods: {

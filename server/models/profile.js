@@ -51,21 +51,21 @@ const User = [
         Email: 'j@j',
         Name: 'Jack', 
         Age: 51,
-        Password: 'password',
+        Password: 'p',
         Height: 69,
-        Weight: 250,
+        Weight: 300,
         Activity: "low",
         Sex: "male",
         EER: findEER(51, 300, 69, "low", "maintain", "male"),
         Goal: "maintain",
-        Picture: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        BMI: findBMI(123, 63),
-        Status: 'I got this!',
+        Picture: "https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale",
+        BMI: findBMI(300, 69),
+        Status: 'Doing a lot',
         IsAdmin: false
     }   
 ];
 
-const DRI = [findDRI(2278, 123, "jill123@fakemail.com"), findDRI(1998, 107, "admin@fakemail.com")];
+const DRI = [findDRI(2278, 123, "jill@fakemail.com"), findDRI(1998, 107, "admin@fakemail.com"), findDRI(3623,300,"j@j")];
 
 const Exercises = [
     {
@@ -164,8 +164,17 @@ function currentDRI() {
     console.log(dri);
     if(!dri) throw Error('DRI not found');
     
-    CurrentDRI = dri;
+    this.CurrentDRI = dri;
     return CurrentDRI;
+};
+
+function currentDRI2() {
+    const dri = DRI.find(x => x.Email == this.CurrentUser.Email);
+    console.log(dri);
+    if(!dri) throw Error('DRI not found');
+    
+    this.CurrentDRI = dri;
+    return this.CurrentDRI;
 };
 
 function Logout() {
@@ -248,14 +257,13 @@ function ChangeCurrent(user) {
 
 function SubmitChanges(changes) {    
     var newBMI = findBMI(changes.Weight, changes.Height);
-    changes.BMI = newBMI;
+    this.CurrentUser.BMI = newBMI;
     var newEER = findEER(changes.Age, changes.Weight, changes.Height, changes.Activity, changes.Goal, changes.Sex);
-    changes.EER = newEER;
+    this.CurrentUser.EER = newEER;
     var newDRI = findDRI(newEER, changes.Weight, changes.Email);
-    changes.DRI = newDRI;
-    CurrentDRI = newDRI;
-    ProfileInfo = changes;
-    return ProfileInfo;
+    this.CurrentUser.DRI = newDRI;
+    this.CurrentDRI = newDRI;
+    return this.CurrentDRI;
 };
 
 
@@ -415,6 +423,17 @@ function findDRI(eer, weight, email) {
     return goals;
 };
 
+let CurrentUser = null;
+
+function Login(email, password) {
+    const user = User.find(x => x.Email == email);
+    if(!user) throw Error('User not found');
+    if(user.Password != password) throw Error('Wrong password');
+
+    this.CurrentUser = user;
+    return user;
+};
+
 // module.exports = {
 //     Login(email, password) {
 //         const user = User.find(x => x.Email == email);
@@ -430,15 +449,9 @@ function findDRI(eer, weight, email) {
 
 module.exports = {
     router, User, DRI, Exercises, Food, AddedExercise, AddedFood, Friends, ExerciseLog,
-    Posts, ExerciseType, CurrentDRI, cDate, ProfileInfo, findBMI, currentDRI, Logout,
+    Posts, ExerciseType, CurrentDRI, cDate, ProfileInfo, findBMI, currentDRI, currentDRI2, Logout,
     AddExercise, AddFood, AddNewEx, AddNewFood, AddNewUser, ChangeCurrent, SubmitChanges,
-    RemoveExercise, currentDate, findPA, findEER, findDRI, Login(email, password) {
-        const user = User.find(x => x.Email == email);
-        if(!user) throw Error('User not found');
-        if(user.Password != password) throw Error('Wrong password');
-
-        return user;
-    },
+    RemoveExercise, currentDate, findPA, findEER, findDRI, Login, CurrentUser,
     Get(userId) {
         return User[userId];
     }

@@ -35,7 +35,8 @@ export const User = [
     }   
 ];
 
-export const DRI = [findDRI(2278, 123, "jill123@fakemail.com"), findDRI(1998, 107, "admin@fakemail.com"), findDRI(2278, 123, "jill@fakemail.com")];
+//export const DRI = [findDRI(2278, 123, "jill123@fakemail.com"), findDRI(1998, 107, "admin@fakemail.com"), findDRI(2278, 123, "jill@fakemail.com")];
+export const DRI = [findDRI(2278, 123, "jill@fakemail.com"), findDRI(2498, 107, "admin@fakemail.com"), findDRI(3623, 300, "j@j")];
 
 export const Exercises = [
     {
@@ -402,12 +403,12 @@ export function findEER(age, weight, height, activity, goal, sex) { //Estimate E
 };
 
 export function findDRI(eer, weight, email) {
-    let lowFat = (eer * .20)/9;
-    let highFat = (eer * .35)/9;
-    let lowCarb = (eer * .45)/4;
-    let  highCarb = (eer * .65)/4;
+    let lowFat = (Number(eer) * .20)/9;
+    let highFat = (Number(eer) * .35)/9;
+    let lowCarb = (Number(eer) * .45)/4;
+    let  highCarb = (Number(eer) * .65)/4;
     let pro = (weight/2.20462) * 0.8;
-    let sugar = (eer * .05)/4; 
+    let sugar = (Number(eer) * .05)/4; 
 
     let goals = {
         Email: email,

@@ -2,7 +2,8 @@
   <div class="container"> 
     <h1 class="title is-1">Profile Settings</h1>
     <div class="section">
-     <form id="settings-form">
+     <form id="settings-form" @submit.prevent="submitChanges">
+          {{error}}
      <div class="box" id="settings">
       <h4 class="title is-4 has-text-centered">Edit Your Account</h4>    
       <hr>     
@@ -65,24 +66,34 @@
 </template>
 
 <script>
-import { AddExercise, RemoveExercise, ExerciseType, currentDate, ProfileInfo, SubmitChanges } from "../models/Profile";
+import { AddExercise, RemoveExercise, ExerciseType, currentDate, ProfileInfo } from "../models/Profile";
+import { SubmitChanges, CurrentUser } from "../models/Settings"
 import User from "../models/Profile";
+import { CurrentDRI } from "../models/Settings";
 
 export default {
     name: 'Settings',
 
     data:()=>({
-        ProfileInfo,
+        CurrentDRI, 
         User,
-        info: []
+        info: [],
+        error: ''
     }),
         methods: {
           edit() {
 
           },
-          submitChanges() {
-            SubmitChanges(this.User.CurrentUser);
-            this.$router.push('/profile');
+          async submitChanges() {
+            try {      
+              this.CurrentDRI = await SubmitChanges(this.User.CurrentUser);
+              
+              //this.$router.push('/profile');
+            }
+            catch(error) {
+                 console.log(error);
+                 this.error = error;
+            }
           }
         }
 }
