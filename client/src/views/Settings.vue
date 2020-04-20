@@ -67,16 +67,17 @@
 
 <script>
 import { AddExercise, RemoveExercise, ExerciseType, currentDate, ProfileInfo } from "../models/Profile";
-import { SubmitChanges, CurrentUser } from "../models/Settings"
-import User from "../models/Profile";
-import { CurrentDRI } from "../models/Settings";
+import { SubmitChanges, currentUser } from "../models/Settings"
+import User from "../models/Users";
+import { CurrentDRI } from "../models/Users";
 
 export default {
     name: 'Settings',
 
     data:()=>({
+        User, 
+        test: User.CurrentUser,
         CurrentDRI, 
-        User,
         info: [],
         error: ''
     }),
@@ -85,10 +86,12 @@ export default {
 
           },
           async submitChanges() {
-            try {      
-              this.CurrentDRI = await SubmitChanges(this.User.CurrentUser);
+            try {        
+              console.log(this.test);
+               this.CurrentDRI = await SubmitChanges(this.test);   
+               this.User.CurrentUser = await currentUser();   
               
-              //this.$router.push('/profile');
+               this.$router.push('/profile');
             }
             catch(error) {
                  console.log(error);

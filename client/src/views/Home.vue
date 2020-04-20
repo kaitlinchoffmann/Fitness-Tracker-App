@@ -19,7 +19,6 @@
     <div style="padding-bottom: 50px;"></div>
   <footer class="footer"><div class="content has-text-centered">
     A Web App by Kaitlin Hoffmann
-    {{bobby}}
     </div></footer> 
  </div> 
 </template>
@@ -41,27 +40,3 @@ footer.footer {
 
 </style>
 
-<script>
-import test from "@/models/test.js";
-export default {
-  name: 'BobbySingle',
-  data(){
-    return{
-      bobby: {}
-    }
-  },
-  created() {
-    this.getBobbyData();
-  },
-  methods: {
-    async getBobbyData() {
-      test.getBobbySingle(100)
-      .then(
-        (bobby => {
-          this.$set(this, "bobby", bobby);
-        }).bind(this)
-      );
-    }
-  }
-}
-</script>

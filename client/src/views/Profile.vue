@@ -2,24 +2,24 @@
 <div class="container profile">
   <div class = "section">
     <h2 class="title is-2 has-text-left">
-      {{CurrentUser.Name}}     
+      {{User.CurrentUser.Name}}     
     </h2>
     <div>
       <div style="float:left; margin-left:30px;">
-        <img :src="CurrentUser.Picture" class="card-image" id="profile-pic"/>
-        <div id="status" v-if="CurrentUser.Goal == 'maintain'">
+        <img :src="User.CurrentUser.Picture" class="card-image" id="profile-pic"/>
+        <div id="status" v-if="User.CurrentUser.Goal == 'maintain'">
          <span id="status-first">Goal:</span> Maintain Weight
         </div>
-        <div id="status" v-else-if="CurrentUser.Goal == 'loseOne'">
+        <div id="status" v-else-if="User.CurrentUser.Goal == 'loseOne'">
           <span id="status-first">Goal:</span> Lose One Pound Per Week
         </div>
-        <div id="status" v-else-if="CurrentUser.Goal == 'loseTwo'">
+        <div id="status" v-else-if="User.CurrentUser.Goal == 'loseTwo'">
           <span id="status-first">Goal:</span> Lose Two Pounds Per Week
         </div>
-        <div id="status" v-if="CurrentUser.Goal == 'gainOne'">
+        <div id="status" v-if="User.CurrentUser.Goal == 'gainOne'">
           <span id="status-first">Goal:</span> Gain One Pound Per Week
         </div>
-        <div id="status" v-if="CurrentUser.Goal == 'gainTwo'">
+        <div id="status" v-if="User.CurrentUser.Goal == 'gainTwo'">
           <span id="status-first">Goal:</span> Gain Two Pounds Per Week
         </div>
       </div>
@@ -35,27 +35,27 @@
               <tbody>
                 <tr>
                   <td>Calories</td>
-                  <td>{{CurrentUser.EER.toFixed(0)}}</td>
+                  <td>{{User.CurrentUser.EER.toFixed(0)}}</td>
                 </tr>
                 <tr>
                   <td>Protein(g)</td>
-                  <td>{{CurrentDRI.Protein}}</td>
+                  <td>{{User.CurrentUser.DRI.Protein}}</td>
                 </tr>
                 <tr>
                   <td>Carbs(g)</td>
-                  <td>{{CurrentDRI.LowCarb}}-{{CurrentDRI.HighCarb}}</td>
+                  <td>{{User.CurrentUser.DRI.LowCarb}}-{{User.CurrentUser.DRI.HighCarb}}</td>
                 </tr>
                 <tr>
                   <td>Fat(g)</td>
-                  <td>{{CurrentDRI.LowFat}}-{{CurrentDRI.HighFat}}</td>
+                  <td>{{User.CurrentUser.DRI.LowFat}}-{{User.CurrentUser.DRI.HighFat}}</td>
                 </tr>
                 <tr>
                   <td>Sodium(mg)</td>
-                  <td>{{CurrentDRI.Sodium}}</td>
+                  <td>{{User.CurrentUser.DRI.Sodium}}</td>
                 </tr>
                 <tr>
                   <td>Sugar(g)</td>
-                  <td>{{CurrentDRI.Sugar}}</td>
+                  <td>{{User.CurrentUser.DRI.Sugar}}</td>
                 </tr>
               </tbody>
             </table>
@@ -69,16 +69,16 @@
           <div class="section" style="width:350px;max-height:200px;float:left;margin-left:4%;">
             <div class="box">
               <h6 class="title is-6" id="status-first">Body Mass Index (BMI): <span id="bmi">{{User.CurrentUser.BMI}}</span></h6>
-              <div v-if="CurrentUser.BMI < 18.5">
+              <div v-if="User.CurrentUser.BMI < 18.5">
                 <p>You are Underweight - A Normal BMI is between 18.5-24.9</p>
               </div>
-              <div v-else-if="CurrentUser.BMI < 25">
+              <div v-else-if="User.CurrentUser.BMI < 25">
                 <p>You are Normal Weight</p>
               </div>
-              <div v-else-if="CurrentUser.BMI < 30">
+              <div v-else-if="User.CurrentUser.BMI < 30">
                 <p>You are Overweight - A Normal BMI is between 18.5-24.9</p>
               </div>
-              <div v-else-if="CurrentUser.BMI > 30">
+              <div v-else-if="User.CurrentUser.BMI > 30">
                 <p>You are Obese - A Normal BMI is between 18.5-24.9</p>
               </div>
             </div>
@@ -105,9 +105,9 @@
 
 <script>
 import { Friends, Posts, AddedExercise, AddedFood, ProfileInfo } from "../models/Profile";
-import User from "../models/Profile";
-import { CurrentDRI, CurrentUser} from "../models/Profile2";
-
+import User from "../models/Users";
+//import { CurrentDRI } from "../models/Users";
+//instead, do a get for CurrentDRI, CurrentUser, etc.
 export default {
     name: 'Profile',
     mounted:function(){
@@ -119,8 +119,6 @@ export default {
     data:()=>({
         ProfileInfo,
         User,
-        CurrentUser,
-        CurrentDRI,
         Friends,
         Posts, 
         AddedExercise,
@@ -133,7 +131,7 @@ export default {
     methods: {
         findExercise(recent) {
             const userExercise = this.AddedExercise.map(function(x, index) {
-                if(x.email == CurrentUser.Email) {
+                if(x.email == User.CurrentUser.Email) {
                     recent.push(AddedExercise[index]);
                 }
             }
@@ -144,7 +142,7 @@ export default {
         },
         findFood(recent) {
             const userFood = this.AddedFood.map(function(x, index) {
-                if(x.email == CurrentUser.Email) {
+                if(x.email == User.CurrentUser.Email) {
                     recent.push(AddedFood[index]);
                 }
             }

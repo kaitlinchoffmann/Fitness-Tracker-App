@@ -75,13 +75,14 @@
 </template>
 
 <script>
-import { AddExercise, RemoveExercise, CurrentUser, ExerciseType, currentDate, ProfileInfo } from "../models/Profile";
-import User from "../models/Profile";
+import { currentDate } from "../models/Profile";
+import { addExercise, getExercise, AddedExercise } from "../models/Exercise"
+import User from "../models/Users";
+
 export default {
     name: 'Exercise',
 
     data:()=>({
-          ProfileInfo,
           exType: "",
           exName: "",
           reps: "",
@@ -90,7 +91,8 @@ export default {
           time: "",
           intensity: "",
           date: currentDate(),
-          exercises: []
+          exercises: [],
+          AddedExercise
         }),
         methods: {
           remove(i){
@@ -143,9 +145,16 @@ export default {
               this.intensity="";
             }
           },
-          addExercise() {
-            AddExercise(this.exercises);
+          async addExercise() {
+            try {
+              await addExercise(this.exercises);
+              this.AddedExercise = await getExercise(User.CurrentUser.Email);
+            //AddExercise(this.exercises);
             this.$router.push('/exhistory');
+            }
+            catch (error) {
+              console.log(error);
+            }
           }
         }
 }

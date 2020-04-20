@@ -75,7 +75,20 @@ export const Food = [
 
 export const AddedExercise = [];
 
-export const AddedFood = [];
+export const AddedFood = [
+    {
+        calories:283,
+        carbs:75,
+        date:"2020-04-19",
+        email:"admin@fakemail.com",
+        fat:1,
+        food:"apple",
+        group:"Fruit",
+        protein:1,
+        sodium:5,
+        sugar:57
+    }
+];
 
 export const Friends = [
     {   

@@ -74,31 +74,31 @@
             </tr>
             <tr>
               <td>Protein(g)</td>  
-              <td>{{CurrentDRI.Protein}}</td>
+              <td>{{User.CurrentUser.DRI.Protein}}</td>
               <td>{{nutrition[1]}}</td>
               <td>{{goalsLeft[1]}}</td>  
             </tr>
             <tr>
               <td>Carbs(g)</td>  
-              <td>{{CurrentDRI.LowCarb}} - {{CurrentDRI.HighCarb}}</td>
+              <td>{{User.CurrentUser.DRI.LowCarb}} - {{User.CurrentUser.DRI.HighCarb}}</td>
               <td>{{nutrition[3]}}</td>
               <td>{{goalsLeft[3]}}</td>  
             </tr>
             <tr>
               <td>Fat(g)</td>  
-              <td>{{CurrentDRI.LowFat}} - {{CurrentDRI.HighFat}}</td>
+              <td>{{User.CurrentUser.DRI.LowFat}} - {{User.CurrentUser.DRI.HighFat}}</td>
               <td>{{nutrition[2]}}</td>
               <td>{{goalsLeft[2]}}</td>  
             </tr>
             <tr>
               <td>Sodium(mg)</td>  
-              <td>{{CurrentDRI.Sodium}}</td>
+              <td>{{User.CurrentUser.DRI.Sodium}}</td>
               <td>{{nutrition[4]}}</td>
               <td>{{goalsLeft[4]}}</td>  
             </tr>
             <tr>
               <td>Sugar(g)</td>  
-              <td>{{CurrentDRI.Sugar}}</td>
+              <td>{{User.CurrentUser.DRI.Sugar}}</td>
               <td>{{nutrition[5]}}</td>
               <td>{{goalsLeft[5]}}</td>  
             </tr>
@@ -111,17 +111,16 @@
 </template>
 
 <script>
-import { AddedFood, currentDate, findEER, DRI, CurrentDRI } from "../models/Profile";
-import User from "../models/Profile";
+import { currentDate, findEER } from "../models/Profile";
+import User from "../models/Users";
+import { AddedFood } from "../models/Food";
 currentDate();
 
 export default {
     name: 'FoodHistory',
-
+    
     data:()=>({
-        CurrentDRI,
-        User,
-        DRI, 
+        User, 
         AddedFood,
         history: [{
             date: currentDate()
@@ -129,11 +128,8 @@ export default {
         allDates: [],
         nutrition: [0,0,0,0,0,0],
         calories: User.CurrentUser.EER.toFixed(0),
-        goalsLeft: [ User.CurrentUser.EER.toFixed(0), CurrentDRI.Protein, CurrentDRI.HighFat, CurrentDRI.HighCarb, CurrentDRI.Sodium, CurrentDRI.Sugar]
+        goalsLeft: [ User.CurrentUser.EER.toFixed(0), User.CurrentUser.DRI.Protein, User.CurrentUser.DRI.HighFat, User.CurrentUser.DRI.HighCarb, User.CurrentUser.DRI.Sodium, User.CurrentUser.DRI.Sugar]
     }),
-    components: {
-      
-    },
     mounted:function(){
         this.findRecent(currentDate());
         this.findDates();
@@ -152,7 +148,7 @@ export default {
                 let nutri = [0,0,0,0,0,0];
                 let hist = [];
                 let his = AddedFood.map(function(x, index) {
-                    if(x.date == date) {
+                    if(x.date == date && x.email == User.CurrentUser.Email) {
                         hist.push(AddedFood[index]);
                         nutri[0] += AddedFood[index].calories;
                         nutri[1] += AddedFood[index].protein;
@@ -199,11 +195,11 @@ export default {
         },
         findRemain(cal, p, f, car, so, su) {
             let cals = this.calories - cal;
-            let pro = this.CurrentDRI.Protein - p;
-            let fat = this.CurrentDRI.HighFat - f;
-            let carb = this.CurrentDRI.HighCarb - car;
-            let sod = this.CurrentDRI.Sodium - so;
-            let sug = this.CurrentDRI.Sugar - su;
+            let pro = this.User.CurrentUser.DRI.Protein - p;
+            let fat = this.User.CurrentUser.DRI.HighFat - f;
+            let carb = this.User.CurrentUser.DRI.HighCarb - car;
+            let sod = this.User.CurrentUser.DRI.Sodium - so;
+            let sug = this.User.CurrentUser.DRI.Sugar - su;
 
             this.goalsLeft[0] = cals;
             this.goalsLeft[1] = pro;

@@ -101,8 +101,9 @@
 </template>
 
 <script>
-import { AddFood, RemoveExercise, ExerciseType, currentDate } from "../models/Profile";
-import User from "../models/Profile";
+import { currentDate } from "../models/Profile";
+import User from "../models/Users";
+import { addFood, AddedFood, getFood } from "../models/Food";
 
 export default {
     name: 'Food',
@@ -129,7 +130,8 @@ export default {
           sodium: "",
           sugar: "",
           date: currentDate(),
-          foodList: []
+          foodList: [],
+          AddedFood
         }),
         methods: {
           remove(i){
@@ -185,9 +187,14 @@ export default {
               this.sugar="";
             }
           },
-          addFood() {
-            AddFood(this.foodList);
+          async addFood() {
+            try {
+            await addFood(this.foodList);
+            this.AddedFood = await getFood(User.CurrentUser.Email);
             this.$router.push('/foodhistory');
+            } catch (error) {
+              console.log(error);
+            }
           },
           searchFood(search) {
               var urlFood = "https://api.edamam.com/api/food-database/parser?ingr=" + search + "&app_id=" + this.apiIDFood + "&app_key=" + this.apiKeyFood;

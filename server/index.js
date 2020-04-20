@@ -1,54 +1,42 @@
 const express = require('express');
 const path = require('path');
 
-const bodyParser = require('body-parser');
-const cors = require('cors');
-
 const profile = require('./models/profile');
 const userController = require('./controllers/user');
 
 const app = express();
 const port = 3000;
 
+//CORS middleware
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); //update to accept only from domain expected request is coming from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  next();
+});
 
-
-// let bobby = [
-//   {
-//     id: 100,
-//     name: "bonny",
-//     age: 12
-//   },
-//   {
-//     id: 101,
-//     name: "lonny",
-//     age: 45
-//   }
-// ];
-
+//authentication
 app.use(function(req, res, next) {
   const arr = (req.headers.authorization || "").split(" ");
   if(arr.length > 1 && arr[1] != null){
-      req.userId = +arr[1];
+      req.userID = +arr[1];
   }
   next();
 });
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Headers, Authorization");
-  next();
-});
+// app.use(function(req, res, next) {
+//   const arr = (req.headers.authorization || "").split(" ");
+//   if(arr.length > 1 && arr[1] != null){
+//       req.userId = +arr[1];
+//   }
+//   next();
+// });
 
-// app.get('/bobby', (req, res) => {
-//   res.send(bobby);
-//  });
- 
-//  app.get('/bobby/:id', (req, res) => {
-//    const id = Number(req.params.id);  
-//    const boby = bobby.find(x => x.id === id);
-//    res.send(boby);
-//  });
+// app.use(function(req, res, next) {
+//   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+//   res.header("Access-Control-Allow-Methods", "DELETE, POST, GET, OPTIONS");
+//   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Headers, Authorization");
+//   next();
+// });
 
 app
     .use(express.json())
@@ -57,9 +45,15 @@ app
     .get('/', (req, res) => res.send('Welcome to Healthy Habits'))
     .use('/user', userController)  
     
-    .use((req, res) => {
-      const homepath = path.join(__dirname, '/../client/dist/index.html');
-      res.sendFile(homepath);
+    // .use((req, res) => {
+    //   const homepath = path.join(__dirname, '/../client/dist/index.html');
+    //   res.sendFile(homepath);
+    // })
+
+    .use((err, req, res, next) => {
+      console.error(err);
+      const errorCode = err.code || 500;
+      res.status(errorCode).send({message: err.message});
     })
    
 app.listen(port, () => console.log(`Listening at http://localhost:${port}`));

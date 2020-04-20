@@ -1,17 +1,3 @@
-const express = require('express');
-
-const router = express.Router();
-
-// router
-//     .post('/login', (req, res) => {
-//         try {
-//             const user = users.Login(req.body.email, req.body.password);
-//             res.send( { ...user, Password: undefined } );
-//         } catch (error) {
-//             res.status(401).send({ message: error.message });
-//         }
-//     });
-
 //const variables
 
 const User = [
@@ -29,7 +15,9 @@ const User = [
         Picture: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
         BMI: findBMI(123, 63),
         Status: 'Getting those gains!!!',
-        IsAdmin: false
+        IsAdmin: false,
+        DRI: findDRI(2278, 123, "jill@fakemail.com"),
+        userID: 0
     },
     {
         Email: "admin@fakemail.com",
@@ -45,7 +33,9 @@ const User = [
         Picture: 'https://media.wired.com/photos/5932b220f682204f736975f0/4:3/w_660,c_limit/ff_cats_f.jpg',
         BMI: findBMI(107, 64),
         Status: "I'm the Admin!!",
-        IsAdmin: true
+        IsAdmin: true,
+        DRI: findDRI(1998, 107, "admin@fakemail.com"),
+        userID: 1
     },
     {
         Email: 'j@j',
@@ -61,7 +51,9 @@ const User = [
         Picture: "https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale",
         BMI: findBMI(300, 69),
         Status: 'Doing a lot',
-        IsAdmin: false
+        IsAdmin: false,
+        DRI: findDRI(3623,300,"j@j"),
+        userID: 2
     }   
 ];
 
@@ -102,9 +94,35 @@ const Food = [
     }
 ];
 
-const AddedExercise = [];
+const AddedExercise = [
+    {
+        date:"2020-04-20",
+        email:"j@j",
+        exName:"squats",
+        exType:"Strength",
+        intensity:"moderate",
+        reps:"10",
+        sets:"4",
+        time:15,
+        weight:"50"
 
-const AddedFood = [];
+    }
+];
+
+const AddedFood = [
+    {
+        calories:283,
+        carbs:75,
+        date:"2020-04-20",
+        email:"admin@fakemail.com",
+        fat:1,
+        food:"bagel",
+        group:"Fruit",
+        protein:1,
+        sodium:5,
+        sugar:57
+    }
+];
 
 const Friends = [
     {   
@@ -160,7 +178,7 @@ function findBMI(weight, height) {
 };
 
 function currentDRI() {
-    const dri = DRI.find(x => x.Email == ob.CurrentUser.Email);
+    const dri = DRI.find(x => x.Email == this.CurrentUser.Email);
     console.log(dri);
     if(!dri) throw Error('DRI not found');
     
@@ -181,6 +199,26 @@ function Logout() {
     ob.CurrentUser = null;
     return ob.CurrentUser;
 };
+
+function getUserExercises(currentEmail) {
+    const exercises = [];
+    const ex = AddedExercise.map(function(x, index) {
+        if(x.email == currentEmail) {
+            exercises.push(AddedExercise[index]);
+        }
+    });
+    return exercises;
+}
+
+function getUserFood(currentEmail) {
+    const food = [];
+    AddedFood.map(function (x, index) {
+        if(x.email == currentEmail) {
+            food.push(AddedFood[index]);
+        }
+    });
+    return food;
+}
 
 function AddExercise(exerciseList) {
     for(var i = 0; i < exerciseList.length; i++) {
@@ -255,7 +293,8 @@ function ChangeCurrent(user) {
     return ob.CurrentUser;
 };
 
-function SubmitChanges(changes) {    
+function SubmitChanges(changes) {  
+    this.CurrentUser = changes; 
     var newBMI = findBMI(changes.Weight, changes.Height);
     this.CurrentUser.BMI = newBMI;
     var newEER = findEER(changes.Age, changes.Weight, changes.Height, changes.Activity, changes.Goal, changes.Sex);
@@ -263,6 +302,7 @@ function SubmitChanges(changes) {
     var newDRI = findDRI(newEER, changes.Weight, changes.Email);
     this.CurrentUser.DRI = newDRI;
     this.CurrentDRI = newDRI;
+    console.log(this.CurrentUser);
     return this.CurrentDRI;
 };
 
@@ -425,34 +465,21 @@ function findDRI(eer, weight, email) {
 
 let CurrentUser = null;
 
-function Login(email, password) {
-    const user = User.find(x => x.Email == email);
-    if(!user) throw Error('User not found');
-    if(user.Password != password) throw Error('Wrong password');
-
-    this.CurrentUser = user;
-    return user;
-};
-
-// module.exports = {
-//     Login(email, password) {
-//         const user = User.find(x => x.Email == email);
-//         if(!user) throw Error('User not found');
-//         if(user.Password != password) throw Error('Wrong password');
-
-//         return user;
-//     },
-//     Get(userId) {
-//         return User[userId];
-//     }
-// }
 
 module.exports = {
-    router, User, DRI, Exercises, Food, AddedExercise, AddedFood, Friends, ExerciseLog,
+    User, DRI, Exercises, Food, AddedExercise, AddedFood, Friends, ExerciseLog,
     Posts, ExerciseType, CurrentDRI, cDate, ProfileInfo, findBMI, currentDRI, currentDRI2, Logout,
     AddExercise, AddFood, AddNewEx, AddNewFood, AddNewUser, ChangeCurrent, SubmitChanges,
-    RemoveExercise, currentDate, findPA, findEER, findDRI, Login, CurrentUser,
-    Get(userId) {
+    RemoveExercise, currentDate, findPA, findEER, findDRI, CurrentUser, getUserExercises, getUserFood,
+    Login(email, password) {
+        const user = User.find(x => x.Email == email);
+        if(!user) throw Error('User not found');
+        if(user.Password != password) throw Error('Wrong password');
+    
+        this.CurrentUser = user;
+        return user;
+    },
+    GetUser(userId) {
         return User[userId];
     }
 

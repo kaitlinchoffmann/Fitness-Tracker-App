@@ -117,8 +117,9 @@
 </template>
 
 <script>
-import { AddedExercise, currentDate } from "../models/Profile";
-import User from "../models/Profile";
+import { currentDate } from "../models/Profile";
+import User from "../models/Users";
+import { AddedExercise } from "../models/Exercise";
 currentDate();
 
 export default {
@@ -136,9 +137,6 @@ export default {
         time: 0,
         goalsLeft: 30
     }),
-    components: {
-      
-    },
     mounted:function(){
         this.findRecent(currentDate());
         this.findDates();
@@ -158,7 +156,7 @@ export default {
                 let completed = 0;
                 let hist = [];
                 let his = AddedExercise.map(function(x, index) {
-                    if(x.date == date) {
+                    if(x.date == date && x.email == User.CurrentUser.Email) {
                         hist.push(AddedExercise[index]);
                         if(AddedExercise[index].intensity == "moderate" || AddedExercise[index].intensity == "vigorous") {
                             completed += AddedExercise[index].time;

@@ -78,32 +78,32 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { currentDRI } from "../models/Profile";
-import User from "../models/Profile";
-import { Login, CurrentUser } from "../models/Users"
-import { Dri } from "../models/DRI"
+import User from "../models/Users";
+import { currentDRI, CurrentDRI } from "../models/Users"
+import { getFood } from "../models/Food";
+import { getExercise } from "../models/Exercise";
 
 export default {
   data(){
     return {
-      User,
       email: '',
       password: '',
-      error: '',
-      dri: ''
+      error: ''
     }
   },
   methods: {
     async login() {
       try {
-        this.User.CurrentUser = await Login(this.email, this.password);
-        currentDRI();
-        if(User.CurrentUser.IsAdmin == true) {
+        await User.Login(this.email, this.password);
+        await currentDRI();
+        await getFood(this.email);
+        await getExercise(this.email);
+       /* if(User.CurrentUser.IsAdmin == true) {
           this.$router.push('/admin');
-         }
-         else {
+         } 
+         else { */
           this.$router.push('/profile');
-         }
+         //}
       } catch(error) {
         this.error = error;
       }

@@ -23,7 +23,6 @@ export default async function myFetch(url, data){
 
     if(response.ok){
         console.log({ success: true })
-        console.log("hi")
         return await response.json();
     }else{
         console.log({ success: response.statusText })

@@ -11,7 +11,7 @@ import ExHistory from '../views/ExHistory.vue'
 import FoodHistory from '../views/FoodHistory.vue'
 import Admin from '../views/Admin.vue'
 import ExerciseLog from '../models/Profile'
-import User from '../models/Profile'
+import User from '../models/Users'
 
 Vue.use(VueRouter)
 

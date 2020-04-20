@@ -1,13 +1,13 @@
 <template>
 <div class="section"> 
-  <LoginComp></LoginComp>
+  <LoginComp :CurrentUser="User.CurrentUser"></LoginComp>
   </div>     
 </template>
 
 <script>
-import { Logout, CurrentUser } from "../models/Profile";
+import { Logout } from "../models/Profile";//, CurrentUser
 import LoginComp from "./LoginComponent";
-import User from "../models/Profile";
+import User from "../models/Users";
 
 export default {
   data: ()=>({
