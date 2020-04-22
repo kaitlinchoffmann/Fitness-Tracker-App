@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import { currentDate } from "../models/Profile";
+import { currentDate } from "../models/Date";
 import User from "../models/Users";
 import { AddedExercise } from "../models/Exercise";
 currentDate();

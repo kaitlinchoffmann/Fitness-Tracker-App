@@ -21,17 +21,45 @@ router
     .post('/login', (req, res) => {
         try {
             const user = users.Login(req.body.email, req.body.password);
-            const cDri = users.currentDRI();
             res.send( { ...user, Password: undefined } );
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
     })
 
-    .post('getDRI', (req, res) => {
+    //register - new user
+    .post('/register', (req, res) => {
         try {
-            const cDri = users.currentDRI();
-            res.send( { ...cDri } );
+            const user = users.AddNewUser(req.body.email, req.body.name, req.body.age, req.body.pw, req.body.cpw, req.body.h, req.body.w, req.body.act, req.body.goal, req.body.sex);
+            res.send( { ...user, Password: undefined } );
+        } catch (error) {
+            res.status(401).send({ message: error.message });
+        }
+    })
+
+    .post('/registerUser', (req, res) => {
+        try {
+            const newUser = users.AddNewUserAdmin(req.body.name, req.body.email, req.body.pw, req.body.isAd);
+            res.send( { ...newUser, Password: undefined });
+        } catch (error) {
+            res.status(401).send({ message: error.message });
+        }
+    })
+
+    .post('/banUser', (req, res) => {
+        try {
+            const bannedUser = users.BanUser(req.body.userEmail);
+            console.log(users.BannedUsers);
+            res.send({ ...bannedUser, Password: undefined });
+        } catch (error) {
+            res.status(401).send({ message: error.message });
+        }
+    })
+
+    .get('/logout', (req, res) => {
+        try {
+            const user = users.Logout();
+            res.send( {...user} );
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
@@ -92,12 +120,6 @@ router
         catch (error) {
             res.status(401).send( { message: error.message });
         }
-    })
-
-
-    .get('/getDri', (req, res) => {
-       let dri = users.currentDRI2();
-       res.send(dri);
     })
 
 

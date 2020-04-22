@@ -17,7 +17,7 @@ const User = [
         Status: 'Getting those gains!!!',
         IsAdmin: false,
         DRI: findDRI(2278, 123, "jill@fakemail.com"),
-        userID: 0
+        userID: 1
     },
     {
         Email: "admin@fakemail.com",
@@ -35,7 +35,7 @@ const User = [
         Status: "I'm the Admin!!",
         IsAdmin: true,
         DRI: findDRI(1998, 107, "admin@fakemail.com"),
-        userID: 1
+        userID: 2
     },
     {
         Email: 'j@j',
@@ -53,46 +53,29 @@ const User = [
         Status: 'Doing a lot',
         IsAdmin: false,
         DRI: findDRI(3623,300,"j@j"),
-        userID: 2
+        userID: 3
+    },
+    {
+        Email: 'm@m',
+        Name: 'Moopy', 
+        Age: 19,
+        Password: 'm',
+        Height: 61,
+        Weight: 130,
+        Activity: "low",
+        Sex: "male",
+        EER: findEER(19, 130, 61, "low", "maintain", "male"),
+        Goal: "maintain",
+        Picture: "https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale",
+        BMI: findBMI(130, 61),
+        Status: 'Doing bad stuff',
+        IsAdmin: false,
+        DRI: findDRI(2200,130,"m@m"),
+        userID: 6
     }   
 ];
 
-const DRI = [findDRI(2278, 123, "jill@fakemail.com"), findDRI(1998, 107, "admin@fakemail.com"), findDRI(3623,300,"j@j")];
-
-const Exercises = [
-    {
-        Exercise: 'squats', 
-        Type: 'strength'
-    },
-    {
-        Exercise: 'barbell',
-        Type: 'strength'
-    },
-    {
-        Exercise: 'jogging',
-        Type: 'cardio'
-    },
-    {
-        Exercise: 'threadmill',
-        Type: 'cardio'
-    }
-];
-
-const Food = [
-    { Food: 'apple',
-      Group: 'Fruit'
-    },
-    { Food: 'broccoli', 
-      Group: 'Vegetable'
-    },
-    {
-      Food: 'steak',
-      Group: 'Grain'
-    },
-    { Food: 'pasta',
-      Group: 'Grain'
-    }
-];
+let CurrentUser = null;
 
 const AddedExercise = [
     {
@@ -149,6 +132,8 @@ const ExerciseLog = [ /* Maybe create a function for this*/
     }
 ];
 
+const Updates = [];
+
 const Posts = [
     {
         Email: 'jill123@fakemail.com',
@@ -166,9 +151,31 @@ const ExerciseType = ['Aerobic', 'Strength', 'Flexibility', 'Balance', 'Coordina
 
 let CurrentDRI = null;
 
+let BannedUsers = [
+    {
+        Email: 'm@m',
+        Name: 'Moopy', 
+        Age: 19,
+        Password: 'm',
+        Height: 61,
+        Weight: 130,
+        Activity: "low",
+        Sex: "male",
+        EER: findEER(19, 130, 61, "low", "maintain", "male"),
+        Goal: "maintain",
+        Picture: "https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale",
+        BMI: findBMI(130, 61),
+        Status: 'Doing bad stuff',
+        IsAdmin: false,
+        DRI: findDRI(2200,130,"m@m"),
+        userID: 6
+    }  
+];
+
 let cDate = null;
 
 let ProfileInfo = null;
+
 
 //functions
 
@@ -178,26 +185,16 @@ function findBMI(weight, height) {
 };
 
 function currentDRI() {
-    const dri = DRI.find(x => x.Email == this.CurrentUser.Email);
-    console.log(dri);
+    const dri = User.find(x => x.Email == this.CurrentUser.Email);
     if(!dri) throw Error('DRI not found');
     
     this.CurrentDRI = dri;
     return CurrentDRI;
 };
 
-function currentDRI2() {
-    const dri = DRI.find(x => x.Email == this.CurrentUser.Email);
-    console.log(dri);
-    if(!dri) throw Error('DRI not found');
-    
-    this.CurrentDRI = dri;
-    return this.CurrentDRI;
-};
-
 function Logout() {
-    ob.CurrentUser = null;
-    return ob.CurrentUser;
+    this.CurrentUser = null;
+    return this.CurrentUser;
 };
 
 function getUserExercises(currentEmail) {
@@ -254,7 +251,7 @@ function AddNewFood(food, group) {
     }
 };
 
-function AddNewUser(user, email, name, age, pw, cpw, h, w, act, goal, sex) {
+function AddNewUser(email, name, age, pw, cpw, h, w, act, goal, sex) {
     const newUser = User.find(x => x.Email == email);
     if(newUser) throw Error('Email already linked to an account');
     if(email == "") throw Error('Please enter an email');
@@ -264,34 +261,87 @@ function AddNewUser(user, email, name, age, pw, cpw, h, w, act, goal, sex) {
     if(h == "") throw Error('Please enter a height');
     if(w == "") throw Error('Please enter a weight');
     if(act == "") throw Error('Please enter an activity level');
-    if(goal == "") throw Error('Please enter a goal');
+    if(goal == "") throw Error('Please enter a goal')
     if(sex == "") throw Error('Please enter a sex');
     if(pw != cpw) throw Error('Passwords must match');
     else {
-        User.push({
-            Email: email,
-            Name: name, 
-            Age: age, 
-            Password: pw, 
-            Height: h, 
-            Weight: w,
-            Activity: act,
-            Sex: sex,
-            EER: findEER(age, w, h, act, goal, sex),
-            Goal: goal,
-            Picture: '', 
-            BMI: findBMI(h,w),
-            Status: '',
-            IsAdmin: false 
-        });
-        return User;
+    eer = findEER(age, w, h, act, goal, sex);    
+    dri = findDRI(eer, w, email);    
+    const newId = User.push({
+                        Email: email,
+                        Name: name, 
+                        Age: age, 
+                        Password: pw, 
+                        Height: h, 
+                        Weight: w,
+                        Activity: act,
+                        Sex: sex,
+                        EER: eer,
+                        Goal: goal,
+                        Picture: 'https://i.pinimg.com/originals/33/06/30/3306306e17350814717723a263cac578.jpg', 
+                        BMI: findBMI(w,h),
+                        Status: '',
+                        IsAdmin: false,
+                        DRI: dri,
+                        userID: 4 
+                    });
+        this.CurrentUser = ChangeCurrent(newId);
+        return this.CurrentUser;
     }
 };
 
-function ChangeCurrent(user) {
-    ob.CurrentUser = user;
-    return ob.CurrentUser;
+function AddNewUserAdmin(name, email, pw, isAd) {
+    const newUser = User.find(x => x.Email == email);
+    if(newUser) throw Error('Email already linked to an account');
+    if(email == "") throw Error('Please enter an email');
+    if(name == "") throw Error('Please enter a name');
+    if(isAd == "") throw Error('Please enter admin capability');
+    if(pw == "") throw Error('Please enter a password');
+    else {
+        admin = false;
+        if(isAd === "true") {
+            admin = true;
+        };
+        eer = findEER(0, 0, 0, "low", "maintain", "female");    
+        dri = findDRI(eer, 0, email);    
+        User.push({
+                            Email: email,
+                            Name: name, 
+                            Age: 0, 
+                            Password: pw, 
+                            Height: 0, 
+                            Weight: 0,
+                            Activity: "low",
+                            Sex: "female",
+                            EER: eer,
+                            Goal: "maintain",
+                            Picture: 'https://i.pinimg.com/originals/33/06/30/3306306e17350814717723a263cac578.jpg', 
+                            BMI: findBMI(0,0),
+                            Status: '',
+                            IsAdmin: admin,
+                            DRI: dri,
+                            userID: 5 
+                        });
+            const newUser = User.find(x => x.Email == email);            
+            return newUser;
+        }
 };
+
+function ChangeCurrent(uid) {
+    const user = User.find(x => x.userID == uid);
+    if(!user) throw Error('User not found');
+
+    return user;
+};
+
+function BanUser(userEmail) {
+    const user = User.find(x => x.Email == userEmail);
+    if(!user) throw Error("User doesn't exist");
+    else {
+        BannedUsers.push(user);
+        return user;
+    }
+}
 
 function SubmitChanges(changes) {  
     this.CurrentUser = changes; 
@@ -302,14 +352,7 @@ function SubmitChanges(changes) {
     var newDRI = findDRI(newEER, changes.Weight, changes.Email);
     this.CurrentUser.DRI = newDRI;
     this.CurrentDRI = newDRI;
-    console.log(this.CurrentUser);
     return this.CurrentDRI;
-};
-
-
-function RemoveExercise(i, user, id) {
-    const exercise = ExerciseLog.find(x => (x.Email == user.Email) && (x.id == id));
-    exercise.splice(i,1);
 };
 
 function currentDate() {
@@ -463,19 +506,18 @@ function findDRI(eer, weight, email) {
     return goals;
 };
 
-let CurrentUser = null;
-
-
 module.exports = {
-    User, DRI, Exercises, Food, AddedExercise, AddedFood, Friends, ExerciseLog,
-    Posts, ExerciseType, CurrentDRI, cDate, ProfileInfo, findBMI, currentDRI, currentDRI2, Logout,
-    AddExercise, AddFood, AddNewEx, AddNewFood, AddNewUser, ChangeCurrent, SubmitChanges,
-    RemoveExercise, currentDate, findPA, findEER, findDRI, CurrentUser, getUserExercises, getUserFood,
+    User, AddedExercise, AddedFood, Friends, ExerciseLog, Updates,
+    Posts, ExerciseType, CurrentDRI, cDate, ProfileInfo, findBMI, currentDRI, Logout,
+    AddExercise, AddFood, AddNewEx, AddNewFood, AddNewUser, AddNewUserAdmin, BanUser, BannedUsers, ChangeCurrent, SubmitChanges,
+    currentDate, findPA, findEER, findDRI, CurrentUser, getUserExercises, getUserFood,
     Login(email, password) {
         const user = User.find(x => x.Email == email);
         if(!user) throw Error('User not found');
         if(user.Password != password) throw Error('Wrong password');
-    
+        const bannedUser = BannedUsers.find(x => x.Email == email);
+        if(bannedUser) throw Error('Sorry, account banned. Contact us for more info.');
+
         this.CurrentUser = user;
         return user;
     },

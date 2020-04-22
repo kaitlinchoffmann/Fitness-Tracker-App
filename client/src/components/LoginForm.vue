@@ -9,7 +9,7 @@
     </div>   
     </div> 
         <form class="box" style="max-width:500px;margin:auto;" @submit.prevent="login">
-          {{error}}
+          {{error.message}}
           <h3 class="title is-3 has-text-centered fcolor">Login</h3><hr>
         <div class="field">    
             <label class="label fcolor">Email</label>  
@@ -79,7 +79,7 @@ h1.title, p.subtitle, #main {
 
 <script>
 import User from "../models/Users";
-import { currentDRI, CurrentDRI } from "../models/Users"
+// import { currentDRI, CurrentDRI } from "../models/Users"
 import { getFood } from "../models/Food";
 import { getExercise } from "../models/Exercise";
 
@@ -95,15 +95,15 @@ export default {
     async login() {
       try {
         await User.Login(this.email, this.password);
-        await currentDRI();
+        //await currentDRI();
         await getFood(this.email);
         await getExercise(this.email);
-       /* if(User.CurrentUser.IsAdmin == true) {
+        if(User.CurrentUser.IsAdmin == true) {
           this.$router.push('/admin');
          } 
-         else { */
+         else { 
           this.$router.push('/profile');
-         //}
+         }
       } catch(error) {
         this.error = error;
       }

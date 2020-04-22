@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { currentDate, findEER } from "../models/Profile";
+import { currentDate } from "../models/Date";
 import User from "../models/Users";
 import { AddedFood } from "../models/Food";
 currentDate();

@@ -104,54 +104,12 @@
 </template>
 
 <script>
-import { Friends, Posts, AddedExercise, AddedFood, ProfileInfo } from "../models/Profile";
 import User from "../models/Users";
-//import { CurrentDRI } from "../models/Users";
-//instead, do a get for CurrentDRI, CurrentUser, etc.
 export default {
     name: 'Profile',
-    mounted:function(){
-        this.findExercise(this.recentExercise);
-        this.findFood(this.recentFood);
-        this.findLastEx(this.recentExercise);
-        this.findLastFood(this.recentFood);
-    },
     data:()=>({
-        ProfileInfo,
-        User,
-        Friends,
-        Posts, 
-        AddedExercise,
-        AddedFood,
-        recentExercise: [],
-        lastExercise: [],
-        recentFood: [],
-        lastFood: []
-    }),
-    methods: {
-        findExercise(recent) {
-            const userExercise = this.AddedExercise.map(function(x, index) {
-                if(x.email == User.CurrentUser.Email) {
-                    recent.push(AddedExercise[index]);
-                }
-            }
-        )},
-        findLastEx(recent) {
-            this.lastExercise = recent[recent.length-1];
-            return this.lastExercise;
-        },
-        findFood(recent) {
-            const userFood = this.AddedFood.map(function(x, index) {
-                if(x.email == User.CurrentUser.Email) {
-                    recent.push(AddedFood[index]);
-                }
-            }
-        )},
-        findLastFood(recent) {
-            this.lastFood = recent[recent.length-1];
-            return this.lastFood;
-        }
-    }
+        User
+    })
 } 
 </script>
 

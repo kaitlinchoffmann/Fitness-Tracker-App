@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { Logout } from "../models/Profile";//, CurrentUser
 import LoginComp from "./LoginComponent";
 import User from "../models/Users";
 
@@ -16,13 +15,8 @@ export default {
   }),
   components: {
     LoginComp
-  },
-  methods: {
-    logout() {
-        Logout()
-        this.$router.push('/login');
-    }
-}
+  }
+
 }
 </script>
 

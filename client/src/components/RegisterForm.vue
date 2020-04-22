@@ -8,7 +8,7 @@
     </div>
     <div class="container">      
         <form class="box" style="max-width:500px;margin:auto;" @submit.prevent="register">
-          {{error}}
+          {{error.message}}
           <h3 class="title is-3 has-text-centered fcolor">Register</h3><hr>
           <div class="field">    
             <label class="label fcolor">Name</label>  
@@ -139,9 +139,7 @@ h1.title, p.subtitle, #main {
 </style>
 
 <script>
-import { AddNewUser, findBMI, ChangeCurrent, findEER, findDRI, DRI, CurrentDRI, currentDRI } from "../models/Profile";
-import User from "../models/Profile";
-ChangeCurrent();
+import User from "../models/Users";
 
 export default {
   data(){
@@ -166,29 +164,9 @@ export default {
     }
   },
   methods: { 
-    register() {
+    async register() {
       try {
-        this.user = {
-            Email: this.email,
-            Name: this.name,
-            Age: this.age,
-            password: this.password,
-            Height: this.height,
-            Weight: this.weight,
-            Activity: this.activity,
-            Sex: this.sex,
-            EER: findEER(this.age, this.weight, this.height, this.activity, this.goal, this.sex),
-            Goal: this.goal,
-            Picture: this.picture,
-            BMI: findBMI(this.weight, this.height),
-            Status: '',
-            IsAdmin: false
-            };
-
-        AddNewUser(this.user, this.email, this.name, this.age, this.password, this.cpassword, this.height, this.weight, this.activity, this.goal, this.sex);
-        ChangeCurrent(this.user);
-        DRI.push(findDRI(User.CurrentUser.EER, this.weight, this.email));
-        currentDRI();
+        await User.Register(this.email, this.name, this.age, this.password, this.cpassword, this.height, this.weight, this.activity, this.goal, this.sex);
         this.$router.push('/profile');
       } catch(error) {
         this.error = error;

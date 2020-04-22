@@ -101,19 +101,20 @@
 </template>
 
 <script>
-import { currentDate } from "../models/Profile";
+import { currentDate } from "../models/Date";
 import User from "../models/Users";
 import { addFood, AddedFood, getFood } from "../models/Food";
+import { apiKeyFood, apiIDFood, apiKeyNutr, apiIDNutr } from "../models/noneya";
 
 export default {
     name: 'Food',
 
     data:()=>({
           User,
-          apiKeyFood: "3749d9c020ee4f0a200708c580d345ce",
-          apiIDFood: "27a679ca",
-          apiKeyNutr: "b90b69a6ac4847d41ed7cb21fe65f3f8",
-          apiIDNutr: "b3490425",
+          apiKeyFood,
+          apiIDFood,
+          apiKeyNutr,
+          apiIDNutr,
           search: "",
           foodId: "",
           measureURI: "",

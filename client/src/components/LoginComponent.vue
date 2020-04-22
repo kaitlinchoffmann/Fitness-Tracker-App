@@ -41,21 +41,21 @@
 </template>
 
 <script>
-import { Logout } from "../models/Profile"; //, CurrentUser 
-//import User from "../models/Profile";
+import { Logout } from "../models/Users";
+import User  from "../models/Users"
 
 export default {
-  //   data: ()=>({
-  //   isOpen: false, 
-  //   User: User
-  // }),
   props: {
     CurrentUser: Object
   },
   methods: {
-    logout() {
-        Logout()
+    async logout() {
+      try {
+        await User.Logout();
         this.$router.push('/login');
+      } catch (error) {
+        console.log(error);
+      }
     }
 }
 }
