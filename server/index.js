@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
 
-const profile = require('./models/profile');
 const userController = require('./controllers/user');
+const driController = require('./controllers/dri');
+const exController = require('./controllers/exercise');
+const foodController = require('./controllers/food');
 
 const app = express();
 const port = 3000;
@@ -29,6 +31,9 @@ app
     .use(express.static( __dirname + '/../client/dist'))
     .get('/', (req, res) => res.send('Welcome to Healthy Habits'))
     .use('/user', userController)  
+    .use('/dri', driController)
+    .use('/exercise', exController)
+    .use('/food', foodController)
     
     // .use((req, res) => {
     //   const homepath = path.join(__dirname, '/../client/dist/index.html');

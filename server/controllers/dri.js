@@ -1,8 +1,18 @@
 const express = require('express');
-const dri = require('../models/profile');
+const users = require('../models/User');
 
 const router = express.Router();
 
 
+router
+    .post('/makeChanges', (req, res) => {
+        try {
+            const newDri = users.SubmitChanges(req.body.changes);
+            res.send( newDri );
+        }
+        catch (error) {
+            res.status(401).send({ message: error.message });
+        }
+    })
 
 module.exports = router;    

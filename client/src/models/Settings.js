@@ -1,9 +1,11 @@
-import myFetch, { User } from "./myFetch";
+import myFetch from "./myFetch";
+import User from "./Users";
 
 let CurrentDRI =  null;
 
 export async function SubmitChanges(changes) {
-    const newChanges = await myFetch('/user/makeChanges', { changes }) ;
+    const newChanges = await myFetch('/dri/makeChanges', { changes }) ;
+    console.log(newChanges);
     return CurrentDRI = newChanges;
 }
 

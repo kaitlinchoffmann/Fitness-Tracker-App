@@ -1,12 +1,7 @@
-const users = require("./profile");
-
-const DRI = [findDRI(User.EER, 123, "jill123@fakemail.com"), findDRI(User.EER, 107, "admin@fakemail.com")]; //, findDRI(User.EER, 250, "j@j")
+const users = require("./User");
+let CurrentUser = require("./User");
 
 let CurrentDRI = null;
-
-let cDate = null;
-
-let ProfileInfo = null;
 
 function findBMI(weight, height) {
     var bmi = (weight/(height * height)) * 703;
@@ -14,24 +9,11 @@ function findBMI(weight, height) {
 };
 
 function currentDRI() {
-    const dri = DRI.find(x => x.Email == ob.CurrentUser.Email);
-    console.log(dri);
+    const dri = users.User.find(x => x.Email == users.CurrentUser.Email);
     if(!dri) throw Error('DRI not found');
     
-    CurrentDRI = dri;
-    return CurrentDRI;
-};
-
-function SubmitChanges(changes) {    
-    var newBMI = findBMI(changes.Weight, changes.Height);
-    changes.BMI = newBMI;
-    var newEER = findEER(changes.Age, changes.Weight, changes.Height, changes.Activity, changes.Goal, changes.Sex);
-    changes.EER = newEER;
-    var newDRI = findDRI(newEER, changes.Weight, changes.Email);
-    changes.DRI = newDRI;
-    CurrentDRI = newDRI;
-    ProfileInfo = changes;
-    return ProfileInfo;
+    this.CurrentDRI = dri;
+    return this.CurrentDRI;
 };
 
 function findPA(sex, age, activity) { // PA = Physical Activity Coefficients
@@ -176,6 +158,6 @@ function findDRI(eer, weight, email) {
 };
 
 module.exports = {
-    DRI, CurrentDRI, cDate, ProfileInfo, findBMI, currentDRI, SubmitChanges,
-    findPA, findEER, findDRI
-}
+    findBMI, currentDRI, CurrentDRI, findPA,
+    findEER, findDRI
+};
