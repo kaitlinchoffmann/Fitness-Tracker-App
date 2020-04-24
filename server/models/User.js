@@ -72,7 +72,7 @@ const User = [
         Status: 'Doing bad stuff',
         IsAdmin: false,
         DRI: dris.findDRI(2200,130,"m@m"),
-        userID: 6
+        userID: 4 
     },
     {
         Email: 'b@b.com',
@@ -90,7 +90,7 @@ const User = [
         Status: 'Relaxing!',
         IsAdmin: false,
         DRI: dris.findDRI(3000, 180, "b@b"),
-        userID: 7
+        userID: 5  
     },   
 ];
 
@@ -113,7 +113,7 @@ let BannedUsers = [
         Status: 'Doing bad stuff',
         IsAdmin: false,
         DRI: dris.findDRI(2200,130,"m@m"),
-        userID: 6
+        userID: 4
     }  
 ];
 
@@ -154,7 +154,7 @@ function AddNewUser(email, name, age, pw, cpw, h, w, act, goal, sex) {
                         Status: '',
                         IsAdmin: false,
                         DRI: dri,
-                        userID: 4 
+                        userID: 6 
                     });
         this.CurrentUser = ChangeCurrent(newId);
         return this.CurrentUser;
@@ -191,7 +191,7 @@ function AddNewUserAdmin(name, email, pw, isAd) {
                             Status: '',
                             IsAdmin: admin,
                             DRI: dri,
-                            userID: 5 
+                            userID: 7 
                         });
             const newUser = User.find(x => x.Email == email);            
             return newUser;
@@ -226,9 +226,26 @@ function BanUser(userEmail) {
     }
 }
 
+function getUser(userSearched, currentUser) {
+    const searched = [];
+    User.map(function(x, index) {
+        if(x.Name == userSearched && x.userID != currentUser) {
+            searched.push(x);
+        }
+    });
+    return searched;
+}
+
+function getSingleUser(userClicked) {
+    const user = User.find(x => x.userID == userClicked);
+    if(user) {
+        return user;
+    } else throw Error("User not found");
+}
+
 module.exports = {
     User, Logout, AddNewUser, AddNewUserAdmin, BanUser, BannedUsers, ChangeCurrent,
-    CurrentUser, SubmitChanges,
+    CurrentUser, SubmitChanges, getUser, getSingleUser,
     Login(email, password) {
         const user = User.find(x => x.Email == email);
         if(!user) throw Error('User not found');

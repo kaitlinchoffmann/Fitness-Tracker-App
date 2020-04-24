@@ -1,7 +1,4 @@
 const users = require("./User");
-const dris = require("./DRI");
-const friends = require("./Friends");
-let CurrentUser = require("./User");
 
 const Updates = [];
 
@@ -18,6 +15,27 @@ const Posts = [
     }
 ];
 
+function shareUpdate(history) {
+    for(let i=0; i<history.length; i++) {
+        const repeat = Updates.find(x => (x.exName == history[i].exName) && (x.date == history[i].date) && (x.intensity == history[i].intensity));
+        if(!repeat) {
+            Updates.push(history[i]);
+        }
+    }
+    return Updates;
+};
+
+function getUpdates() {
+    const user = users.CurrentUser;
+    const allUpdates = [];
+    Updates.map(function(x, index) {
+        if(x.email == user.Email ) {
+            allUpdates.push(x);
+        }
+    });
+    return allUpdates;
+}
+
 module.exports = {
-    Updates, Posts
+    Updates, Posts, shareUpdate, getUpdates
 };

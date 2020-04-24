@@ -1,13 +1,7 @@
 <template>
     <div class="container">
         <div class="box">
-            <button @click="userPage(0)">
-            <input type="hidden" name="email" v-model=user>
-            Name:
-            {{allSearches[0].Name}}
-            </button>
-
-            <br><br><br>
+            <div v-if="allSearches.length > 0">
             list:
             <div v-for="user in allSearches" :key="user.userID">
                 <button @click="userPage(user.userID)">{{user}}
@@ -15,12 +9,16 @@
                 <br/>
                 <br/>
             </div>
+            </div>
+            <div v-else>
+                Sorry, no users by that name.
+            </div>
         </div>
     </div>    
 </template>
 
 <script>
-import { allSearches } from "../models/Friends";
+import { allSearches } from "../models/Users";
 import { getSingleUser } from "../models/Users";
 
 export default {

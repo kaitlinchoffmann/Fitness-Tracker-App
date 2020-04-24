@@ -19,6 +19,13 @@ let ob = {
 
 export default ob;
 
+export let allSearches = null;
+
+export async function getUsers(userSearched) {
+    const users = await myFetch('/user/getUser', { userSearched });
+    return allSearches = users;
+}
+
 export let otherUser = null;
 
 export async function getSingleUser(userClicked) {
@@ -26,6 +33,7 @@ export async function getSingleUser(userClicked) {
     console.log(user);
     return otherUser = user;
 }
+
 
 
 

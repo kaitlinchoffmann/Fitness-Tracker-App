@@ -53,7 +53,7 @@
 <script>
 import { Logout } from "../models/Users";
 import User  from "../models/Users";
-import { getUsers } from "../models/Friends";
+import { getUsers } from "../models/Users";
 
 export default {
   data:()=>({
@@ -61,7 +61,6 @@ export default {
     }),
   props: {
     CurrentUser: Object
-    // userSearched: ''
   },
   methods: {
     async logout() {

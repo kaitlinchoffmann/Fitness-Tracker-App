@@ -5,7 +5,8 @@ const userController = require('./controllers/user');
 const driController = require('./controllers/dri');
 const exController = require('./controllers/exercise');
 const foodController = require('./controllers/food');
-// const postController = require('./controllers/')
+const updateController = require('./controllers/update');
+const friendController = require('./controllers/friend');
 
 const app = express();
 const port = 3000;
@@ -35,6 +36,8 @@ app
     .use('/dri', driController)
     .use('/exercise', exController)
     .use('/food', foodController)
+    .use('/update', updateController)
+    .use('/friend', friendController)
     
     // .use((req, res) => {
     //   const homepath = path.join(__dirname, '/../client/dist/index.html');

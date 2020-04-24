@@ -10,34 +10,3 @@ export function currentDate() {
     cDate = current;
     return current;
 };
-
-// export const ExerciseLog = [ /* Maybe create a function for this*/
-//     {
-//         id: 100,
-//         Email: 'jill123@fakemail.com',
-//         Exercise: 'Squats',
-//         Type: 'Strength',
-//         Reps: '15',
-//         Sets: '4',
-//         Weight: 0,
-//         TimeMinutes: '15',
-//         Intensity: 'moderate',
-//         date: '02/29/2020' /* make a function, check the month in user side to create calender */
-//     }
-// ];
-
-// export const Posts = [
-//     {
-//         Email: 'jill123@fakemail.com',
-//         Post: 'Fun day at the gym!',
-//         Date: '02/27/2020' 
-//     },
-//     {
-//         Email: 'jill123@fakemail.com',
-//         Post: "I'm Beat today, so sleepy..",
-//         Date: '02/24/2020'
-//     }
-// ];
-
-
-
