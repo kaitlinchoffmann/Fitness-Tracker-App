@@ -73,7 +73,25 @@ const User = [
         IsAdmin: false,
         DRI: dris.findDRI(2200,130,"m@m"),
         userID: 6
-    }   
+    },
+    {
+        Email: 'b@b.com',
+        Name: 'Jill', 
+        Age: 26,
+        Password: 'password',
+        Height: 70,
+        Weight: 180,
+        Activity: "low",
+        Sex: "Female",
+        EER: dris.findEER(26, 180, 70, "low", "maintain", "female"),
+        Goal: "maintain",
+        Picture: 'https://img.webmd.com/dtmcms/live/webmd/consumer_assets/site_images/article_thumbnails/other/cat_relaxing_on_patio_other/1800x1200_cat_relaxing_on_patio_other.jpg',
+        BMI: dris.findBMI(180, 70),
+        Status: 'Relaxing!',
+        IsAdmin: false,
+        DRI: dris.findDRI(3000, 180, "b@b"),
+        userID: 7
+    },   
 ];
 
 let CurrentUser = null;

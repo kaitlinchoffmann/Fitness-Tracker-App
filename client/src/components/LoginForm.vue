@@ -82,13 +82,16 @@ import User from "../models/Users";
 // import { currentDRI, CurrentDRI } from "../models/Users"
 import { getFood } from "../models/Food";
 import { getExercise } from "../models/Exercise";
+import { getFriends, getSentRequests, getPendingRequests } from "../models/Friends";
+import { getPosts } from "../models/Post";
 
 export default {
   data(){
     return {
       email: '',
       password: '',
-      error: ''
+      error: '',
+      User
     }
   },
   methods: {
@@ -98,6 +101,11 @@ export default {
         //await currentDRI();
         await getFood(this.email);
         await getExercise(this.email);
+        await getFriends(User.CurrentUser.userID);
+        await getSentRequests(User.CurrentUser.userID);
+        await getPendingRequests(User.CurrentUser.userID);
+        await getPosts();
+        
         if(User.CurrentUser.IsAdmin == true) {
           this.$router.push('/admin');
          } 

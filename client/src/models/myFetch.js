@@ -1,4 +1,4 @@
-import { CurrentUser } from "./Users";
+import User from "./Users";
 
 const api_root = "http://localhost:3000";
 
@@ -6,8 +6,8 @@ export default async function myFetch(url, data){
 
     let response;
     const headers = {};
-    if(CurrentUser && CurrentUser.userId != null) {
-        headers.authorization = "bearer " + CurrentUser.userId; //our token
+    if(User.CurrentUser && User.CurrentUser.userId != null) {
+        headers.authorization = "bearer " + User.CurrentUser.userId; //our token
     }
 
 

@@ -11,6 +11,11 @@ import ExHistory from '../views/ExHistory.vue'
 import FoodHistory from '../views/FoodHistory.vue'
 import Admin from '../views/Admin.vue'
 import User from '../models/Users'
+import Updates from '../views/Updates.vue'
+import Friends from '../views/Friends.vue'
+import Search from '../views/Search.vue'
+import UserPage from '../views/UserPage.vue'
+import PendRequest from '../views/PendRequests.vue'
 
 Vue.use(VueRouter)
 
@@ -64,6 +69,31 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: Admin, meta: { IsSecret: true}
+  },
+  {
+    path: '/updates',
+    name: 'Updates',
+    component: Updates, meta: { IsSecret: true }
+  },
+  {
+    path: '/friends',
+    name: 'Friends',
+    component: Friends, meta: { IsSecret: true }
+  },
+  {
+    path: '/search',
+    name: 'Search',
+    component: Search//, meta: { IsSecret: true }
+  },
+  {
+    path: '/userpage',
+    name: 'UserPage',
+    component: UserPage//, meta: { IsSecret: true }
+  },
+  {
+    path: '/pendingrequests',
+    name: 'PendRequest',
+    component: PendRequest, meta: { IsSecret: true }
   },
   {
     path: '/about',

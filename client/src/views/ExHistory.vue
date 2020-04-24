@@ -49,7 +49,8 @@
                       <td>{{x.time}}</td>
                       <td>{{x.intensity}}</td>
                   </tr>
-                  </tbody>
+                  </tbody><br/>
+                  <button class="button is-light" @click="share">Share with Friends</button>
         </table> 
         </div><br/>
         <div class="box" style="width:450px;float:left;margin-left:20%;">
@@ -120,6 +121,7 @@
 import { currentDate } from "../models/Date";
 import User from "../models/Users";
 import { AddedExercise } from "../models/Exercise";
+import { shareProgress, getPosts } from "../models/Post";
 currentDate();
 
 export default {
@@ -220,6 +222,10 @@ export default {
             let remaining = this.goal - completed;
             this.goalsLeft = remaining;
             return this.goalsLeft;
+        },
+        async share() {
+          await shareProgress(this.history);
+          await getPosts();
         }
     }
 } 

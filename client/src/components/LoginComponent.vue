@@ -1,6 +1,10 @@
 <template>
 <div class="container">
       <div class="nav">
+        <div style="margin-bottom:10px;">
+          <input type="text" class="input is-small" v-model="userSearched" placeholder="search users..." style="width:300px;">
+          <button class="button is-light is-small" @click="searchUsers">Search</button>
+        </div>
         <ul>
           <li><router-link to="/">Home</router-link></li>
           <li><router-link to="/about">About</router-link></li>
@@ -22,6 +26,9 @@
                 <div v-if="CurrentUser.IsAdmin==true">
                   <router-link to="/admin">Admin</router-link>
                 </div>
+                <router-link to="/friends">Friends</router-link>
+                <router-link to="/updates">Updates</router-link>
+                <router-link to="/pendingrequests">Pending Requests</router-link>
                 <router-link to="/settings">Settings</router-link>
                 <a href="#Logout" @click="logout">Logout</a>
               </div>  
@@ -45,17 +52,30 @@
 
 <script>
 import { Logout } from "../models/Users";
-import User  from "../models/Users"
+import User  from "../models/Users";
+import { getUsers } from "../models/Friends";
 
 export default {
+  data:()=>({
+    userSearched: ''
+    }),
   props: {
     CurrentUser: Object
+    // userSearched: ''
   },
   methods: {
     async logout() {
       try {
         await User.Logout();
         this.$router.push('/login');
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    async searchUsers() {
+      try {
+        await getUsers(this.userSearched);
+        this.$router.push('/search');
       } catch (error) {
         console.log(error);
       }

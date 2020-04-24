@@ -1,4 +1,4 @@
-const users = require("./profile");
+const users = require("./User");
 const dris = require("./DRI");
 const friends = require("./Friends");
 let CurrentUser = require("./User");
@@ -17,3 +17,7 @@ const Posts = [
         Date: '02/24/2020'
     }
 ];
+
+module.exports = {
+    Updates, Posts
+};
