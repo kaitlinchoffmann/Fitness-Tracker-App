@@ -133,6 +133,7 @@ export default {
                 time: Number(this.time),
                 intensity: this.intensity,
                 email: User.CurrentUser.Email,
+                userID: User.CurrentUser.userID,
                 date: this.date
           });
              document.getElementById("error").innerHTML="Nice job! Keep it up!";
@@ -149,8 +150,7 @@ export default {
             try {
               await addExercise(this.exercises);
               this.AddedExercise = await getExercise(User.CurrentUser.Email);
-            //AddExercise(this.exercises);
-            this.$router.push('/exhistory');
+              this.$router.push('/exhistory');
             }
             catch (error) {
               console.log(error);

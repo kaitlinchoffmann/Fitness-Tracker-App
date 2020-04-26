@@ -1,7 +1,4 @@
 const users = require("./User");
-const dris = require("./DRI");
-const posts = require("./Posts");
-let CurrentUser = require("./User");
 
 const Friends = [
     {
@@ -36,7 +33,9 @@ const SentRequests = [
 const PendingRequests = [
     {
         userId: 2,
-        requestId: 1
+        requestId: 1,
+        requestPicture: "https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        requestName: "Jill"
     }
 ]
 
@@ -61,7 +60,8 @@ function addFriend(userId, friendId) {
     return newFriend;
 }
 
-function getFriends(userID) {
+function getFriends() {
+    const userID = users.CurrentUser.userID;
     const allFriends = [];
     Friends.map(function(x, index) {
         if(x.userId == userID) {
@@ -76,13 +76,14 @@ function getFriends(userID) {
     return allFriends;
 }
 
-function sendRequest(user, friend) {
+function sendRequest(user, friend, picture, name) {
     SentRequests.push({userId: user, requestId: friend});
-    PendingRequests.push({userId: friend, requestId: user});
+    PendingRequests.push({userId: friend, requestId: user, requestPicture: picture, requestName: name});
     return SentRequests;
 }
 
-function getSentRequests(user) {
+function getSentRequests() {
+    const user = users.CurrentUser.userID;
     const allRequests = [];
     SentRequests.map(function(x, index) {
         if(x.userId == user) {
@@ -92,7 +93,8 @@ function getSentRequests(user) {
     return allRequests;
 }
 
-function getPendingRequests(user) {
+function getPendingRequests() {
+    const user = users.CurrentUser.userID;
     const allRequests = [];
     PendingRequests.map(function(x, index) {
         if(x.userId == user) {

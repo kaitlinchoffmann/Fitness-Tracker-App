@@ -2,8 +2,12 @@ import myFetch, { User } from "./myFetch";
 
 export let AddedExercise = [];
 
-export async function getExercise(currentEmail) {
-    const exercise = await myFetch('/exercise/getExercise', { currentEmail });
+// export async function getExercise(currentEmail) {
+//     const exercise = await myFetch('/exercise/getExercise', { currentEmail });
+//     return AddedExercise = exercise;
+// }
+export async function getExercise() {
+    const exercise = await myFetch('/exercise/getExercise');
     return AddedExercise = exercise;
 }
 

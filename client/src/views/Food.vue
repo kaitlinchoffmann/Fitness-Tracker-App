@@ -174,6 +174,7 @@ export default {
                 sodium: Number(this.sodium),
                 sugar: Number(this.sugar),
                 email: User.CurrentUser.Email,
+                userID: User.CurrentUser.userID,
                 date: this.date
           });
              document.getElementById("error").innerHTML="Nice job! Keep it up!";

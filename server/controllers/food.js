@@ -4,9 +4,9 @@ const food = require('../models/food');
 const router = express.Router();
 
 router
-    .post('/getFood', (req, res) => {
+    .get('/getFood', (req, res) => {
         try {
-            const AddedFood = food.getUserFood(req.body.currentEmail);
+            const AddedFood = food.getUserFood();
             res.send( AddedFood );
         }
         catch (error) {

@@ -1,3 +1,4 @@
+const users = require("./User");
 
 const AddedFood = [
     {
@@ -5,6 +6,7 @@ const AddedFood = [
         carbs:75,
         date:"2020-04-20",
         email:"admin@fakemail.com",
+        userID:2,
         fat:1,
         food:"bagel",
         group:"Fruit",
@@ -14,10 +16,11 @@ const AddedFood = [
     }
 ];
 
-function getUserFood(currentEmail) {
+function getUserFood() {
+    const user = users.CurrentUser.userID;
     const food = [];
     AddedFood.map(function (x, index) {
-        if(x.email == currentEmail) {
+        if(x.userID == user) {
             food.push(AddedFood[index]);
         }
     });

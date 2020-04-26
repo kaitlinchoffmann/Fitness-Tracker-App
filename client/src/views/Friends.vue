@@ -1,13 +1,20 @@
 <template>
     <div class="container">
-        <div class="box">
-            <div v-for="user in allFriends" :key="user.userID">
-                <button @click="userPage(user.userID)">{{user}}
-                </button>
-                <br/>
-                <br/>
-
+        <div class="section">
+        <h2 class="title is-2">Friends</h2><br/>    
+        <div class="section box" style="max-width: 1000px;margin:auto;">
+            <div v-if="allFriends.length > 0">
+              <div v-for="user in allFriends" :key="user.userID">
+                <img :src="user.Picture" id="user-pic" @click="userPage(user.userID)"/>
+                <div class="user-name" @click="userPage(user.userID)">{{user.Name}}</div>
+              <hr/>
+              </div>
             </div>
+            <div v-else>
+              <div class="no-friends has-text-centered">No friends yet!</div>
+            </div>
+        </div>
+        <div style="margin-bottom:150px;"></div>
         </div>
     </div>
 </template>
@@ -39,3 +46,21 @@ export default {
     }
 }
 </script>
+
+<style>
+#user-pic {
+    max-width: 200px;
+    max-height: 150px;
+    float:left;
+    margin-right: 30px;
+}
+.user-name {
+    font-size: 32px;
+    margin-bottom:120px;
+    color: slateblue;
+}
+.no-friends {
+    color: slateblue;
+    font-size: 25px;
+}
+</style>

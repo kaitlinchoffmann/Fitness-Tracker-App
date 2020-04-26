@@ -1,7 +1,5 @@
 const express = require('express');
 const users = require('../models/User');
-const posts = require('../models/Posts');
-const friends = require('../models/Friends');
 
 const router = express.Router();
 
@@ -13,7 +11,6 @@ router
     .get('/currentUser', (req, res) => {
         try {
             const cUser = users.CurrentUser;
-            console.log(cUser);
             res.send( cUser );
         }
         catch (error) {

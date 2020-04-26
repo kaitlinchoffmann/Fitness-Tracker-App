@@ -11,6 +11,12 @@ export let updatedPosts = null;
 
 export async function getPosts() {
     const posts = await myFetch('/update/getPosts');
-    console.log(posts);
     return updatedPosts = posts; 
+}
+
+export let friendPosts = null;
+
+export async function getFriendPosts(friendId) {
+    const posts = await myFetch('/update/getFriendPosts', { friendId });
+    return friendPosts = posts; 
 }

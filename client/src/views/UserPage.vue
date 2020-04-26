@@ -1,10 +1,36 @@
 <template>
     <div class="container">
-        <div class="box">
-            {{otherUser}}
-            <br/>
+        <div class="section">
+        <h2 class="title is-2 has-text-left">
+          {{otherUser.Name}}     
+        </h2>
+        <div style="float:left; margin-left:30px;">
+            <div>
+                <img :src="otherUser.Picture" class="card-image" alt="friend's photo">
+            </div><br/>    
             <div v-if="friends==true">
                 <button class="button is-light">Delete Friend</button>
+                <div style="float:left;margin-left:7%;">
+                  <div v-if="friendPosts.length > 0">
+                    Exercises Shared by {{otherUser.Name}}:  
+                    <div v-for="x in friendPosts" :key="x.exName" id:x.exName>
+                      <div class="box">  
+                          Date: {{x.date}}<br/>
+                          Name: {{x.exName}}<br/>
+                          Type: {{x.exType}}<br/>
+                          Intensity: {{x.intensity}}<br/>
+                          Sets: {{x.sets}}<br/>
+                          Reps: {{x.reps}}<br/>
+                          Time: {{x.time}}<br/>
+                          Weight: {{x.weight}}<br/>
+                      </div>
+                      <br/>
+                    </div>
+                  </div>
+                  <div class="box" v-else>
+                    {{otherUser.Name}} hasn't shared any exercises yet!
+                </div>
+        </div>
             </div>
             <div v-else-if="friends==false && requestSent==false">
                 <button id="request" class="button is-light" @click="request()">Send Friend Request</button>
@@ -13,6 +39,8 @@
                 <div id="request" class="button is-light">Request Sent</div>
             </div>
         </div>
+        <div style="margin-bottom:500px;"></div>          
+        </div>
     </div>
 </template>
 
@@ -20,6 +48,7 @@
 import User from "../models/Users";
 import { otherUser } from "../models/Users";
 import { sendRequest, SentRequests, allFriends, getSentRequests } from "../models/Friends"
+import { friendPosts, getFriendPosts } from "../models/Post";
 
 export default {
     data:() => ({
@@ -29,10 +58,12 @@ export default {
         friends: false,
         requestSent: false,
         allFriends,
-        SentRequests
+        SentRequests,
+        friendPosts
     }),
     mounted:function(){
-        this.checkFriendship()
+        this.checkFriendship();
+        this.allFriendPosts();
     },
     methods: {
         checkFriendship() {
@@ -48,9 +79,13 @@ export default {
             }
         },
         async request() {
-            await sendRequest(this.otherUser.userID, User.CurrentUser.userID);
+            await sendRequest(this.otherUser.userID, User.CurrentUser.userID, User.CurrentUser.Picture, User.CurrentUser.Name);
             await getSentRequests(this.User.CurrentUser.userID);
             document.getElementById('request').innerHTML="Request Sent";
+        },
+        async allFriendPosts() {
+            this.friendPosts = await getFriendPosts(otherUser.userID);
+            console.log("hi" + this.friendPosts);
         }
     }
 }

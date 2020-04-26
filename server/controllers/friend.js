@@ -1,6 +1,4 @@
 const express = require('express');
-const users = require('../models/User');
-const posts = require('../models/Posts');
 const friends = require('../models/Friends');
 
 const router = express.Router();
@@ -19,10 +17,9 @@ router
         }
     })
 
-    .post('/getFriends', (req, res) => {
+    .get('/getFriends', (req, res) => {
         try {
-            const userID = req.body.userID;
-            const allFriends = friends.getFriends(userID);
+            const allFriends = friends.getFriends();
             res.send( allFriends );
         } catch (error) {
             res.status(401).send({ message: error.message });
@@ -34,27 +31,27 @@ router
         try {
             user = req.body.userID;
             friend = req.body.friendID;
-            const SentRequests = friends.sendRequest(user, friend);
+            picture = req.body.userPicture;
+            name = req.body.userName;
+            const SentRequests = friends.sendRequest(user, friend, picture, name);
             res.send(SentRequests);
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
     })
 
-    .post('/getSentRequests', (req, res) => {
+    .get('/getSentRequests', (req, res) => {
         try {
-            const user = req.body.userID;
-            const allRequests = friends.getSentRequests(user);
+            const allRequests = friends.getSentRequests();
             res.send(allRequests);
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
     })
 
-    .post('/getPendingRequests', (req, res) => {
+    .get('/getPendingRequests', (req, res) => {
         try {
-            const user = req.body.userID;
-            const allRequests = friends.getPendingRequests(user);
+            const allRequests = friends.getPendingRequests();
             res.send(allRequests);
         } catch (error) {
             res.status(401).send({ message: error.message });

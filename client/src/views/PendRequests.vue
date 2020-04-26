@@ -1,35 +1,45 @@
 <template>
     <div class="container">
-        <div class="box">
-            <div v-for="request in PendingRequests" :key="request.userID">
-                {{request}}
-                {{request.requestId}}
-                <button @click="addUser(request.requestId)">Accept Request</button>
-                <!-- <button @click="deleteRequest">Deny request</button> -->
-                <br/>
-                <br/>
+        <div class="section">
+        <h2 class="title is-2">Pending Friend Requests</h2><br/>    
+        <div class="section box" style="max-width: 1000px;margin:auto;">
+            <div v-if="PendingRequests.length > 0">
+              <div v-for="request in PendingRequests" :key="request.userID">
+                <img :src="request.requestPicture" id="user-pic"/>
+                <div class="user-name">{{request.requestName}}</div>
+                <button class="button is-warning" @click="addUser(request.requestId)">Accept Request</button>
+              <hr/>
+              </div>
             </div>
+            <div v-else>
+              <div class="no-friends has-text-centered">No Pending Requests</div>
+            </div>
+        </div>
+        <div style="margin-bottom:150px;"></div>
         </div>
     </div>
 </template>
 
 <script>
 import User from "../models/Users";
+import { getSingleUser } from "../models/Users";
 import { PendingRequests, getPendingRequests, addFriend } from "../models/Friends";
 export default {
     data:()=>({
         User,
-        PendingRequests
+        PendingRequests,
+        otherUsers: []
     }),
     mounted:function(){
         this.pending();
     },
     methods: {
         async pending() {
-            this.PendingRequests = await getPendingRequests(User.CurrentUser.userID);
+            this.PendingRequests = await getPendingRequests();
         },
         async addUser(userId) {
             await addFriend(userId, User.CurrentUser.userID);
+            this.PendingRequests = await getPendingRequests();
         }
     }
 }

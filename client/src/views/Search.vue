@@ -1,38 +1,63 @@
 <template>
     <div class="container">
-        <div class="box">
+      <div class="section">
+        <div class="box" style="max-width: 1000px;margin:auto;">
+          <div style="margin-bottom:10px;">
+            <input type="text" class="input is-small" v-model="userSearched" placeholder="search users..." style="width:300px;">
+            <button class="button is-light is-small" @click="searchUsers">Search</button>
+          </div>
+          <div v-if="allSearches != null">
             <div v-if="allSearches.length > 0">
-            list:
+            <h3 class="title is-3">Search Results:</h3>
             <div v-for="user in allSearches" :key="user.userID">
-                <button @click="userPage(user.userID)">{{user}}
-                </button>
-                <br/>
-                <br/>
+                <hr/>
+                <img :src="user.Picture" id="user-pic" @click="userPage(user.userID)"/>
+                <div class="user-name" @click="userPage(user.userID)">{{user.Name}}</div>
             </div>
             </div>
-            <div v-else>
+            <div class="no-results has-text-centered" v-else>
+                <hr/>
                 Sorry, no users by that name.
             </div>
-        </div>
-    </div>    
+         </div>   
+      </div>
+      <div style="margin-bottom:520px;"></div>
+      </div>
+    </div>
 </template>
 
 <script>
 import { allSearches } from "../models/Users";
 import { getSingleUser } from "../models/Users";
+import { getUsers } from "../models/Users";
 
 export default {
     data:() => ({
+        userSearched: '',
         allSearches,
         user: ''
     }),
     methods: {
        async userPage(id) {
            await getSingleUser(id);
-            // const user = id;
-            // console.log(user); //do getPage to get their page from server
-            this.$router.push('/userpage');
-        }
+           this.$router.push('/userpage');
+        },
+       async searchUsers() {
+           try {
+             this.allSearches = await getUsers(this.userSearched);
+           } catch (error) {
+             console.log(error);
+           }
+       }
     }
 }
 </script>
+
+<style>
+.no-results {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: slateblue;
+    font-size: 25px;
+}
+</style>

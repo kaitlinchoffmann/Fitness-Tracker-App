@@ -24,5 +24,14 @@ router
         }
     })
 
+    .post('/getFriendPosts', (req, res) => {
+        try {
+            const friendUpdates = posts.getFriendUpdates(req.body.friendId);
+            res.send( friendUpdates );
+        } catch (error) {
+            res.status(401).send({ message: error.message });
+        }
+    })
+
 
 module.exports = router; 

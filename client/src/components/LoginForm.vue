@@ -98,12 +98,11 @@ export default {
     async login() {
       try {
         await User.Login(this.email, this.password);
-        //await currentDRI();
-        await getFood(this.email);
-        await getExercise(this.email);
-        await getFriends(User.CurrentUser.userID);
-        await getSentRequests(User.CurrentUser.userID);
-        await getPendingRequests(User.CurrentUser.userID);
+        await getFood();
+        await getExercise();//await getExercise(this.email);
+        await getFriends();//await getFriends(User.CurrentUser.userID);
+        await getSentRequests();
+        await getPendingRequests();
         await getPosts();
         
         if(User.CurrentUser.IsAdmin == true) {

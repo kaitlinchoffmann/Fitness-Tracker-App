@@ -2,8 +2,8 @@ import myFetch from "./myFetch";
 
 export let AddedFood = [];
 
-export async function getFood(currentEmail) {
-    const food = await myFetch('/food/getFood', { currentEmail });
+export async function getFood() {
+    const food = await myFetch('/food/getFood');
     return AddedFood = food;
 }
 

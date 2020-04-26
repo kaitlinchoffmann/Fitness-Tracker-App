@@ -1,8 +1,10 @@
+const users = require("./User");
 
 const AddedExercise = [
     {
         date:"2020-04-20",
         email:"j@j",
+        userID:3,
         exName:"squats",
         exType:"Strength",
         intensity:"moderate",
@@ -14,10 +16,11 @@ const AddedExercise = [
     }
 ];
 
-function getUserExercises(currentEmail) {
+function getUserExercises() {
+    const user = users.CurrentUser.userID;
     const exercises = [];
     const ex = AddedExercise.map(function(x, index) {
-        if(x.email == currentEmail) {
+        if(x.userID == user) {
             exercises.push(AddedExercise[index]);
         }
     });

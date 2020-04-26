@@ -4,9 +4,9 @@ const exercises = require('../models/Exercise');
 const router = express.Router();
 
 router
-    .post('/getExercise', (req, res) => {
+    .get('/getExercise', (req, res) => {
         try {
-            const ex = exercises.getUserExercises(req.body.currentEmail);
+            const ex = exercises.getUserExercises();
             res.send( ex );
         }
         catch (error) {

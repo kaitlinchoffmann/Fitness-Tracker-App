@@ -1,6 +1,19 @@
 const users = require("./User");
 
-const Updates = [];
+const Updates = [
+    {
+      date:"2020-04-20",
+      email:"j@j",
+      exName:"squats",
+      exType:"Strength",
+      intensity:"moderate",
+      reps:"10",
+      sets:"4",
+      time:15,
+      userID:3,
+      weight:"50"
+    }
+];
 
 const Posts = [
     {
@@ -36,6 +49,16 @@ function getUpdates() {
     return allUpdates;
 }
 
+function getFriendUpdates(friendId) {
+    const allUpdates = [];
+    Updates.map(function(x, index) {
+        if(x.userID == friendId ) {
+            allUpdates.push(x);
+        }
+    });
+    return allUpdates;
+}
+
 module.exports = {
-    Updates, Posts, shareUpdate, getUpdates
+    Updates, Posts, shareUpdate, getUpdates, getFriendUpdates
 };
