@@ -6,8 +6,8 @@ export default async function myFetch(url, data){
 
     let response;
     const headers = {};
-    if(User.CurrentUser && User.CurrentUser.userId != null) {
-        headers.authorization = "bearer " + User.CurrentUser.userId; //our token
+    if(User.CurrentUser && User.CurrentUser.userID != null) {
+        headers.authorization = "bearer " + User.CurrentUser.userID; //our token
     }
 
 

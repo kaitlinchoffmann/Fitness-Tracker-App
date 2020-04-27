@@ -79,8 +79,8 @@ export default {
             }
         },
         async request() {
-            await sendRequest(this.otherUser.userID, User.CurrentUser.userID, User.CurrentUser.Picture, User.CurrentUser.Name);
-            await getSentRequests(this.User.CurrentUser.userID);
+            await sendRequest(this.otherUser.userID, User.CurrentUser.Picture, User.CurrentUser.Name);
+            await getSentRequests();
             document.getElementById('request').innerHTML="Request Sent";
         },
         async allFriendPosts() {

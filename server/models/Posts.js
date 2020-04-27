@@ -38,11 +38,11 @@ function shareUpdate(history) {
     return Updates;
 };
 
-function getUpdates() {
-    const user = users.CurrentUser;
+function getUpdates(userID) {
+    // const user = users.CurrentUser;
     const allUpdates = [];
     Updates.map(function(x, index) {
-        if(x.email == user.Email ) {
+        if(x.userID == userID ) {
             allUpdates.push(x);
         }
     });

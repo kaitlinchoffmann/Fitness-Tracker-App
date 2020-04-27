@@ -60,8 +60,7 @@ function addFriend(userId, friendId) {
     return newFriend;
 }
 
-function getFriends() {
-    const userID = users.CurrentUser.userID;
+function getFriends(userID) {
     const allFriends = [];
     Friends.map(function(x, index) {
         if(x.userId == userID) {
@@ -82,22 +81,20 @@ function sendRequest(user, friend, picture, name) {
     return SentRequests;
 }
 
-function getSentRequests() {
-    const user = users.CurrentUser.userID;
+function getSentRequests(userID) {
     const allRequests = [];
     SentRequests.map(function(x, index) {
-        if(x.userId == user) {
+        if(x.userId == userID) {
             allRequests.push(SentRequests[index]);
         }
     })
     return allRequests;
 }
 
-function getPendingRequests() {
-    const user = users.CurrentUser.userID;
+function getPendingRequests(userID) {
     const allRequests = [];
     PendingRequests.map(function(x, index) {
-        if(x.userId == user) {
+        if(x.userId == userID) {
             allRequests.push(PendingRequests[index]);
         }
     })

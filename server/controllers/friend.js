@@ -8,9 +8,8 @@ router
 
     .post('/addFriend', (req, res) => {
         try {
-            const userId = req.body.userId;
             const friendId = req.body.friend;
-            const newFriend = friends.addFriend(userId, friendId);
+            const newFriend = friends.addFriend(req.userID, friendId);
             res.send( newFriend );
         } catch (error) {
             res.status(401).send({ message: error.message });
@@ -19,7 +18,7 @@ router
 
     .get('/getFriends', (req, res) => {
         try {
-            const allFriends = friends.getFriends();
+            const allFriends = friends.getFriends(req.userID);
             res.send( allFriends );
         } catch (error) {
             res.status(401).send({ message: error.message });
@@ -29,11 +28,10 @@ router
     //requests
     .post('/sendRequest', (req, res) => {
         try {
-            user = req.body.userID;
             friend = req.body.friendID;
             picture = req.body.userPicture;
             name = req.body.userName;
-            const SentRequests = friends.sendRequest(user, friend, picture, name);
+            const SentRequests = friends.sendRequest(req.userID, friend, picture, name);
             res.send(SentRequests);
         } catch (error) {
             res.status(401).send({ message: error.message });
@@ -42,7 +40,7 @@ router
 
     .get('/getSentRequests', (req, res) => {
         try {
-            const allRequests = friends.getSentRequests();
+            const allRequests = friends.getSentRequests(req.userID);
             res.send(allRequests);
         } catch (error) {
             res.status(401).send({ message: error.message });
@@ -51,7 +49,7 @@ router
 
     .get('/getPendingRequests', (req, res) => {
         try {
-            const allRequests = friends.getPendingRequests();
+            const allRequests = friends.getPendingRequests(req.userID);
             res.send(allRequests);
         } catch (error) {
             res.status(401).send({ message: error.message });

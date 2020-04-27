@@ -17,7 +17,7 @@ router
 
     .get('/getPosts', (req, res) => {
         try {
-            const allUpdates = posts.getUpdates();
+            const allUpdates = posts.getUpdates(req.userID);
             res.send( allUpdates );
         } catch (error) {
             res.status(401).send({ message: error.message });

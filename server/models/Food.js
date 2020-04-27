@@ -16,11 +16,10 @@ const AddedFood = [
     }
 ];
 
-function getUserFood() {
-    const user = users.CurrentUser.userID;
+function getUserFood(userID) {
     const food = [];
     AddedFood.map(function (x, index) {
-        if(x.userID == user) {
+        if(x.userID == userID) {
             food.push(AddedFood[index]);
         }
     });

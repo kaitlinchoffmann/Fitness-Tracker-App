@@ -70,8 +70,7 @@ router
     .post('/getUser', (req, res) => {
         try {
             userSearched = req.body.userSearched;
-            currentUser = users.CurrentUser.userID;
-            const searched = users.getUser(userSearched, currentUser);
+            const searched = users.getUser(userSearched, req.userID);
             res.send( searched );
         } catch (error) {
             res.status(401).send({ message: error.message });

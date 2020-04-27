@@ -16,11 +16,10 @@ const AddedExercise = [
     }
 ];
 
-function getUserExercises() {
-    const user = users.CurrentUser.userID;
+function getUserExercises(userID) {
     const exercises = [];
-    const ex = AddedExercise.map(function(x, index) {
-        if(x.userID == user) {
+    AddedExercise.map(function(x, index) {
+        if(x.userID == userID) {
             exercises.push(AddedExercise[index]);
         }
     });

@@ -38,7 +38,7 @@ export default {
             this.PendingRequests = await getPendingRequests();
         },
         async addUser(userId) {
-            await addFriend(userId, User.CurrentUser.userID);
+            await addFriend(userId);
             this.PendingRequests = await getPendingRequests();
         }
     }

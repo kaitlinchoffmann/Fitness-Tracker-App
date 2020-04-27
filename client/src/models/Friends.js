@@ -1,19 +1,18 @@
 import myFetch from "./myFetch";
 
-export async function addFriend(friend, userId) {
-    await myFetch('/friend/addFriend', {friend, userId});
+export async function addFriend(friend) {
+    await myFetch('/friend/addFriend', {friend});
 }
 
 export let allFriends = null;
 
 export async function getFriends() {
     const friends = await myFetch('/friend/getFriends');
-    console.log(friends);
     return allFriends = friends; 
 }
 
-export async function sendRequest(friendID, userID, userPicture, userName) {
-    await myFetch('/friend/sendRequest', { friendID, userID, userPicture, userName });
+export async function sendRequest(friendID, userPicture, userName) {
+    await myFetch('/friend/sendRequest', { friendID, userPicture, userName });
 }
 
 export let SentRequests = null;

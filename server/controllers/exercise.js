@@ -6,7 +6,7 @@ const router = express.Router();
 router
     .get('/getExercise', (req, res) => {
         try {
-            const ex = exercises.getUserExercises();
+            const ex = exercises.getUserExercises(req.userID);
             res.send( ex );
         }
         catch (error) {

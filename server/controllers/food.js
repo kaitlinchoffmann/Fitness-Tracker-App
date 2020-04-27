@@ -6,7 +6,7 @@ const router = express.Router();
 router
     .get('/getFood', (req, res) => {
         try {
-            const AddedFood = food.getUserFood();
+            const AddedFood = food.getUserFood(req.userID);
             res.send( AddedFood );
         }
         catch (error) {
