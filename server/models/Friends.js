@@ -75,6 +75,20 @@ function getFriends(userID) {
     return allFriends;
 }
 
+function deleteFriend(userID, friendID) {
+    let friend = null;
+    Friends.map(function(x, index) {
+        if(x.userId == userID && x.FriendId == friendID) {
+            Friends.splice(index,1);
+            friend = false;
+        }
+        if(x.userId == friendID && x.FriendId == userID) {
+            Friends.splice(index,1);
+        }
+    });
+    return friend;
+}
+
 function sendRequest(user, friend, picture, name) {
     SentRequests.push({userId: user, requestId: friend});
     PendingRequests.push({userId: friend, requestId: user, requestPicture: picture, requestName: name});
@@ -103,5 +117,5 @@ function getPendingRequests(userID) {
 
 module.exports = {
     Friends, SentRequests, PendingRequests, addFriend, getFriends,
-    sendRequest, getSentRequests, getPendingRequests
+    sendRequest, getSentRequests, getPendingRequests, deleteFriend
 }

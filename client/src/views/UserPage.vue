@@ -1,6 +1,7 @@
 <template>
     <div class="container">
         <div class="section">
+        <div id="delete"></div>
         <h2 class="title is-2 has-text-left">
           {{otherUser.Name}}     
         </h2>
@@ -9,7 +10,7 @@
                 <img :src="otherUser.Picture" class="card-image" alt="friend's photo">
             </div><br/>    
             <div v-if="friends==true">
-                <button class="button is-light">Delete Friend</button>
+                <button class="button is-light" @click="DeleteFriend()">Delete Friend</button>
                 <div style="float:left;margin-left:7%;">
                   <div v-if="friendPosts.length > 0">
                     Exercises Shared by {{otherUser.Name}}:  
@@ -47,7 +48,7 @@
 <script>
 import User from "../models/Users";
 import { otherUser } from "../models/Users";
-import { sendRequest, SentRequests, allFriends, getSentRequests } from "../models/Friends"
+import { sendRequest, SentRequests, allFriends, getSentRequests, deleteFriend } from "../models/Friends"
 import { friendPosts, getFriendPosts } from "../models/Post";
 
 export default {
@@ -84,8 +85,11 @@ export default {
             document.getElementById('request').innerHTML="Request Sent";
         },
         async allFriendPosts() {
-            this.friendPosts = await getFriendPosts(otherUser.userID);
-            console.log("hi" + this.friendPosts);
+            this.friendPosts = await getFriendPosts(this.otherUser.userID);
+        },
+        async DeleteFriend() {
+            this.friends = await deleteFriend(this.otherUser.userID);
+            document.getElementById('delete').innerHTML="Friend Deleted";
         }
     }
 }

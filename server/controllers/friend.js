@@ -25,6 +25,15 @@ router
         }
     })
 
+    .post('/deleteFriend', (req, res) => {
+        try {
+            const friend = friends.deleteFriend(req.userID, req.body.friendID);
+            res.send(friend);
+        } catch(error) {
+            res.status(401).send({ message: error.message });
+        }
+    })
+
     //requests
     .post('/sendRequest', (req, res) => {
         try {

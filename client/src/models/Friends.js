@@ -28,3 +28,10 @@ export async function getPendingRequests() {
     const requests = await myFetch('/friend/getPendingRequests');
     return PendingRequests = requests;
 }
+
+export let friend = null;
+
+export async function deleteFriend(friendID) {
+    const friends = await myFetch('/friend/deleteFriend', {friendID});
+    return friend = friends;
+}
