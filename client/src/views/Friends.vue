@@ -7,6 +7,7 @@
               <div v-for="user in allFriends" :key="user.userID">
                 <img :src="user.Picture" id="user-pic" @click="userPage(user.userID)"/>
                 <div class="user-name" @click="userPage(user.userID)">{{user.Name}}</div>
+                <button class="button is-warning" @click="DeleteFriend(user.userID)">Delete Friend</button>
               <hr/>
               </div>
             </div>
@@ -21,7 +22,7 @@
 
 <script>
 import User from "../models/Users";
-import { allFriends, getFriends } from "../models/Friends";
+import { allFriends, getFriends, deleteFriend } from "../models/Friends";
 import { getSingleUser } from "../models/Users";
 
 export default {
@@ -42,6 +43,10 @@ export default {
         async getAllFriends() {
             console.log(this.User.CurrentUser.userID);
             this.allFriends = await getFriends(User.CurrentUser.userID);
+        },
+        async DeleteFriend(id) {
+            await deleteFriend(id);
+            this.getAllFriends();
         }
     }
 }

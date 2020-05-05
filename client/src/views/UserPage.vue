@@ -12,7 +12,7 @@
             <div v-if="friends==true">
                 <button class="button is-light" @click="DeleteFriend()">Delete Friend</button>
                 <div style="float:left;margin-left:7%;">
-                  <div v-if="friendPosts.length > 0">
+                  <div v-if="friendPosts.length>0"> 
                     Exercises Shared by {{otherUser.Name}}:  
                     <div v-for="x in friendPosts" :key="x.exName" id:x.exName>
                       <div class="box">  
@@ -91,6 +91,22 @@ export default {
             this.friends = await deleteFriend(this.otherUser.userID);
             document.getElementById('delete').innerHTML="Friend Deleted";
         }
+        // sort() {
+        //     let datesDesc = this.sortDates;
+        //     // let dates = this.friendPosts[0].date;
+        //     // console.log(dates);
+        //     // for(var i = 0; i<this.friendPosts.length; i++) {
+        //     //     this.friendPosts = this.friendPosts[i].date.sort(datesDesc);
+        //     // }
+        //     this.friendPosts = this.friendPosts.sort(datesDesc);
+        //     console.log(this.friendPosts);
+        //     return this.friendPosts;
+        // },
+        // sortDates(d1, d2){
+        //   if(d1 > d2) return -1;
+        //   if(d1 < d2) return 1;
+        //   return 0;
+        // },
     }
 }
 </script>

@@ -50,7 +50,12 @@
                       <td>{{x.intensity}}</td>
                   </tr>
                   </tbody><br/>
-                  <button class="button is-light" @click="share">Share with Friends</button>
+                  <div v-if="history[0].exName != null">
+                    <button id="share" class="button is-light" @click="share">Share with Friends</button>
+                  </div>
+                  <div v-else>
+                    <router-link to="/exercise" class="button is-light">Start Logging to Share!</router-link>
+                  </div>
         </table> 
         </div><br/>
         <div class="box" style="width:450px;float:left;margin-left:20%;">
@@ -226,6 +231,7 @@ export default {
         async share() {
           await shareProgress(this.history);
           await getPosts();
+          document.getElementById("share").innerHTML="Progress Shared!";
         }
     }
 } 
