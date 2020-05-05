@@ -51,7 +51,13 @@
                       <td>{{x.sodium}}</td>
                       <td>{{x.sugar}}</td>
                   </tr>
-                  </tbody>
+                  </tbody><br/>
+                  <div v-if="history[0].food != null">
+                    <button id="share" class="button is-light" @click="share">Share with Friends</button>
+                  </div>
+                  <div v-else>
+                    <router-link to="/food" class="button is-light">Start Logging to Share!</router-link>
+                  </div>
         </table>
         </div><br/>
         <div class="box" style="width:500px;margin:auto;">
@@ -114,6 +120,7 @@
 import { currentDate } from "../models/Date";
 import User from "../models/Users";
 import { AddedFood } from "../models/Food";
+import { shareFood, getFoodPosts } from "../models/Post";
 currentDate();
 
 export default {
@@ -209,6 +216,11 @@ export default {
             this.goalsLeft[5] = sug;
               
             return this.goalsLeft;
+        },
+        async share() {
+          await shareFood(this.history);
+          await getFoodPosts();
+          document.getElementById("share").innerHTML="Progress Shared!";
         }
     }
 } 

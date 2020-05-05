@@ -83,7 +83,7 @@ import User from "../models/Users";
 import { getFood } from "../models/Food";
 import { getExercise } from "../models/Exercise";
 import { getFriends, getSentRequests, getPendingRequests } from "../models/Friends";
-import { getPosts } from "../models/Post";
+import { getPosts, getFoodPosts } from "../models/Post";
 
 export default {
   data(){
@@ -104,6 +104,7 @@ export default {
         await getSentRequests();
         await getPendingRequests();
         await getPosts();
+        await getFoodPosts();
         
         if(User.CurrentUser.IsAdmin == true) {
           this.$router.push('/admin');

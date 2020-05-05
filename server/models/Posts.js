@@ -4,42 +4,82 @@ const Updates = [
     {
       date:"2020-04-20",
       userID: 3,
-      data: [{
-      email:"j@j",
-      exName:"squats",
-      exType:"Strength",
-      intensity:"moderate",
-      reps:"10",
-      sets:"4",
-      time:15,
-      userID:3,
-      weight:"50"
-      }]
+      data: [
+          {
+            email:"j@j",
+            exName:"squats",
+            exType:"Strength",
+            intensity:"moderate",
+            reps:"10",
+            sets:"4",
+            time:15,
+            userID:3,
+            weight:"50"
+          }
+      ]
     }
 ];
 
-const Posts = [
+const FoodUpdates = [
     {
-        Email: 'jill123@fakemail.com',
-        Post: 'Fun day at the gym!',
-        Date: '02/27/2020' 
-    },
-    {
-        Email: 'jill123@fakemail.com',
-        Post: "I'm Beat today, so sleepy..",
-        Date: '02/24/2020'
-    }
-];
+        date:"2020-05-03",
+        userID: 3,
+        data: [
+            {
+              calories:283,
+              carbs:75,
+              date:"2020-05-03",
+              email:"j@j",
+              userID:3,
+              fat:1,
+              food:"apple",
+              group:"Fruit",
+              protein:1,
+              sodium:5,
+              sugar:57
+            }
+        ]
 
-// function shareUpdate(history) {
-//     for(let i=0; i<history.length; i++) {
-//         const repeat = Updates.find(x => (x.exName == history[i].exName) && (x.date == history[i].date) && (x.intensity == history[i].intensity));
-//         if(!repeat) {
-//             Updates.push(history[i]);
-//         }
+    }
+]
+
+// const Posts = [
+//     {
+//         Email: 'jill123@fakemail.com',
+//         Post: 'Fun day at the gym!',
+//         Date: '02/27/2020' 
+//     },
+//     {
+//         Email: 'jill123@fakemail.com',
+//         Post: "I'm Beat today, so sleepy..",
+//         Date: '02/24/2020'
 //     }
-//     return Updates;
-// };
+// ];
+
+function shareFood(history) {
+    for(let i=0; i<history.length; i++) {
+        const repeat = FoodUpdates.find(x => (x.date == history[i].date) && (x.userID == history[i].userID));
+        if(!repeat) {
+            let dat = history[i];
+                    FoodUpdates.push({
+                        date: history[i].date,
+                        userID: dat.userID, 
+                        data: [dat]
+                    });
+                }  
+        else {
+            FoodUpdates.find(function(x,index) {
+            const repeat2 = x.data.find(x => x.food == history[i].food && x.calories == history[i].calories); 
+            if(!repeat2) {
+                if(x.date == history[i].date && x.userID == history[i].userID) {
+                    FoodUpdates[index].data.push(history[i]);
+                }
+            } 
+            });  
+        }
+    }                  
+    return FoodUpdates;
+};
 
 function shareUpdate(history) {
     for(let i=0; i<history.length; i++) {
@@ -76,6 +116,16 @@ function getUpdates(userID) {
     return allUpdates;
 }
 
+function getFoodUpdates(userID) {
+    const allUpdates = [];
+    FoodUpdates.map(function(x) {
+        if(x.userID == userID ) {
+            allUpdates.push(x);
+        }
+    });
+    return allUpdates;
+}
+
 function getFriendUpdates(friendId) {
     const allUpdates = [];
     Updates.map(function(x) {
@@ -86,6 +136,16 @@ function getFriendUpdates(friendId) {
     return allUpdates;
 }
 
+function getFriendFood(friendId) {
+    const allUpdates = [];
+    FoodUpdates.map(function(x) {
+        if(x.userID == friendId ) {
+            allUpdates.push(x);
+        }
+    });
+    return allUpdates;
+}
+
 module.exports = {
-    Updates, Posts, shareUpdate, getUpdates, getFriendUpdates
+    Updates, shareUpdate, getUpdates, shareFood, getFoodUpdates, getFriendUpdates, getFriendFood
 };

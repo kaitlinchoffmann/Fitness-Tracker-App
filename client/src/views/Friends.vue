@@ -36,13 +36,10 @@ export default {
     methods: {
        async userPage(id) {
            await getSingleUser(id);
-            // const user = id;
-            // console.log(user); //do getPage to get their page from server
-            this.$router.push('/userpage');
+           this.$router.push('/userpage');
         },
         async getAllFriends() {
-            console.log(this.User.CurrentUser.userID);
-            this.allFriends = await getFriends(User.CurrentUser.userID);
+            this.allFriends = await getFriends();
         },
         async DeleteFriend(id) {
             await deleteFriend(id);

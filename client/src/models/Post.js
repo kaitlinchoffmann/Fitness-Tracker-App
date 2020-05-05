@@ -7,6 +7,13 @@ export async function shareProgress(progress) {
     return posts = newPosts;
 }
 
+export let foodPosts = null;
+
+export async function shareFood(progress) {
+    const newFood = await myFetch('/update/shareFood', { progress });
+    return foodPosts = newFood;
+}
+
 export let updatedPosts = null;
 
 export async function getPosts() {
@@ -14,9 +21,23 @@ export async function getPosts() {
     return updatedPosts = posts; 
 }
 
-export let friendPosts = null;
+export let updatedFood = null;
+
+export async function getFoodPosts() {
+    const posts = await myFetch('/update/getFoodPosts');
+    return updatedFood = posts;
+}
+
+export let friendExPosts = null;
 
 export async function getFriendPosts(friendId) {
     const posts = await myFetch('/update/getFriendPosts', { friendId });
-    return friendPosts = posts; 
+    return friendExPosts = posts; 
+}
+
+export let friendFoodPosts = null;
+
+export async function getFriendFood(friendId) {
+    const posts = await myFetch('/update/getFriendFood', { friendId });
+    return friendFoodPosts = posts; 
 }

@@ -23,7 +23,7 @@
 <script>
 import User from "../models/Users";
 import { getSingleUser } from "../models/Users";
-import { PendingRequests, getPendingRequests, addFriend } from "../models/Friends";
+import { PendingRequests, getPendingRequests, addFriend, getFriends } from "../models/Friends";
 export default {
     data:()=>({
         User,

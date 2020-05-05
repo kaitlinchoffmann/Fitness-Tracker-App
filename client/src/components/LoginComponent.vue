@@ -17,14 +17,14 @@
               </div>  
           </li>
           <li class="my-dropdown" v-if="CurrentUser">
-          <router-link to="/profile">Profile</router-link>
+          <router-link to="/profile">Dashboard</router-link>
               <div class="dropdown-cnt">
                 <div v-if="CurrentUser.IsAdmin==true">
                   <router-link to="/admin">Admin</router-link>
                 </div>
                 <router-link to="/friends">Friends</router-link>
                 <router-link to="/search">Search Users</router-link>
-                <router-link to="/updates">Updates</router-link>
+                <router-link to="/updates">Shared Progress</router-link>
                 <router-link to="/pendingrequests">Pending Requests</router-link>
                 <router-link to="/settings">Settings</router-link>
                 <a href="#Logout" @click="logout">Logout</a>

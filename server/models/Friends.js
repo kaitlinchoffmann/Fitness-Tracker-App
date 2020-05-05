@@ -43,8 +43,8 @@ function addFriend(userId, friendId) {
     const user = Friends.find(x => x.userId == userId && x.FriendId == friendId);
     if(user) throw Error ("Already a friend!");
 
-    const newFriend = { userId: userId, FriendId: friendId}
-    const newFriend2 = { userId: friendId, FriendId: userId}
+    const newFriend = { userId: userId, FriendId: friendId};
+    const newFriend2 = { userId: friendId, FriendId: userId};
     Friends.push(newFriend);
     Friends.push(newFriend2);
     PendingRequests.map(function(x, index) {
@@ -57,7 +57,7 @@ function addFriend(userId, friendId) {
             SentRequests.splice(index,1);
         }
     })
-    return newFriend;
+    return Friends;
 }
 
 function getFriends(userID) {
@@ -76,7 +76,7 @@ function getFriends(userID) {
 }
 
 function deleteFriend(userID, friendID) {
-    let friend = null;
+    let friend = true;
     Friends.map(function(x, index) {
         if(x.userId == userID && x.FriendId == friendID) {
             Friends.splice(index,1);
@@ -84,6 +84,7 @@ function deleteFriend(userID, friendID) {
         }
         if(x.userId == friendID && x.FriendId == userID) {
             Friends.splice(index,1);
+            friend = false;
         }
     });
     return friend;
