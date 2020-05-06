@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="section">
-        <h2 class="title is-2">Pending Friend Requests</h2><br/>    
+        <h2 class="title is-2 pending-title">Pending Friend Requests</h2><br/>    
         <div class="section box" style="max-width: 1000px;margin:auto;">
             <div v-if="PendingRequests.length > 0">
               <div v-for="request in PendingRequests" :key="request.userID">
@@ -44,3 +44,12 @@ export default {
     }
 }
 </script>
+
+<style>
+
+@media(max-width: 500px) {
+  h2.pending-title{
+      margin-top:0px;
+  }
+}  
+</style>

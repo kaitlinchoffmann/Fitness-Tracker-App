@@ -25,6 +25,12 @@
 
 <style lang="scss">
 
+@media(max-width: 500px) {
+  .subtitle .subhead {
+    padding:10px;
+  }
+}
+
 footer.footer {
   background-color: slateblue;
   color: white;

@@ -24,7 +24,7 @@
             <router-link to="/food">Add a Food Item</router-link>
         </nav>
         <div class="section">
-       <div class="box" style="width: 900px; margin:auto;">
+       <div class="box table" style="max-width: 900px; margin:auto;">
                 <div id="none"></div>
         <table class="table" style="margin:auto;">
                <caption> <h4 class="title is-4">Logged Food For: {{history[0].date}}</h4></caption>
@@ -63,7 +63,7 @@
                   </div>
         </table>
         </div><br/>
-        <div class="box" style="width:500px;margin:auto;">
+        <div class="box table" style="max-width:500px;margin:auto;">
         <table class="table has-text-centered"> 
           <caption><h4 class="title is-4">Daily Summary</h4></caption>
             <thead>  

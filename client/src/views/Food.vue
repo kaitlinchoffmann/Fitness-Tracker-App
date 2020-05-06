@@ -7,7 +7,7 @@
             <div class="section">
                 <div class="columns">
             <div class="column"> 
-              <div class="box">
+              <div class="box table">
                 <p id="error"></p>
                 <p id="note"></p>
                 <table class="table">

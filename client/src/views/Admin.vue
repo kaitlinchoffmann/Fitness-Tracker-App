@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <h1 class="title is-1">Hi, {{User.CurrentUser.Name}}</h1>
-        <div class="section">
+        <div id="admin-functions" class="section">
         <div class="box">   
             {{error.message}}
             <div id="addSuccess"></div>
@@ -30,41 +30,7 @@
               <input class="input" type="text" placeholder="user email" v-model="bannedEmail"><br/><br/>
             <button class="button is-primary is-light" @click="banUser()" >Ban</button>
         </div>
-
-
-
-        <!-- if have time: -->
-        <!-- <div class="box">   
-            <div id="exists"></div>
-            <h4 class="title is-4">Ban User</h4>
-            <input class="input" type="text" placeholder="exercise name" v-model="exercise"><br/><br/>
-            <input class="input" type="text" placeholder="exercise type" v-model="type"><br/><br/>
-            <button class="button is-primary is-light" @click="addExercise()" >Add</button>
-        </div>
-        <div class="box">   
-            <div id="exists"></div>
-            <h4 class="title is-4">Edit User/Staff</h4>
-            <input class="input" type="text" placeholder="exercise name" v-model="exercise"><br/><br/>
-            <input class="input" type="text" placeholder="exercise type" v-model="type"><br/><br/>
-            <button class="button is-primary is-light" @click="addExercise()" >Add</button>
-        </div> -->
-
-
-        <!-- <div class="box">   
-            <div id="exists"></div>
-            <h4 class="title is-4">Add New Exercise</h4>
-            <input class="input" type="text" placeholder="exercise name" v-model="exercise"><br/><br/>
-            <input class="input" type="text" placeholder="exercise type" v-model="type"><br/><br/>
-            <button class="button is-primary is-light" @click="addExercise()" >Add</button>
-        </div>
-        <div class="box">  
-            <div id="exists2"></div> 
-            <h4 class="title is-4">Add New Food</h4>
-            <input class="input" type="text" placeholder="food name" v-model="food"><br/><br/>
-            <input class="input" type="text" placeholder="food group" v-model="group"><br/><br/>
-            <button class="button is-primary is-light" @click="addFood()" >Add</button>
-        </div> -->
-                <div style="margin-bottom:510px;"></div>
+                <div id="admin-space"></div>
         </div>
         
     </div>
@@ -86,12 +52,6 @@ export default {
         password: '',
         isAdmin: '',
         error: ''
-        // Exercises,
-        // Food,
-        // exercise: '',
-        // type: '',
-        // food: '',
-        // group: ''
     }),
     methods: {
         async addNewUser() {
@@ -117,27 +77,30 @@ export default {
                 this.error = error;
             }
         }
-
-        
-        // addExercise() {
-        //     AddNewEx(this.exercise, this.type);
-        //     this.exercise = '';
-        //     this.type = '';
-        // },
-        // addFood() {
-        //     AddNewFood(this.food, this.group);
-        //     this.food = '';
-        //     this.group = '';
-        // }
     }
     
 }
 </script>
 
 <style scoped>
-    .box {
-        width: 500px;
-        float: left;
-        margin-left: 8%;
-    }
+.box {
+    width: 500px;
+    float: left;
+    margin-left: 8%;
+}
+
+#admin-space {
+    margin-bottom:550px;
+}
+
+@media(max-width: 1407px) {
+ .box {
+    width: 500px;
+    float: none;
+    margin: auto;
+ }
+ #admin-space {
+    margin-bottom:100px;
+ }
+}
 </style>

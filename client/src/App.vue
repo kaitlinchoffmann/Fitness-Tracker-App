@@ -41,11 +41,12 @@ h3.fcolor, label.fcolor {
 
 .to-home:hover {
   color: #503cd1;
-}
- 
+}   
 
 #background {
-    background-image: linear-gradient(to top, rgba(0, 225, 255, 0.4),rgba(0, 225, 225, 0));
+  height: 100%;
+  background-image: linear-gradient(to top, rgba(0, 225, 255, 0.4),rgba(0, 225, 225, 0));
+  background-size: cover;
 }
 
 .dropdown-cnt {
@@ -81,6 +82,11 @@ div.subtitle {
 hr.hr {
   margin-top: 0px;
 }
+
+.box.table {
+ overflow-x: auto;
+}
+
 </style>
 
 <script>

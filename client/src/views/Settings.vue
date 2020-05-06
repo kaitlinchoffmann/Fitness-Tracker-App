@@ -100,22 +100,23 @@ export default {
 
 <style>
 #settings-pic {
-  width: 250px;
+  max-width: 250px;
 }
 
 #settings.box {
-     width: 550px;
+     max-width: 550px;
 }
 
 #settings-form {
      margin: auto;
-     width: 550px;
      max-width: 550px;
 }
 
 #sub {
-  width: 550px;
+  display: block;
   margin: auto;
+  max-width: 550px;
+  min-width:300px;
 }
 
 h6.title {

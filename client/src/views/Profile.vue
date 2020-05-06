@@ -1,12 +1,12 @@
 <template>
 <div class="container profile">
   <div class = "section">
-    <h2 class="title is-2 has-text-left">
+    <h2 class="title is-2 has-text-left" id="name">
       {{User.CurrentUser.Name}}     
     </h2>
     <div>
-      <div style="float:left; margin-left:30px;">
-        <img :src="User.CurrentUser.Picture" class="card-image" id="profile-pic"/>
+      <div id="pic-goal">
+        <img :src="User.CurrentUser.Picture" class="card-image" />
         <div id="status" v-if="User.CurrentUser.Goal == 'maintain'">
          <span id="status-first">Goal:</span> Maintain Weight
         </div>
@@ -23,8 +23,8 @@
           <span id="status-first">Goal:</span> Gain Two Pounds Per Week
         </div>
       </div>
-          <div class="box" style="float:left;margin-left:7%;">
-            <table class="table has-text-centered" style="width:300px;margin:auto;">
+          <div id="food-goal" class="box">
+            <table id="food-table" class="table has-text-centered">
               <caption><h4 class="title is-4">Daily Food Goals</h4></caption>
               <thead>
                 <tr>
@@ -60,13 +60,13 @@
               </tbody>
             </table>
           </div>
-          <div style="max-width:300px;max-height:200px;float:right;margin-right:5%;">
+          <div id="ex-goal">
             <div class="box">
               <h4 class="title is-4">Daily Exercise Goals</h4>
                 <p class="has-text-centered">30 minutes of moderate or vigorous exercise</p>
             </div>
           </div>
-          <div class="section" style="width:350px;max-height:200px;float:left;margin-left:4%;">
+          <div id="bmi-section" class="section">
             <div class="box">
               <h6 class="title is-6" id="status-first">Body Mass Index (BMI): <span id="bmi">{{User.CurrentUser.BMI}}</span></h6>
               <div v-if="User.CurrentUser.BMI < 18.5">
@@ -83,22 +83,9 @@
               </div>
             </div>
               <div id="note">*For how much of your goals you have remaining and completed, go to the Food and Exercise Tabs.</div>
-          </div>  
-        
-         <!-- <h3 class="title is-3">Friends</h3> 
-        <div class="section friends" v-for="friend in Friends" :key="friend.Name">
-          <img :src="friend.Picture" class="tiny-image"> <br/>{{friend.Name}} - {{friend.Status}}
-        </div> 
-      </div> 
-      
-        <li class="card" id= "post" v-for="posts in Posts" :key="posts.Post">
-          <div class="inner-post">{{posts.Post}}</div>
-          <button class="button is-small btn-post">Like</button>
-          <button class="button is-small btn-post">Comment</button>
-        </li> -->
-       
+          </div>
     </div> 
-    <div style="margin-bottom:520px;"></div>          
+    <div id="space"></div>          
   </div>
 </div>
 </template>
@@ -114,16 +101,38 @@ export default {
 </script>
 
 <style>
-.card-image {
+
+img.card-image {
   max-width: 400px;
 }
 
-#post {
-    width: 700px;
-    margin-bottom: 40px;
-    margin-left: 80px;
-    list-style-type: none;
-    padding: 30px;
+#pic-goal {
+  float:left; 
+  margin-left:30px;
+}
+
+#ex-goal {
+  max-width: 300px;
+  max-height: 200px;
+  float: right;
+  margin-right: 5%;
+}
+
+#food-goal {
+   float:left;
+   margin-left:7%;
+}
+
+#food-table {
+   width:300px;
+   margin:auto;
+}
+
+#bmi-section {
+   max-width:350px;
+   max-height:200px;
+   float:left;
+   margin-left:4%;
 }
 
 #status {
@@ -144,46 +153,9 @@ export default {
   color: #363636;
 }
 
-.btn-post {
-  margin-top: 20px;
-  margin-right: 10px;
-}
-
-.button {
-  color: white;
-  background-color: slateblue; 
-}
-
-.button:hover {
-  color: white;
-}
-
-.btn-status {
-  float:right;
-}
-
-.inner-post {
-  
-  padding: 20px;
-  box-shadow: 0px 1px 5px lightgrey;
-  background-color: whitesmoke;
-}
-
 .tiny-image {
   display: block;
   width: 300px; 
-}
-
-.friends {
-  margin-top: 20px;
-  margin-bottom: 40px;
-  border-left: 1px solid lightgrey;
-  padding: 10px;
-}
-
-.recent-ex {
-  box-shadow: 0px 1px 5px lightgrey;
-  padding: 30px;
 }
 
 #note {
@@ -196,6 +168,84 @@ h2.title, h5.title {
   margin-top: 40px;
   text-shadow: 4px 4px 4px lightblue;
   margin-left: 30px;
+}
+
+#space {
+  margin-bottom:520px;
+}
+
+@media(max-width: 1407px) {
+
+  #bmi-section {
+    margin-left:0px;
+    padding-top: 0px;
+    margin-left:130px;
+  }
+
+  #ex-goal {
+    float: left;
+    margin-left: 30px;
+  }
+
+  #space {
+    margin-bottom:650px;
+  }
+
+}
+
+@media(max-width: 911px) {
+  #pic-goal {
+    float:none; 
+    margin:auto;
+  }
+  
+  #bmi-section {
+    margin:auto;
+    padding-top: 0px;
+    float: none;
+  }
+
+  #ex-goal {
+    float: none;
+    margin:auto;
+    margin-bottom: 30px;
+  }
+
+  #food-goal {
+   float:none;
+   margin:auto;
+   max-width: 400px;
+   margin-bottom: 30px;
+ }
+ 
+ #food-table {
+    width:100%;
+    max-width:300px;
+    margin:auto;
+ }
+
+ #status {
+   max-width: 400px;
+   margin: auto;
+   margin-bottom: 30px;
+ }
+
+ img.card-image {
+   margin: auto;
+   padding-bottom: 10px;
+   display: block;
+   width: 100%;
+   max-width: 400px;
+ }
+
+ h2.has-text-left {
+    text-align: center !important;
+    margin-top: 0px;
+ }
+
+ #space {
+    margin-bottom:50px;
+  }
 }
 
 </style>

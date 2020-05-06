@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="section">
-        <h2 class="title is-2">Friends</h2><br/>    
+        <h2 class="title is-2 friend-title">Friends</h2><br/>    
         <div class="section box" style="max-width: 1000px;margin:auto;">
             <div v-if="allFriends.length > 0">
               <div v-for="user in allFriends" :key="user.userID">
@@ -64,5 +64,24 @@ export default {
 .no-friends {
     color: slateblue;
     font-size: 25px;
+}
+
+@media(max-width: 500px) {
+  h2.friend-title{
+      margin-top:0px;
+  }
+
+  .user-name {
+      margin-bottom: 20px;
+  }
+
+  #user-pic {
+    margin:auto;  
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    max-height: 250px;
+    float:none;
+  }
 }
 </style>

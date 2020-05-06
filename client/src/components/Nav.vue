@@ -98,10 +98,6 @@ a:focus {
   color: rgb(255, 123, 0);
 }
 
-#background {
-    background-image: linear-gradient(to top, rgba(0, 225, 255, 0.4),rgba(0, 225, 225, 0));
-}
-
 .dropdown-cnt {
   display: none;
   position: absolute;

@@ -21,7 +21,7 @@
             </div>
          </div>   
       </div>
-      <div style="margin-bottom:520px;"></div>
+      <div style="margin-bottom:500px;"></div>
       </div>
     </div>
 </template>

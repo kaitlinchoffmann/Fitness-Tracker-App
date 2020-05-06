@@ -24,8 +24,8 @@
             <router-link to="/exercise">Add an Exercise</router-link>
          </nav>
         <div class="section">
-       <div class="box" style="width: 800px; margin:auto;">
-         <div id="none"></div>
+       <div class="box table" style="max-width: 800px; margin:auto;">
+        <div id="none"></div>
         <table class="table" style="margin:auto;">
             <caption> <h4 class="title is-4">Logged Exercises For: {{history[0].date}}</h4></caption>
                   <thead>
@@ -61,7 +61,7 @@
                   </div>
         </table> 
         </div><br/>
-        <div class="box" style="width:450px;float:left;margin-left:20%;">
+        <div class="box table" style="max-width:450px;float:left;margin-left:20%;">
         <table class="table has-text-centered"> 
           <caption><h4 class="title is-4">Daily Goal</h4></caption>
             <thead>  
@@ -83,7 +83,7 @@
         </table>
         <span id="note">*Intensity must be moderate or vigrous to count towards goal</span>
         </div>
-        <div class="box" style="width:300px; float:left; margin-left:20px">
+        <div class="box table" style="width:300px; float:left; margin-left:20px">
         <table class="table has-text-centered"> 
           <caption><h4 class="title is-4">Total for Each Type</h4></caption>
             <thead>  

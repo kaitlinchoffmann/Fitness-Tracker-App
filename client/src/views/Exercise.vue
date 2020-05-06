@@ -7,7 +7,7 @@
             <div class="section">
                 <div class="columns">
             <div class="column"> 
-              <div class="box">
+              <div class="box table">
                 <table class="table">
                   <thead id="error"></thead>
                   <tbody>
