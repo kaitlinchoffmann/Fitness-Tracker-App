@@ -33,6 +33,5 @@ export let friend = null;
 
 export async function deleteFriend(friendID) {
     const friends = await myFetch('/friend/deleteFriend', {friendID});
-    console.log(friends);
     return friend = friends;
 }

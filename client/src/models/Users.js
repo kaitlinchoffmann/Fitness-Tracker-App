@@ -30,7 +30,6 @@ export let otherUser = null;
 
 export async function getSingleUser(userClicked) {
     const user = await myFetch('/user/getSingleUser', { userClicked });
-    console.log(user);
     return otherUser = user;
 }
 

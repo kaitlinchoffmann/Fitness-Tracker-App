@@ -52,11 +52,14 @@
                       <td>{{x.sugar}}</td>
                   </tr>
                   </tbody><br/>
-                  <div v-if="history[0].food != null">
+                  <div v-if="history[0].food != null && shared == false">
                     <button id="share" class="button is-light" @click="share">Share with Friends</button>
                   </div>
-                  <div v-else>
+                  <div v-else-if="history[0].food == null">
                     <router-link to="/food" class="button is-light">Start Logging to Share!</router-link>
+                  </div>
+                  <div v-else>
+                    Progress Shared!
                   </div>
         </table>
         </div><br/>
@@ -119,7 +122,7 @@
 <script>
 import { currentDate } from "../models/Date";
 import User from "../models/Users";
-import { AddedFood } from "../models/Food";
+import { AddedFood, getFood } from "../models/Food";
 import { shareFood, getFoodPosts } from "../models/Post";
 currentDate();
 
@@ -135,7 +138,8 @@ export default {
         allDates: [],
         nutrition: [0,0,0,0,0,0],
         calories: User.CurrentUser.EER.toFixed(0),
-        goalsLeft: [ User.CurrentUser.EER.toFixed(0), User.CurrentUser.DRI.Protein, User.CurrentUser.DRI.HighFat, User.CurrentUser.DRI.HighCarb, User.CurrentUser.DRI.Sodium, User.CurrentUser.DRI.Sugar]
+        goalsLeft: [ User.CurrentUser.EER.toFixed(0), User.CurrentUser.DRI.Protein, User.CurrentUser.DRI.HighFat, User.CurrentUser.DRI.HighCarb, User.CurrentUser.DRI.Sodium, User.CurrentUser.DRI.Sugar],
+        shared: false
     }),
     mounted:function(){
         this.findRecent(currentDate());
@@ -151,6 +155,7 @@ export default {
             return current;
         },
         findRecent(date) {
+            this.shared = false;
             if(AddedFood != null) {
                 let nutri = [0,0,0,0,0,0];
                 let hist = [];
@@ -169,6 +174,12 @@ export default {
                     document.getElementById("none").innerHTML="";
                     this.findRemain(nutri[0],nutri[1],nutri[2],nutri[3],nutri[4],nutri[5]);
                     this.nutrition = nutri;
+                    // const shared = hist.find(x => x.shared == false);
+                    // if(shared) {
+                    //   this.shared = false;
+                    // } else {
+                    //   this.shared = true;
+                    // }
                     this.history = hist;
                     return this.history;
                 }
@@ -220,7 +231,8 @@ export default {
         async share() {
           await shareFood(this.history);
           await getFoodPosts();
-          document.getElementById("share").innerHTML="Progress Shared!";
+          // this.AddedFood = await getFood();
+          this.shared = true;
         }
     }
 } 

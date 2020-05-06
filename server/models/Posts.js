@@ -1,4 +1,5 @@
 const users = require("./User");
+const food = require("./Food");
 
 const Updates = [
     {
@@ -14,7 +15,8 @@ const Updates = [
             sets:"4",
             time:15,
             userID:3,
-            weight:"50"
+            weight:"50",
+            shared:true
           }
       ]
     }
@@ -36,25 +38,13 @@ const FoodUpdates = [
               group:"Fruit",
               protein:1,
               sodium:5,
-              sugar:57
+              sugar:57,
+              shared:true
             }
         ]
 
     }
 ]
-
-// const Posts = [
-//     {
-//         Email: 'jill123@fakemail.com',
-//         Post: 'Fun day at the gym!',
-//         Date: '02/27/2020' 
-//     },
-//     {
-//         Email: 'jill123@fakemail.com',
-//         Post: "I'm Beat today, so sleepy..",
-//         Date: '02/24/2020'
-//     }
-// ];
 
 function shareFood(history) {
     for(let i=0; i<history.length; i++) {
@@ -77,7 +67,13 @@ function shareFood(history) {
             } 
             });  
         }
-    }                  
+        // AddedFood.map(function(x) { 
+        //     console.log(AddedFood);
+        //     if(x.userID == history[i].userID && x.shared != true) {
+        //         x.shared = true;
+        //     }    
+        // });
+    }
     return FoodUpdates;
 };
 

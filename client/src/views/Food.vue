@@ -175,7 +175,8 @@ export default {
                 sugar: Number(this.sugar),
                 email: User.CurrentUser.Email,
                 userID: User.CurrentUser.userID,
-                date: this.date
+                date: this.date,
+                shared:false
           });
              document.getElementById("error").innerHTML="Nice job! Keep it up!";
              document.getElementById("note").innerHTML="";

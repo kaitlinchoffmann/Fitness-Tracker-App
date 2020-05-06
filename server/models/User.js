@@ -99,20 +99,7 @@ let CurrentUser = null;
 let BannedUsers = [
     {
         Email: 'm@m',
-        Name: 'Moopy', 
-        Age: 19,
-        Password: 'm',
-        Height: 61,
-        Weight: 130,
-        Activity: "low",
-        Sex: "male",
-        EER: dris.findEER(19, 130, 61, "low", "maintain", "male"),
-        Goal: "maintain",
-        Picture: "https://img.huffingtonpost.com/asset/5dcc613f1f00009304dee539.jpeg?cache=QaTFuOj2IM&ops=crop_834_777_4651_2994%2Cscalefit_720_noupscale",
-        BMI: dris.findBMI(130, 61),
-        Status: 'Doing bad stuff',
-        IsAdmin: false,
-        DRI: dris.findDRI(2200,130,"m@m"),
+        Name: 'Moopy',
         userID: 4
     }  
 ];
@@ -221,8 +208,12 @@ function BanUser(userEmail) {
     const user = User.find(x => x.Email == userEmail);
     if(!user) throw Error("User doesn't exist");
     else {
-        BannedUsers.push(user);
-        return user;
+        BannedUsers.push({
+            Email: user.Email,
+            Name: user.Name,
+            userID: user.userID
+    })
+    return user;
     }
 }
 
@@ -230,7 +221,12 @@ function getUser(userSearched, currentUser) {
     const searched = [];
     User.map(function(x, index) {
         if(x.Name == userSearched && x.userID != currentUser) {
-            searched.push(x);
+            searched.push({
+                Email: x.Email,
+                userID: x.userID,
+                Name: x.Name,
+                Picture: x.Picture
+            });
         }
     });
     return searched;
@@ -239,7 +235,14 @@ function getUser(userSearched, currentUser) {
 function getSingleUser(userClicked) {
     const user = User.find(x => x.userID == userClicked);
     if(user) {
-        return user;
+        console.log(user.Email);
+        const foundUser = {
+            Email: user.Email,
+            userID: user.userID,
+            Name: user.Name,
+            Picture: user.Picture
+        };
+        return foundUser;
     } else throw Error("User not found");
 }
 

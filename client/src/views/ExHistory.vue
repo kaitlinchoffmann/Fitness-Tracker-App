@@ -50,11 +50,14 @@
                       <td>{{x.intensity}}</td>
                   </tr>
                   </tbody><br/>
-                  <div v-if="history[0].exName != null">
+                  <div v-if="history[0].exName != null && shared == false">
                     <button id="share" class="button is-light" @click="share">Share with Friends</button>
                   </div>
-                  <div v-else>
+                  <div v-else-if="history[0].exName == null">
                     <router-link to="/exercise" class="button is-light">Start Logging to Share!</router-link>
+                  </div>
+                  <div v-else>
+                    Progress Shared!
                   </div>
         </table> 
         </div><br/>
@@ -142,7 +145,8 @@ export default {
         type: [0,0,0,0,0,0],
         goal: 30,
         time: 0,
-        goalsLeft: 30
+        goalsLeft: 30,
+        shared: false
     }),
     mounted:function(){
         this.findRecent(currentDate());
@@ -158,6 +162,7 @@ export default {
             return current;
         },
         findRecent(date) {
+            this.shared = false;
             if(AddedExercise != null) {
                 let totalType = [0,0,0,0,0,0]
                 let completed = 0;
@@ -231,7 +236,7 @@ export default {
         async share() {
           await shareProgress(this.history);
           await getPosts();
-          document.getElementById("share").innerHTML="Progress Shared!";
+          this.shared = true;
         }
     }
 } 

@@ -1,49 +1,69 @@
 <template>
 <div class="container">
-      <div class="nav">
-        <ul>
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/about">About</router-link></li>
-          <li class="my-dropdown">
-            <router-link to="/foodhistory">Food</router-link>
-              <div class="dropdown-cnt" v-if="CurrentUser">
-                <router-link to="/food">Log Food</router-link>
-              </div>  
-          </li>
-          <li class="my-dropdown">
-            <router-link to="/exhistory">Exercise</router-link>
-              <div class="dropdown-cnt" v-if="CurrentUser">
-                <router-link to="/exercise">Log Exercise</router-link>
-              </div>  
-          </li>
-          <li class="my-dropdown" v-if="CurrentUser">
-          <router-link to="/profile">Dashboard</router-link>
-              <div class="dropdown-cnt">
-                <div v-if="CurrentUser.IsAdmin==true">
-                  <router-link to="/admin">Admin</router-link>
-                </div>
-                <router-link to="/friends">Friends</router-link>
-                <router-link to="/search">Search Users</router-link>
-                <router-link to="/updates">Shared Progress</router-link>
-                <router-link to="/pendingrequests">Pending Requests</router-link>
-                <router-link to="/settings">Settings</router-link>
-                <a href="#Logout" @click="logout">Logout</a>
-              </div>  
-          </li> 
-          <div class="icon-content">
-            <div v-if="!CurrentUser">  
-              <li class="icon"><router-link to="/register">Register</router-link></li>
-              <li class="icon icon-content">|</li>
-              <li class="icon icon-content"><router-link to="/login">Login</router-link></li>
-            </div> 
-            <div v-else>
-              <li class="icon-name">Hi, {{CurrentUser.Name}}!</li>  
-            </div> 
-            <li class="icon"><a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a></li>
-            <li class="icon"><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f fa-lg" aria-hidden="true"></i></a></li>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <router-link class="navbar-item" to="/">Home</router-link>
+    <a :class="{ 'is-active':isOpen }" @click="isOpen = !isOpen" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div :class="{ 'is-active':isOpen }" class="navbar-menu">
+    <div class="navbar-start">
+      <router-link to="/about" class="navbar-item" active-class="is-current">About</router-link> 
+        <div class="navbar-item has-dropdown is-hoverable" v-if="CurrentUser">
+          <a class="navbar-item">Food</a>
+          <div class="navbar-dropdown">
+            <router-link class="navbar-item" to="/foodhistory">Food History</router-link>
+            <router-link class="navbar-item" to="/food">Log Food</router-link>
+          </div>  
+        </div>
+        <div v-else class="navbar-item">
+          <router-link class="navbar-item" to="/login">Food</router-link>
+        </div> 
+        <div class="navbar-item has-dropdown is-hoverable" v-if="CurrentUser">
+          <a class="navbar-item">Exercise</a>
+          <div class="navbar-dropdown">
+            <router-link class="navbar-item" to="/exhistory">Exercise History</router-link>
+            <router-link class="navbar-item" to="/exercise">Log Exercise</router-link>
+          </div>  
+        </div>
+        <div v-else class="navbar-item">
+          <router-link class="navbar-item" to="/login">Exercise</router-link>
+        </div>  
+      <div class="navbar-item has-dropdown is-hoverable" v-if="CurrentUser">
+        <a class="navbar-item">Account</a>
+        <div class="navbar-dropdown">
+          <div v-if="CurrentUser.IsAdmin==true">
+            <router-link class="navbar-item" to="/admin">Admin</router-link>
           </div>
-        </ul>
+          <router-link class="navbar-item" to="/profile">Dashboard</router-link>
+          <router-link class="navbar-item" to="/friends">Friends</router-link>
+          <router-link class="navbar-item" to="/search">Search Users</router-link>
+          <router-link class="navbar-item" to="/updates">Shared Progress</router-link>
+          <router-link class="navbar-item" to="/pendingrequests">Pending Requests</router-link>
+          <router-link class="navbar-item" to="/settings">Settings</router-link>
+          <a class="navbar-item" href="#Logout" @click="logout">Logout</a>
+        </div>  
+      </div>  
+    </div>
+      <div class="navbar-end">
+        <div v-if="!CurrentUser">  
+          <div class="buttons">
+            <router-link to="/register" class="button is-warning">Register</router-link>
+            <router-link to="/login" class="button is-light">Log in</router-link>
+          </div>
+        </div> 
+        <div v-else>
+          <span class="navbar-item">Hi, {{CurrentUser.Name}}!</span>  
+        </div> 
+        <a class="navbar-item" href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram fa-lg" aria-hidden="true"></i></a>
+        <a class="navbar-item" href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f fa-lg" aria-hidden="true"></i></a>
       </div>
+  </div>
+</nav>
 </div>
 </template>
 
@@ -53,7 +73,8 @@ import User  from "../models/Users";
 
 export default {
   data:()=>({
-    userSearched: ''
+    userSearched: '',
+    isOpen: false
     }),
   props: {
     CurrentUser: Object
@@ -71,5 +92,32 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+.navbar {
+  background-color: transparent;
+}
+
+.navbar-item, .navbar-link {
+  color: rgb(255, 123, 0);
+}
+
+a.navbar-item:hover, .navbar-link:hover {
+  color: red;
+  background-color: transparent;
+}
+
+a.navbar-item:active, .navbar-link:active {
+  color: red;
+  background-color: transparent;
+}
+
+a.navbar-item:focus, .navbar-link:active {
+  color:red;
+  background-color: transparent;
+}
+
+.navbar-dropdown .navbar-item {
+  color: rgb(255, 174, 0);
+}
+
 </style>

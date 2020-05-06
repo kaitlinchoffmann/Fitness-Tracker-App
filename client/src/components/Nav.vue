@@ -1,7 +1,7 @@
 <template>
-<div class="section"> 
+<div id="nav-container" class="container"> 
   <LoginComp :CurrentUser="User.CurrentUser"></LoginComp>
-  </div>     
+</div>     
 </template>
 
 <script>
@@ -87,6 +87,7 @@ a:visited {
 
 a:hover {
   color: rgb(255, 81, 0);
+  // backgroun
 }
 
 a:active {
@@ -104,13 +105,17 @@ a:focus {
 .dropdown-cnt {
   display: none;
   position: absolute;
+  border-radius: 5px;
+  border: 1px solid rgb(228, 228, 228);
+  overflow: hidden;
   z-index: 1;
 }
 
 .dropdown-cnt a {
   display: block;
-  padding-bottom: 0px;
+  padding: 10px;
   text-align: left;
+  background-color: white;
 }
 
 .my-dropdown:hover .dropdown-cnt {
@@ -144,5 +149,9 @@ div.subtitle {
 
 hr {
   margin-top: 0px;
+}
+
+#nav-container {
+  padding: 20px;
 }
 </style>

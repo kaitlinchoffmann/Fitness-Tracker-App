@@ -43,6 +43,7 @@ function AddFood(foodList) {
     for(var i = 0; i < foodList.length; i++) {
         AddedFood.push(foodList[i]);
     }
+    console.log(AddedFood);
     return AddedFood;
 };
 
