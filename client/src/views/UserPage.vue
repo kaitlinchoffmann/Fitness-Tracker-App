@@ -211,7 +211,7 @@ export default {
         async request() {
             await sendRequest(this.otherUser.userID, User.CurrentUser.Picture, User.CurrentUser.Name);
             await getSentRequests();
-            document.getElementById('request').innerHTML="Request Sent";
+            document.getElementById('request-btn').innerHTML="Request Sent";
         },
         async allFriendPosts() {
             //get exercise posts
