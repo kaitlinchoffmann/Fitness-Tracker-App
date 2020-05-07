@@ -1,25 +1,25 @@
 <template>
-    <div class="container"> 
-        <div class="container" style="float:left;margin-left:17%;">
-            <div class="dropdown is-hoverable" style="width:300px;">
-  <div class="dropdown-trigger">
-    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-      <span>Pick a Past Log </span><br>
-      <span class="icon is-small">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
-    </button>
-  </div>
-  <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-    <div class="dropdown-content has-text-centered">
-      <div class="dropdown-item" v-for="x in allDates" :key="x.dates" id:x.dates>
-        <a @click="findRecent(x)">{{x}}</a>
+  <div class="container"> 
+    <div class="container history-drop">
+      <div class="dropdown is-hoverable" style="width:300px;">
+        <div class="dropdown-trigger">
+          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+            <span>Pick a Past Log </span><br>
+            <span class="icon is-small">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+          <div class="dropdown-content has-text-centered">
+            <div class="dropdown-item" v-for="x in allDates" :key="x.dates" id:x.dates>
+              <a @click="findRecent(x)">{{x}}</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-        </div>
-        <h1 class="title is-1 has-text-left">Food History</h1>
+        <h1 id="history-title" class="title is-1 has-text-left">Food History</h1>
         <nav class="has-text-centered">
             <router-link to="/food">Add a Food Item</router-link>
         </nav>
@@ -174,12 +174,6 @@ export default {
                     document.getElementById("none").innerHTML="";
                     this.findRemain(nutri[0],nutri[1],nutri[2],nutri[3],nutri[4],nutri[5]);
                     this.nutrition = nutri;
-                    // const shared = hist.find(x => x.shared == false);
-                    // if(shared) {
-                    //   this.shared = false;
-                    // } else {
-                    //   this.shared = true;
-                    // }
                     this.history = hist;
                     return this.history;
                 }
@@ -240,6 +234,11 @@ export default {
 
 <style scoped>
 
+.history-drop {
+  float:left;
+  margin-left:17%;
+}
+
 table,th,td {
   margin: auto;
 }
@@ -271,6 +270,19 @@ a:hover {
 
 a:active {
   color: #ff7b00
+}
+
+@media(max-width: 1250px) {
+ .history-drop {
+   float: none;
+   display: block;
+   margin: auto;
+   margin-left: 10px;
+ }
+
+ #history-title.has-text-left {
+    text-align: center !important;
+ }
 }
     
 </style>

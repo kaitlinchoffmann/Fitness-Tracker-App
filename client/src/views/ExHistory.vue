@@ -1,25 +1,25 @@
 <template>
     <div class="container">
-        <div class="container" style="float:left;margin-left:15%;">
+        <div class="container history-drop">
             <div class="dropdown is-hoverable" style="width:300px;">
-  <div class="dropdown-trigger">
-    <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
-      <span>Pick a Past Log </span><br>
-      <span class="icon is-small">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
-    </button>
-  </div>
-  <div class="dropdown-menu" id="dropdown-menu4" role="menu">
-    <div class="dropdown-content has-text-centered">
-      <div class="dropdown-item" v-for="x in allDates" :key="x.dates" id:x.dates>
-        <a @click="findRecent(x)">{{x}}</a>
-      </div>
-    </div>
-  </div>
-</div>
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>Pick a Past Log </span><br>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content has-text-centered">
+                <div class="dropdown-item" v-for="x in allDates" :key="x.dates" id:x.dates>
+                  <a @click="findRecent(x)">{{x}}</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1 class="title is-1 has-text-left">Exercise History</h1>
+        <h1 id="history-title" class="title is-1 has-text-left">Exercise History</h1>
          <nav class="has-text-centered">
             <router-link to="/exercise">Add an Exercise</router-link>
          </nav>
@@ -61,7 +61,7 @@
                   </div>
         </table> 
         </div><br/>
-        <div class="box table" style="max-width:450px;float:left;margin-left:20%;">
+        <div id="daily-goal" class="box table">
         <table class="table has-text-centered"> 
           <caption><h4 class="title is-4">Daily Goal</h4></caption>
             <thead>  
@@ -83,7 +83,7 @@
         </table>
         <span id="note">*Intensity must be moderate or vigrous to count towards goal</span>
         </div>
-        <div class="box table" style="width:300px; float:left; margin-left:20px">
+        <div id="total-each" class="box table">
         <table class="table has-text-centered"> 
           <caption><h4 class="title is-4">Total for Each Type</h4></caption>
             <thead>  
@@ -243,6 +243,22 @@ export default {
 </script>
 
 <style scoped>
+#daily-goal {
+  max-width: 450px;
+  float: left;
+  margin-left: 20%;
+}
+
+#total-each {
+  width:300px; 
+  float:left; 
+  margin-left:20px;
+}
+
+.history-drop {
+  float:left;
+  margin-left:17%;
+}
 
 table,th,td {
   margin: auto;
@@ -279,6 +295,33 @@ a:hover {
 
 a:active {
   color: #ff7b00
+}
+
+@media(max-width: 1250px) {
+ .history-drop {
+   float: none;
+   display: block;
+   margin: auto;
+   margin-left: 10px;
+ }
+
+ #history-title.has-text-left {
+    text-align: center !important;
+ }
+}
+
+@media(max-width: 1215px) {
+  #daily-goal {
+    float: none;
+    margin: auto;
+  }
+
+  #total-each {
+    float: none; 
+    margin: auto;
+    margin-top: 20px;
+  }
+  
 }
     
 </style>

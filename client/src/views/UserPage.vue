@@ -7,16 +7,16 @@
         </h2>
         <div>
             <div>
-                <img style="margin-left:3%;" :src="otherUser.Picture" class="card-image" alt="friend's photo">
+                <img :src="otherUser.Picture" class="card-image" id="update-pic" alt="friend's photo">
             </div><br/>    
             <div v-if="friends==true">
-                <button style="margin-left:3%;" class="button is-light" @click="DeleteFriend()">Delete Friend</button><br/>
+                <button id="delete-btn" class="button is-light" @click="DeleteFriend()">Delete Friend</button><br/>
                 
-              <div style="float:left;">
-                <h4 class="title is-4">Shared Exercises</h4><br/>
+              <div id="ex-section">
+                <h4 class="title is-4 ex-title">Shared Exercises</h4><br/>
                 <div v-if="friendExPosts.length > 0">
-                  <div v-for="(x,ind) in friendExPosts" :key="x.date" id:x.date>
-                    <table id="exercise-post" class="table">
+                  <div class="box table" v-for="(x,ind) in friendExPosts" :key="x.date" id:x.date>
+                    <table id="reg-table" class="table exercise-post">
                       <caption class="title is-5">Date: {{x.date}}</caption>
                       <thead>
                         <tr>
@@ -41,18 +41,53 @@
                         </tr>  
                       </tbody>
                     </table><br/>
-                    </div>
+
+                    <table id="mobile-table" class="table">
+                      <caption class="title is-5">Date: {{x.date}}</caption>
+                      <hr>
+                      <tbody v-for="x in friendExPosts[ind].data" :key="x.exName" id:x.exName>
+                        <tr>
+                          <th style="color:slateblue;">Exercise:</th>
+                          <td>{{x.exName}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Type:</th>
+                          <td>{{x.exType}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Sets:</th>
+                          <td>{{x.sets}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Reps:</th>
+                          <td>{{x.reps}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Weight:</th>
+                          <td>{{x.weight}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Time(mins):</th>
+                          <td>{{x.time}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Intensity:</th>
+                          <td>{{x.intensity}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   </div>
                   </div>
                 <div class="box" v-else>
-                  You haven't shared any exercises yet!
+                  Thay haven't shared any exercises yet!
                 </div>
               </div>
               
-              <div style="float:right;">
+              <div id="food-section">
                 <h4 class="title is-4">Shared Food</h4><br/>
                 <div v-if="friendFoodPosts.length > 0">
-                  <div v-for="(x,ind) in friendFoodPosts" :key="x.date" id:x.date>
-                    <table id="food-post" class="table">
+                  <div class="box table" v-for="(x,ind) in friendFoodPosts" :key="x.date" id:x.date>
+                    <table id="reg-food-table" class="table food-post">
                       <caption class="title is-5">Date: {{x.date}}</caption>
                       <thead>
                         <tr>
@@ -79,18 +114,57 @@
                         </tr>  
                       </tbody>
                     </table><br/>
-                    </div>
+
+                    <table id="mobile-food-table" class="table">
+                      <caption class="title is-5">Date: {{x.date}}</caption>
+                      <hr>
+                      <tbody id="mobile-food-content" v-for="x in friendFoodPosts[ind].data" :key="x.food" id:x.food>
+                        <tr>
+                          <th style="color:slateblue;">Food:</th>
+                          <td>{{x.food}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Group:</th>
+                          <td>{{x.group}}</td>
+                        </tr>
+                        <tr>
+                          <th>Calories:</th>
+                          <td>{{x.calories}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Protein:</th>
+                          <td>{{x.protein}}</td>
+                        </tr>
+                        <tr>
+                          <th>Carbs:</th>
+                          <td>{{x.carbs}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Fat:</th>
+                          <td>{{x.fat}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Sugar:</th>
+                          <td>{{x.sugar}}</td>
+                        </tr>
+                        <tr>  
+                          <th>Sodium:</th>
+                          <td>{{x.sodium}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                   </div>
                   </div>
                 <div class="box" v-else>
-                  You haven't shared any food yet!
+                  They haven't shared any food yet!
                 </div>
               </div><br/><br/>
             </div>
             <div v-else-if="friends==false && requestSent==false">
-                <button id="request" class="button is-light" @click="request()">Send Friend Request</button>
+                <button id="request-btn" class="button is-light" @click="request()">Send Friend Request</button>
             </div>
             <div v-else>
-                <div id="request" class="button is-light">Request Sent</div>
+                <div id="request-btn" class="button is-light">Request Sent</div>
             </div>
         </div><br/>
 
@@ -165,3 +239,20 @@ export default {
     }
 }
 </script>
+
+<style>
+#delete-btn, #request-btn {
+  margin-left: 3%;
+}
+
+#request-btn {
+  max-width: 200px;
+}
+
+@media(max-width: 911px) {
+  #delete-btn, #request-btn {
+    margin: auto;
+    display: block;
+  }
+}
+</style>
