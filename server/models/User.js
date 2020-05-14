@@ -1,7 +1,40 @@
+var mongoose = require("mongoose"); 
+mongoose.connect("mongodb://localhost/healthy_habits", { useNewUrlParser: true, useUnifiedTopology: true });
+
+var userSchema = new mongoose.Schema({
+    Email: String,
+    Name: String,
+    Age: Number,
+    Password: String,
+    Height: Number,
+    Weight: Number,
+    Activity: String,
+    Sex: String,
+    EER: Number,
+    Goal: String,
+    Picture: String,
+    BMI: Number,
+    Status: String,
+    IsAdmin: Boolean,
+    DRI: {
+        Email: String,
+        LowFat: Number,
+        HighFat: Number,
+        LowCarb: Number,
+        HighCarb: Number,
+        Protein: Number,
+        Sodium: Number,
+        Sugar: Number
+    },
+    userID: Number
+});
+
+var User = mongoose.model("User", userSchema);
+
 //const variables
 const dris = require("./DRI");
 
-const User = [
+const User2 = [
     {
         Email: 'jill@fakemail.com',
         Name: 'Jill', 
@@ -93,6 +126,35 @@ const User = [
         userID: 5  
     },   
 ];
+
+// var jill = new User({
+//     Email: 'jill@fakemail.com',
+//     Name: 'Jill', 
+//     Age: 31,
+//     Password: 'password',
+//     Height: 63,
+//     Weight: 123,
+//     Activity: "active",
+//     Sex: "Female",
+//     EER: dris.findEER(31, 123, 63, "active", "maintain", "female"),
+//     Goal: "maintain",
+//     Picture: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+//     BMI: dris.findBMI(123, 63),
+//     Status: 'Getting those gains!!!',
+//     IsAdmin: false,
+//     DRI: dris.findDRI(2278, 123, "jill@fakemail.com"),
+//     userID: 1
+// });
+
+// jill.save(function(err, user){
+//     if(err) {
+//         console.log("something went wrong: ");
+//         console.log(err);
+//     } else {
+//         console.log("user added:");
+//         console.log(user);
+//     }
+// })
 
 let CurrentUser = null;
 
