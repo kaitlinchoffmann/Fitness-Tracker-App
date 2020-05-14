@@ -65,5 +65,24 @@ router
         }
     })
 
+    .post('/typeAHead', (req, res) => {
+        try {
+            const friendFound = friends.typeAHeadFriend(req.userID, req.body.friend);
+            res.send(friendFound);
+        } catch (error ){
+            res.status(401).send({ message: error.message });
+        }
+    })
+
+    //trying to use a GET request instead of POST
+    .get('/typeAHead2/:friend', (req, res) => {
+        try {
+            const friendFound = friends.typeAHeadFriend(req.userID, req.params.friend);
+            res.send(friendFound);
+        } catch (error ){
+            res.status(401).send({ message: error.message });
+        }
+    })
+
 
 module.exports = router;

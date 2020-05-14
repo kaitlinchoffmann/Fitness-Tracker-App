@@ -35,3 +35,16 @@ export async function deleteFriend(friendID) {
     const friends = await myFetch('/friend/deleteFriend', {friendID});
     return friend = friends;
 }
+
+export let friendSearch = null;
+
+export async function findFriend(friend) {
+    const found = await myFetch('/friend/typeAHead', {friend});
+    return friendSearch = found;
+}
+
+//Below is me trying a GET request
+export async function findFriend2() {
+    const found = await myFetch('/friend/typeAHead/:friend');
+    return friendSearch = found;
+}

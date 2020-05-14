@@ -116,7 +116,21 @@ function getPendingRequests(userID) {
     return allRequests;
 }
 
+function typeAHeadFriend(userID, friendSearched) {
+    const usersFriends = getFriends(userID);
+
+    let allResults = [];
+
+     usersFriends.map(function(x, index) {
+         if(x.Name.includes(friendSearched)) {
+             allResults.push(x);
+         }
+     }); 
+     return allResults;
+}
+
 module.exports = {
     Friends, SentRequests, PendingRequests, addFriend, getFriends,
-    sendRequest, getSentRequests, getPendingRequests, deleteFriend
+    sendRequest, getSentRequests, getPendingRequests, deleteFriend,
+    typeAHeadFriend
 }
