@@ -5,7 +5,7 @@ let ob = {
     async Login(email, password){
         const user = await myFetch('/user/login', { email, password });
         
-        return this.CurrentUser = user;
+        return this.CurrentUser = user._doc;
     },
     async Logout() {
         const user = await myFetch('/user/logout');
@@ -13,7 +13,7 @@ let ob = {
     },
     async Register(email, name, age, pw, cpw, h, w, act, goal, sex){
         const newUser = await myFetch('/user/register', { email, name, age, pw, cpw, h, w, act, goal, sex });
-        return this.CurrentUser = newUser;
+        return this.CurrentUser = newUser._doc;
     }
 }
 

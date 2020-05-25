@@ -1,36 +1,35 @@
-const users = require("./User");
+const mongoose = require("mongoose"); 
 
-const AddedExercise = [
-    {
-        date:"2020-04-20",
-        email:"j@j",
-        userID:3,
-        exName:"squats",
-        exType:"Strength",
-        intensity:"moderate",
-        reps:"10",
-        sets:"4",
-        time:15,
-        weight:"50"
+const addedExerciseSchema = new mongoose.Schema({
+    date: String,
+    email: String,
+    userID: Number,
+    exName: String,
+    exType: String,
+    intensity: String,
+    reps: Number,
+    sets: Number,
+    time: Number,
+    weight: Number
+});
 
-    }
-];
+const AddedExercise = mongoose.model("AddedExercise", addedExerciseSchema);
 
-function getUserExercises(userID) {
+async function getUserExercises(userID) {
     const exercises = [];
-    AddedExercise.map(function(x, index) {
-        if(x.userID == userID) {
-            exercises.push(AddedExercise[index]);
-        }
-    });
+    const userExercises = await AddedExercise.find({"userID": userID});
+    userExercises.map(x => exercises.push(x));
+
     return exercises;
 }
 
-function AddExercise(exerciseList) {
-    for(var i = 0; i < exerciseList.length; i++) {
-        AddedExercise.push(exerciseList[i]);
+async function AddExercise(exerciseList) {
+    const updatedList = [];
+    for(let i = 0; i< exerciseList.length; i++) {
+        const exercise = await AddedExercise.create(exerciseList[i]);
+        updatedList.push(exercise);
     }
-    return AddedExercise;
+    return updatedList;
 };
 
 module.exports = {

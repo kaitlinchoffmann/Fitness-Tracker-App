@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require("mongoose");
 const path = require('path');
 
 const userController = require('./controllers/user');
@@ -10,6 +11,10 @@ const friendController = require('./controllers/friend');
 
 const app = express();
 const port = 3000;
+ 
+mongoose.connect("mongodb://localhost/healthy_habits", { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(console.log("Healthy Habits Database Connected!"))
+    .catch(error => console.log(error));
 
 //CORS middleware
 app.use(function(req, res, next) {

@@ -100,7 +100,7 @@ export default {
         await User.Login(this.email, this.password);
         await getFood();
         await getExercise();//await getExercise(this.email);
-        await getFriends();//await getFriends(User.CurrentUser.userID);
+        await getFriends();
         await getSentRequests();
         await getPendingRequests();
         await getPosts();

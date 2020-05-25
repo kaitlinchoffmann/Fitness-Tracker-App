@@ -1,118 +1,86 @@
+const mongoose = require("mongoose"); 
+
 const users = require("./User");
 
-const Friends = [
-    {
-        userId: 1,
-        FriendId: 4
-    },
-    {
-        userId: 1,
-        FriendId: 3
-    },
-    {
-        userId: 4,
-        FriendId: 1
-    },
-    {
-        userId: 3,
-        FriendId: 1
-    }
-]
+const friendSchema = new mongoose.Schema({
+    userId: Number,
+    FriendId: Number
+});
 
-const SentRequests = [
-    {
-        userId: 1,
-        requestId: 2
-    },
-    {
-        userId: 1,
-        requestId: 5
-    }
-]
+const sentRequestSchema = new mongoose.Schema({
+    userId: Number,
+    requestId: Number   
+});
 
-const PendingRequests = [
-    {
-        userId: 2,
-        requestId: 1,
-        requestPicture: "https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-        requestName: "Jill"
-    }
-]
+const pendingRequestSchema = new mongoose.Schema({
+    userId: Number,
+    requestId: Number,
+    requestPicture: String,
+    requestName: String
+})
 
-function addFriend(userId, friendId) {
-    const user = Friends.find(x => x.userId == userId && x.FriendId == friendId);
-    if(user) throw Error ("Already a friend!");
+//mongoose models
+const Friends = mongoose.model("Friends", friendSchema);
+const SentRequests = mongoose.model("SentRequests", sentRequestSchema);
+const PendingRequests = mongoose.model("PendingRequests", pendingRequestSchema);
 
-    const newFriend = { userId: userId, FriendId: friendId};
-    const newFriend2 = { userId: friendId, FriendId: userId};
-    Friends.push(newFriend);
-    Friends.push(newFriend2);
-    PendingRequests.map(function(x, index) {
-        if(x.userId == userId && x.requestId == friendId) {
-            PendingRequests.splice(index,1);
-        }
-    })
-    SentRequests.map(function(x, index) {
-        if(x.userId == friendId && x.requestId == userId) {
-            SentRequests.splice(index,1);
-        }
-    })
-    return Friends;
+async function addFriend(userId, friendId) {
+    const user = await Friends.find({"userId": userId, "FriendId": friendId});
+    if(user.length > 0) throw Error ("Already a friend!");
+
+    const newFriend =  await Friends.create({userId: userId, FriendId: friendId});
+    const newFriend2 = await Friends.create({ userId: friendId, FriendId: userId});
+
+    await PendingRequests.deleteOne({"userId": userId, "requestId": friendId});
+    await SentRequests.deleteOne({"userId": friendId, "requestId": userId});
+   
+    return newFriend;
 }
 
-function getFriends(userID) {
+async function getFriends(userID) {
     const allFriends = [];
-    Friends.map(function(x, index) {
-        if(x.userId == userID) {
-           const user = users.User.find(y => y.userID == Friends[index].FriendId);
-           allFriends.push({
-               Name: user.Name,
-               userID: user.userID,
-               Picture: user.Picture
-           });
-       }
-    })
+    const friends = await Friends.find({"userId": userID});
+
+    for(let i = 0; i < friends.length; i++) {
+        const user = await users.User.find({"userID": friends[i].FriendId});
+        allFriends.push({Name: user[0].Name, userID: user[0].userID, Picture: user[0].Picture})
+    }
     return allFriends;
 }
 
-function deleteFriend(userID, friendID) {
+async function deleteFriend(userID, friendID) {
     let friend = true;
-    Friends.map(function(x, index) {
-        if(x.userId == userID && x.FriendId == friendID) {
-            Friends.splice(index,1);
-            friend = false;
-        }
-        if(x.userId == friendID && x.FriendId == userID) {
-            Friends.splice(index,1);
-            friend = false;
-        }
-    });
-    return friend;
+    try {
+        await Friends.deleteOne({"userId": userID, "FriendId": friendID});
+        await Friends.deleteOne({"userId": friendID, "FriendId": userID});
+    
+        friend = false;
+        return friend;
+    }
+    catch(error) {
+        console.log(error);
+    }
 }
 
-function sendRequest(user, friend, picture, name) {
-    SentRequests.push({userId: user, requestId: friend});
-    PendingRequests.push({userId: friend, requestId: user, requestPicture: picture, requestName: name});
-    return SentRequests;
+async function sendRequest(user, friend, picture, name) {
+    const sent = await SentRequests.create({userId: user, requestId: friend});
+    await PendingRequests.create({userId: friend, requestId: user, requestPicture: picture, requestName: name});
+    return sent;
 }
 
-function getSentRequests(userID) {
+async function getSentRequests(userID) {
     const allRequests = [];
-    SentRequests.map(function(x, index) {
-        if(x.userId == userID) {
-            allRequests.push(SentRequests[index]);
-        }
-    })
+    const request = await SentRequests.find({"userId": userID});
+    request.map(x => allRequests.push(x));
+
     return allRequests;
 }
 
-function getPendingRequests(userID) {
+async function getPendingRequests(userID) {
     const allRequests = [];
-    PendingRequests.map(function(x, index) {
-        if(x.userId == userID) {
-            allRequests.push(PendingRequests[index]);
-        }
-    })
+    const request = await PendingRequests.find({"userId": userID});
+    request.map(x => allRequests.push(x));
+
     return allRequests;
 }
 

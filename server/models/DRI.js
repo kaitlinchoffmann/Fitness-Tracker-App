@@ -1,6 +1,4 @@
 const users = require("./User");
-let CurrentUser = require("./User");
-
 let CurrentDRI = null;
 
 function findBMI(weight, height) {
@@ -8,8 +6,8 @@ function findBMI(weight, height) {
     return bmi.toFixed(2);
 };
 
-function currentDRI() {
-    const dri = users.User.find(x => x.Email == users.CurrentUser.Email);
+async function currentDRI() {
+    const dri = await users.User.findOne({"Email": users.CurrentUser.Email});    
     if(!dri) throw Error('DRI not found');
     
     this.CurrentDRI = dri;
