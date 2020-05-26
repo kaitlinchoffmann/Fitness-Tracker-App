@@ -4,7 +4,7 @@ let ob = {
     CurrentUser: null,
     async Login(email, password){
         const user = await myFetch('/user/login', { email, password });
-        
+        console.log(user._doc._id);
         return this.CurrentUser = user._doc;
     },
     async Logout() {
