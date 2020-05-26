@@ -4,9 +4,9 @@ const food = require('../models/food');
 const router = express.Router();
 
 router
-    .get('/getFood', (req, res) => {
+    .get('/getFood', async (req, res) => {
         try {
-            const AddedFood = food.getUserFood(req.userID);
+            const AddedFood = await food.getUserFood(req.userID);
             res.send( AddedFood );
         }
         catch (error) {
@@ -14,9 +14,9 @@ router
         }
     })
 
-    .post('/newFood', (req, res) => {
+    .post('/newFood', async (req, res) => {
         try {
-            const addFood = food.AddFood(req.body.foodList);            
+            const addFood = await food.AddFood(req.body.foodList);            
             res.send( addFood );
         }
         catch (error) {

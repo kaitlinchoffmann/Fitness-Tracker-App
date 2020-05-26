@@ -5,9 +5,9 @@ const router = express.Router();
 
 
 router
-    .post('/makeChanges', (req, res) => {
+    .post('/makeChanges', async (req, res) => {
         try {
-            const newDri = users.SubmitChanges(req.body.changes);
+            const newDri = await users.SubmitChanges(req.body.changes);
             res.send( newDri );
         }
         catch (error) {

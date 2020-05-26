@@ -1,50 +1,36 @@
-const users = require("./User");
+const mongoose = require("mongoose"); 
 
-const AddedFood = [
-    {
-        calories:283,
-        carbs:75,
-        date:"2020-04-20",
-        email:"admin@fakemail.com",
-        userID:2,
-        fat:1,
-        food:"apple",
-        group:"Fruit",
-        protein:1,
-        sodium:5,
-        sugar:57
-    },
-    {
-        calories:283,
-        carbs:75,
-        date:"2020-05-03",
-        email:"j@j",
-        userID:3,
-        fat:1,
-        food:"apple",
-        group:"Fruit",
-        protein:1,
-        sodium:5,
-        sugar:57
-    }
-];
+const addedFoodSchema = new mongoose.Schema({
+    calories: Number,
+    carbs: Number,
+    date: String,
+    email: String,
+    userID: Number,
+    fat: Number,
+    food: String,
+    group: String,
+    protein: Number,
+    sodium: Number,
+    sugar: Number
+});
 
-function getUserFood(userID) {
+const AddedFood = mongoose.model("AddedFood", addedFoodSchema);
+
+async function getUserFood(userID) {
     const food = [];
-    AddedFood.map(function (x, index) {
-        if(x.userID == userID) {
-            food.push(AddedFood[index]);
-        }
-    });
+    const userFood = await AddedFood.find({"userID": userID});
+    userFood.map(x => food.push(x));
+
     return food;
 }
 
-function AddFood(foodList) {
-    for(var i = 0; i < foodList.length; i++) {
-        AddedFood.push(foodList[i]);
+async function AddFood(foodList) {
+    const updatedList = [];
+    for(let i = 0; i< foodList.length; i++) {
+        const food = await AddedFood.create(foodList[i]);
+        updatedList.push(food);
     }
-    console.log(AddedFood);
-    return AddedFood;
+    return updatedList;
 };
 
 module.exports = {

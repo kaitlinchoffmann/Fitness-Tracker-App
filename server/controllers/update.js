@@ -4,10 +4,10 @@ const posts = require('../models/Posts');
 const router = express.Router();
 
 router
-    .post('/share', (req, res) => {
+    .post('/share', async (req, res) => {
        try {
            const history = req.body.progress;
-           posts.Updates = posts.shareUpdate(history); 
+           posts.Updates = await posts.shareUpdate(history); 
            const Updates = posts.Updates;
            res.send({ Updates });
        } catch (error) {
@@ -15,10 +15,10 @@ router
        }
     })
 
-    .post('/shareFood', (req, res) => {
+    .post('/shareFood', async (req, res) => {
         try {
             const history = req.body.progress;
-            posts.Updates = posts.shareFood(history); 
+            posts.Updates = await posts.shareFood(history); 
             const Updates = posts.Updates;
             res.send({ Updates });
         } catch (error) {
@@ -26,36 +26,36 @@ router
         }
      })
 
-    .get('/getPosts', (req, res) => {
+    .get('/getPosts', async (req, res) => {
         try {
-            const allUpdates = posts.getUpdates(req.userID);
+            const allUpdates = await posts.getUpdates(req.userID);
             res.send( allUpdates );
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
     })
 
-    .get('/getFoodPosts', (req, res) => {
+    .get('/getFoodPosts', async (req, res) => {
         try {
-            const allUpdates = posts.getFoodUpdates(req.userID);
+            const allUpdates = await posts.getFoodUpdates(req.userID);
             res.send( allUpdates );
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
     })
 
-    .post('/getFriendPosts', (req, res) => {
+    .post('/getFriendPosts', async (req, res) => {
         try {
-            const friendUpdates = posts.getFriendUpdates(req.body.friendId);
+            const friendUpdates = await posts.getFriendUpdates(req.body.friendId);
             res.send( friendUpdates );
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
     })
 
-    .post('/getFriendFood', (req, res) => {
+    .post('/getFriendFood', async (req, res) => {
         try {
-            const friendUpdates = posts.getFriendFood(req.body.friendId);
+            const friendUpdates = await posts.getFriendFood(req.body.friendId);
             res.send( friendUpdates );
         } catch (error) {
             res.status(401).send({ message: error.message });

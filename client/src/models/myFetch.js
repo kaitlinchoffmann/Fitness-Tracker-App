@@ -9,6 +9,9 @@ export default async function myFetch(url, data){
     if(User.CurrentUser && User.CurrentUser.userID != null) {
         headers.authorization = "bearer " + User.CurrentUser.userID; //our token
     }
+    // if(User.CurrentUser && User.CurrentUser._id != null) {
+    //     headers.authorization = "bearer " + User.CurrentUser._id; //our token
+    // }
 
 
     if(data){

@@ -18,9 +18,9 @@ router
         }
     })
 
-    .post('/login', (req, res) => {
+    .post('/login', async (req, res) => {
         try {
-            const user = users.Login(req.body.email, req.body.password);
+            const user = await users.Login(req.body.email, req.body.password);
             res.send( { ...user, Password: undefined } );
         } catch (error) {
             res.status(401).send({ message: error.message });
@@ -28,9 +28,9 @@ router
     })
 
     //register - new user
-    .post('/register', (req, res) => {
+    .post('/register', async (req, res) => {
         try {
-            const user = users.AddNewUser(req.body.email, req.body.name, req.body.age, req.body.pw, req.body.cpw, req.body.h, req.body.w, req.body.act, req.body.goal, req.body.sex);
+            const user = await users.AddNewUser(req.body.email, req.body.name, req.body.age, req.body.pw, req.body.cpw, req.body.h, req.body.w, req.body.act, req.body.goal, req.body.sex);
             res.send( { ...user, Password: undefined } );
         } catch (error) {
             res.status(401).send({ message: error.message });
@@ -38,18 +38,18 @@ router
     })
 
     //admin registers new user
-    .post('/registerUser', (req, res) => {
+    .post('/registerUser', async (req, res) => {
         try {
-            const newUser = users.AddNewUserAdmin(req.body.name, req.body.email, req.body.pw, req.body.isAd);
+            const newUser = await users.AddNewUserAdmin(req.body.name, req.body.email, req.body.pw, req.body.isAd);
             res.send( { ...newUser, Password: undefined });
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
     })
 
-    .post('/banUser', (req, res) => {
+    .post('/banUser', async (req, res) => {
         try {
-            const bannedUser = users.BanUser(req.body.userEmail);
+            const bannedUser = await users.BanUser(req.body.userEmail);
             res.send({ ...bannedUser, Password: undefined });
         } catch (error) {
             res.status(401).send({ message: error.message });
@@ -67,20 +67,20 @@ router
 
 
     //friends
-    .post('/getUser', (req, res) => {
+    .post('/getUser', async (req, res) => {
         try {
             userSearched = req.body.userSearched;
-            const searched = users.getUser(userSearched, req.userID);
+            const searched = await users.getUser(userSearched, req.userID);
             res.send( searched );
         } catch (error) {
             res.status(401).send({ message: error.message });
         }
     })
 
-    .post('/getSingleUser', (req, res) => {
+    .post('/getSingleUser', async (req, res) => {
         try {
             const userClicked = req.body.userClicked;
-            const singleUser = users.getSingleUser(userClicked);
+            const singleUser = await users.getSingleUser(userClicked);
             res.send({ ...singleUser, Password: undefined });
         } catch (error) {
             res.status(401).send({ message: error.message });

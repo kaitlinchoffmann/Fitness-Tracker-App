@@ -1,144 +1,120 @@
-const users = require("./User");
-const food = require("./Food");
+const mongoose = require("mongoose");
 
-const Updates = [
-    {
-      date:"2020-04-20",
-      userID: 3,
+const exUpdateSchema = new mongoose.Schema({
+    date: String,
+      userID: Number,
       data: [
           {
-            email:"j@j",
-            exName:"squats",
-            exType:"Strength",
-            intensity:"moderate",
-            reps:"10",
-            sets:"4",
-            time:15,
-            userID:3,
-            weight:"50",
-            shared:true
+            email: String,
+            exName: String,
+            exType: String,
+            intensity: String,
+            reps: Number,
+            sets: Number,
+            time: Number,
+            userID: Number,
+            weight: Number,
+            shared: Boolean
           }
       ]
-    }
-];
+})
 
-const FoodUpdates = [
-    {
-        date:"2020-05-03",
-        userID: 3,
+const foodUpdatesSchema = new mongoose.Schema({
+    date: String,
+        userID: Number,
         data: [
             {
-              calories:283,
-              carbs:75,
-              date:"2020-05-03",
-              email:"j@j",
-              userID:3,
-              fat:1,
-              food:"apple",
-              group:"Fruit",
-              protein:1,
-              sodium:5,
-              sugar:57,
-              shared:true
+              calories: Number,
+              carbs: Number,
+              date: String,
+              email: String,
+              userID: Number,
+              fat: Number,
+              food: String,
+              group: String,
+              protein: Number,
+              sodium: Number,
+              sugar: Number,
+              shared: Boolean
             }
         ]
+})
 
-    }
-]
+const Updates = mongoose.model("Updates", exUpdateSchema);
 
-function shareFood(history) {
+const FoodUpdates = mongoose.model("FoodUpdates", foodUpdatesSchema);
+
+
+async function shareFood(history) {
     for(let i=0; i<history.length; i++) {
-        const repeat = FoodUpdates.find(x => (x.date == history[i].date) && (x.userID == history[i].userID));
-        if(!repeat) {
+        const repeat = await FoodUpdates.find({"date": history[i].date, "userID": history[i].userID});
+        if(repeat.length === 0 ) {
             let dat = history[i];
-                    FoodUpdates.push({
-                        date: history[i].date,
-                        userID: dat.userID, 
-                        data: [dat]
-                    });
-                }  
+            await FoodUpdates.create({
+                date: history[i].date,
+                userID: dat.userID, 
+                data: [dat]
+            });
+        }  
         else {
-            FoodUpdates.find(function(x,index) {
-            const repeat2 = x.data.find(x => x.food == history[i].food && x.calories == history[i].calories); 
-            if(!repeat2) {
-                if(x.date == history[i].date && x.userID == history[i].userID) {
-                    FoodUpdates[index].data.push(history[i]);
-                }
-            } 
-            });  
+            const repeat2 = await FoodUpdates.find({"data.food": history[i].food, "data.calories": history[i].calories});
+            if(repeat2.length === 0) {
+                let data = history[i];
+                foundDates = await FoodUpdates.updateOne({"date": history[i].date, "userID": history[i].userID}, { $push: {"data": data }});
+            }  
         }
-        // AddedFood.map(function(x) { 
-        //     console.log(AddedFood);
-        //     if(x.userID == history[i].userID && x.shared != true) {
-        //         x.shared = true;
-        //     }    
-        // });
     }
     return FoodUpdates;
 };
 
-function shareUpdate(history) {
+async function shareUpdate(history) {
     for(let i=0; i<history.length; i++) {
-        const repeat = Updates.find(x => (x.date == history[i].date) && (x.userID == history[i].userID));
-        if(!repeat) {
+        const repeat = await Updates.find({"date": history[i].date, "userID": history[i].userID});
+        if(repeat.length === 0 ) {
             let dat = history[i];
-                    Updates.push({
-                        date: history[i].date,
-                        userID: dat.userID, 
-                        data: [dat]
-                    });
-                }  
+            await Updates.create({
+                date: history[i].date,
+                userID: dat.userID, 
+                data: [dat]
+            });
+        }  
         else {
-            Updates.find(function(x,index) {
-            const repeat2 = x.data.find(x => x.exName == history[i].exName && x.intensity == history[i].intensity); 
-            if(!repeat2) {
-                if(x.date == history[i].date && x.userID == history[i].userID) {
-                    Updates[index].data.push(history[i]);
-                }
-            } 
-            });  
+            const repeat2 = await Updates.find({"data.exName": history[i].exName, "data.intensity": history[i].intensity});
+            if(repeat2.length === 0) {
+                let data = history[i];
+                foundDates = await Updates.updateOne({"date": history[i].date, "userID": history[i].userID}, { $push: {"data": data }});
+            }  
         }
-    }                  
-    return Updates;
+    }
+    return FoodUpdates;
+
 };
 
-function getUpdates(userID) {
+async function getUpdates(userID) {
     const allUpdates = [];
-    Updates.map(function(x) {
-        if(x.userID == userID ) {
-            allUpdates.push(x);
-        }
-    });
+    const update = await Updates.find({"userID": userID});
+    update.forEach(x => allUpdates.push(x));
     return allUpdates;
 }
 
-function getFoodUpdates(userID) {
+async function getFoodUpdates(userID) {
     const allUpdates = [];
-    FoodUpdates.map(function(x) {
-        if(x.userID == userID ) {
-            allUpdates.push(x);
-        }
-    });
+    const update = await FoodUpdates.find({"userID": userID});
+    update.forEach(x => allUpdates.push(x));
     return allUpdates;
 }
 
-function getFriendUpdates(friendId) {
+async function getFriendUpdates(friendId) {
     const allUpdates = [];
-    Updates.map(function(x) {
-        if(x.userID == friendId ) {
-            allUpdates.push(x);
-        }
-    });
+    const update = await Updates.find({"userID": friendId});
+    update.forEach(x => allUpdates.push(x));
     return allUpdates;
 }
 
-function getFriendFood(friendId) {
+async function getFriendFood(friendId) {
     const allUpdates = [];
-    FoodUpdates.map(function(x) {
-        if(x.userID == friendId ) {
-            allUpdates.push(x);
-        }
-    });
+    const update = await FoodUpdates.find({"userID": friendId});
+    update.forEach(x => allUpdates.push(x));
     return allUpdates;
 }
 

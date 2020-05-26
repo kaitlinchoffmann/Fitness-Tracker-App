@@ -11,7 +11,8 @@
     "axios": "^0.19.2",
     "cors": "^2.8.5",
     "express": "4.17.1",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "mongoose": "^5.9.13"
   },
   "devDependencies": {
     "jest": "^25.1.0",
