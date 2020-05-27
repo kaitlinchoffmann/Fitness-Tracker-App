@@ -49,10 +49,10 @@ app
     .use('/update', updateController)
     .use('/friend', friendController)
     
-    // .use((req, res) => {
-    //   const homepath = path.join(__dirname, '/../client/dist/index.html');
-    //   res.sendFile(homepath);
-    // })
+    .use((req, res) => {
+      const homepath = path.join(__dirname, '/../client/dist/index.html');
+      res.sendFile(homepath);
+    })
 
     .use((err, req, res, next) => {
       console.error(err);
@@ -60,6 +60,4 @@ app
       res.status(errorCode).send({message: err.message});
     })
    
-// app.listen(port, () => console.log(`Listening at ${port}`));
-
-app.listen(process.env.PORT, process.env.IP, () => console.log(`Server has started at ${process.env.PORT}`));
+app.listen(port, () => console.log(`Server has started at ${port}`));
