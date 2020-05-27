@@ -10,7 +10,8 @@ const updateController = require('./controllers/update');
 const friendController = require('./controllers/friend');
 
 const app = express();
-const port = 3000;
+// const port = 3000;
+const port = process.env.PORT || 80;
  
 //need to create an envrionment variable with: export DATABASEURL=<url to database>
 // to check if worked:  
@@ -61,6 +62,8 @@ app
    
 // app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
 
-app.listen(process.env.PORT, process.env.IP, function(){
-  console.log("Server at Healthy Habits has started!");
-});
+// app.listen(process.env.PORT, process.env.IP, function(){
+//   console.log("Server at Healthy Habits has started!");
+// });
+
+app.listen(port, () => console.log(`Server is listening on port ${port}...`));
