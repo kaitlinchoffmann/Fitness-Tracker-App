@@ -24,8 +24,7 @@ const userSchema = new mongoose.Schema({
         Protein: Number,
         Sodium: Number,
         Sugar: Number
-    },
-    userID: { type: mongoose.Schema.Types.ObjectId }
+    }
 });
 
 const bannedSchema = new mongoose.Schema({
