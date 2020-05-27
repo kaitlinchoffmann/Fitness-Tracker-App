@@ -60,8 +60,6 @@ app
       res.status(errorCode).send({message: err.message});
     })
    
-app.listen(port, () => console.log(`Listening at http://localhost:${port}`));
+// app.listen(port, () => console.log(`Listening at ${port}`));
 
-// app.listen(process.env.PORT, process.env.IP, function(){
-//   console.log("Server at Healthy Habits has started!");
-// });
+app.listen(process.env.PORT, process.env.IP, () => console.log(`Server has started at ${process.env.PORT}`));
