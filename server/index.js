@@ -12,7 +12,9 @@ const friendController = require('./controllers/friend');
 const app = express();
 const port = 3000;
  
-mongoose.connect("mongodb://localhost/healthy_habits", { useNewUrlParser: true, useUnifiedTopology: true })
+//need to create an envrionment variable with: export DATABASEURL=<url to database>
+// to check if worked:  console.log(process.env.DATABASEURL);
+mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(console.log("Healthy Habits Database Connected!"))
     .catch(error => console.log(error));
 
