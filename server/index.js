@@ -13,7 +13,8 @@ const app = express();
 const port = 3000;
  
 //need to create an envrionment variable with: export DATABASEURL=<url to database>
-// to check if worked:  console.log(process.env.DATABASEURL);
+// to check if worked:  
+console.log(process.env.DATABASEURL);
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(console.log("Healthy Habits Database Connected!"))
     .catch(error => console.log(error));
