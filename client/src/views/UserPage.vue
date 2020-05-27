@@ -176,7 +176,7 @@
 <script>
 import User from "../models/Users";
 import { otherUser } from "../models/Users";
-import { sendRequest, SentRequests, allFriends, getSentRequests, deleteFriend } from "../models/Friends"
+import { sendRequest, SentRequests, allFriends, getSentRequests, deleteFriend, getFriends } from "../models/Friends"
 import { friendExPosts, friendFoodPosts, getFriendPosts, getFriendFood } from "../models/Post";
 
 export default {
@@ -196,7 +196,8 @@ export default {
         this.allFriendPosts();
     },
     methods: {
-        checkFriendship() {
+        async checkFriendship() {
+            this.allFriends = await getFriends();
             const friendship = this.allFriends.find(x => x.userID == otherUser.userID);
             if(friendship) {
                 this.friends = true;
@@ -224,9 +225,7 @@ export default {
             this.friendFoodPosts = this.friendFoodPosts.sort(datesDesc2);
         },
         async DeleteFriend() {
-            console.log(this.otherUser.userID);
             this.friends = await deleteFriend(this.otherUser.userID);
-            console.log(this.friends);
             document.getElementById('delete').innerHTML="Friend Deleted";
         },
         sortDates(d1, d2){

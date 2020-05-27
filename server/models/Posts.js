@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const exUpdateSchema = new mongoose.Schema({
     date: String,
-      userID: Number,
+      userID: String,
       data: [
           {
             email: String,
@@ -12,7 +12,7 @@ const exUpdateSchema = new mongoose.Schema({
             reps: Number,
             sets: Number,
             time: Number,
-            userID: Number,
+            userID: String,
             weight: Number,
             shared: Boolean
           }
@@ -21,14 +21,14 @@ const exUpdateSchema = new mongoose.Schema({
 
 const foodUpdatesSchema = new mongoose.Schema({
     date: String,
-        userID: Number,
+        userID: String,
         data: [
             {
               calories: Number,
               carbs: Number,
               date: String,
               email: String,
-              userID: Number,
+              userID: String,
               fat: Number,
               food: String,
               group: String,

@@ -82,7 +82,6 @@ export default {
           },
           async submitChanges() {
             try {        
-              console.log(User.CurrentUser);
                await SubmitChanges(User.CurrentUser);  
                this.User.CurrentUser = await currentUser();   
               

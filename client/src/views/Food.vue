@@ -174,7 +174,7 @@ export default {
                 sodium: Number(this.sodium),
                 sugar: Number(this.sugar),
                 email: User.CurrentUser.Email,
-                userID: User.CurrentUser.userID,
+                userID: User.CurrentUser._id,
                 date: this.date,
                 shared:false
           });

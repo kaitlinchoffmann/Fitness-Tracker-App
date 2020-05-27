@@ -133,7 +133,7 @@ export default {
                 time: Number(this.time),
                 intensity: this.intensity,
                 email: User.CurrentUser.Email,
-                userID: User.CurrentUser.userID,
+                userID: User.CurrentUser._id,
                 date: this.date,
                 shared: false
           });

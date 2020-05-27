@@ -65,9 +65,9 @@ router
         }
     })
 
-    .post('/typeAHead', (req, res) => {
+    .post('/typeAHead', async (req, res) => {
         try {
-            const friendFound = friends.typeAHeadFriend(req.userID, req.body.friend);
+            const friendFound = await friends.typeAHeadFriend(req.userID, req.body.friend);
             res.send(friendFound);
         } catch (error ){
             res.status(401).send({ message: error.message });
@@ -75,9 +75,9 @@ router
     })
 
     //trying to use a GET request instead of POST
-    .get('/typeAHead2/:friend', (req, res) => {
+    .get('/typeAHead2/:friend', async (req, res) => {
         try {
-            const friendFound = friends.typeAHeadFriend(req.userID, req.params.friend);
+            const friendFound = await friends.typeAHeadFriend(req.userID, req.params.friend);
             res.send(friendFound);
         } catch (error ){
             res.status(401).send({ message: error.message });

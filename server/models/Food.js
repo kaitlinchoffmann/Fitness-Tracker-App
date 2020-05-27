@@ -5,7 +5,7 @@ const addedFoodSchema = new mongoose.Schema({
     carbs: Number,
     date: String,
     email: String,
-    userID: Number,
+    userID: String,
     fat: Number,
     food: String,
     group: String,

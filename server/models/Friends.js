@@ -3,18 +3,18 @@ const mongoose = require("mongoose");
 const users = require("./User");
 
 const friendSchema = new mongoose.Schema({
-    userId: Number,
-    FriendId: Number
+    userId: String,
+    FriendId: String
 });
 
 const sentRequestSchema = new mongoose.Schema({
-    userId: Number,
-    requestId: Number   
+    userId: String,
+    requestId: String
 });
 
 const pendingRequestSchema = new mongoose.Schema({
-    userId: Number,
-    requestId: Number,
+    userId: String,
+    requestId: String,
     requestPicture: String,
     requestName: String
 })
@@ -42,9 +42,10 @@ async function getFriends(userID) {
     const friends = await Friends.find({"userId": userID});
 
     for(let i = 0; i < friends.length; i++) {
-        const user = await users.User.find({"userID": friends[i].FriendId});
-        allFriends.push({Name: user[0].Name, userID: user[0].userID, Picture: user[0].Picture})
+        const user = await users.User.find({"_id": friends[i].FriendId});
+        allFriends.push({Name: user[0].Name, userID: user[0]._id, Picture: user[0].Picture})
     }
+    console.log(allFriends);
     return allFriends;
 }
 
@@ -84,8 +85,8 @@ async function getPendingRequests(userID) {
     return allRequests;
 }
 
-function typeAHeadFriend(userID, friendSearched) {
-    const usersFriends = getFriends(userID);
+async function typeAHeadFriend(userID, friendSearched) {
+    const usersFriends = await getFriends(userID);
 
     let allResults = [];
 

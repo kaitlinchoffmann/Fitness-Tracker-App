@@ -25,13 +25,13 @@ const userSchema = new mongoose.Schema({
         Sodium: Number,
         Sugar: Number
     },
-    userID: Number
+    userID: { type: mongoose.Schema.Types.ObjectId }
 });
 
 const bannedSchema = new mongoose.Schema({
     Email: String,
     Name: String,
-    userID: Number
+    userID: String
 });
 
 const User = mongoose.model("User", userSchema);
@@ -187,10 +187,9 @@ async function AddNewUser(email, name, age, pw, cpw, h, w, act, goal, sex) {
           BMI: dris.findBMI(w,h),
           Status: '',
           IsAdmin: false,
-          DRI: dri,
-          userID: 7 
+          DRI: dri 
         });
-      this.CurrentUser = ChangeCurrent(newId.userID);
+      this.CurrentUser = ChangeCurrent(newId._id);
       return this.CurrentUser;
     }
 };
@@ -224,8 +223,7 @@ async function AddNewUserAdmin(name, email, pw, isAd) {
                             BMI: dris.findBMI(0,0),
                             Status: '',
                             IsAdmin: admin,
-                            DRI: dri,
-                            userID: 7
+                            DRI: dri
                         });
             const newUser = await User.findOne({"Email": email});            
             return newUser;
@@ -233,7 +231,7 @@ async function AddNewUserAdmin(name, email, pw, isAd) {
 };
 
 async function ChangeCurrent(uid) {
-    const user = await User.findOne({userID: uid});
+    const user = await User.findOne({_id: uid});
     if(!user) throw Error('User not found');
 
     return user;
@@ -258,7 +256,7 @@ async function BanUser(userEmail) {
         await BannedUsers.create({
             Email: user.Email,
             Name: user.Name,
-            userID: user.userID
+            userID: user._id
     })
     return user;
     }
@@ -267,9 +265,9 @@ async function BanUser(userEmail) {
 async function getUser(userSearched, currentUser) {
     const searched = [];
     const users = await User.find({"Name": userSearched});
-    users.map(x => x.userID != currentUser && searched.push({
+    users.map(x => x._id != currentUser && searched.push({
         Email: x.Email,
-        userID: x.userID,
+        userID: x._id,
         Name: x.Name,
         Picture: x.Picture
     }));
@@ -278,11 +276,11 @@ async function getUser(userSearched, currentUser) {
 }
 
 async function getSingleUser(userClicked) {
-    const user = await User.find({userID: userClicked});
+    const user = await User.find({_id: userClicked});
     if(user) {
         const foundUser = {
             Email: user[0].Email,
-            userID: user[0].userID,
+            userID: user[0]._id,
             Name: user[0].Name,
             Picture: user[0].Picture
         };
