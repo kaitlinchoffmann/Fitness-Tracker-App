@@ -10,13 +10,11 @@ const updateController = require('./controllers/update');
 const friendController = require('./controllers/friend');
 
 const app = express();
-// const port = process.env.PORT || 3000;
-const port = process.env.PORT || 80;
-console.log(process.env.PORT);
+const port = process.env.PORT;
  
 //need to create an envrionment variable with: export DATABASEURL=<url to database>
 // to check if worked:  
-console.log(process.env.DATABASEURL);
+// console.log(process.env.DATABASEURL);
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(console.log("Healthy Habits Database Connected!"))
     .catch(error => console.log(error));
@@ -61,5 +59,5 @@ app
       res.status(errorCode).send({message: err.message});
     })
    
-// app.listen(port, () => console.log(`Server has started at ${port}`));
-app.listen(process.env.PORT, process.env.IP);
+app.listen(port, () => console.log(`Server has started at ${port}`));
+// app.listen(process.env.PORT, process.env.IP);

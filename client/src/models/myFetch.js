@@ -1,8 +1,7 @@
 import User from "./Users";
 
 // const api_root = "http://localhost:3000";
-const api_root = "https://afternoon-plateau-00483.herokuapp.com/";
-
+const api_root = '';
 
 export default async function myFetch(url, data){
 
