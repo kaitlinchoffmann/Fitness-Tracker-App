@@ -12,6 +12,7 @@ const friendController = require('./controllers/friend');
 const app = express();
 // const port = process.env.PORT || 3000;
 const port = process.env.PORT || 80;
+console.log(process.env.PORT);
  
 //need to create an envrionment variable with: export DATABASEURL=<url to database>
 // to check if worked:  
@@ -60,4 +61,5 @@ app
       res.status(errorCode).send({message: err.message});
     })
    
-app.listen(port, () => console.log(`Server has started at ${port}`));
+// app.listen(port, () => console.log(`Server has started at ${port}`));
+app.listen(process.env.PORT, process.env.IP);
