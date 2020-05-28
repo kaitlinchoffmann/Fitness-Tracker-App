@@ -15,7 +15,6 @@ const port = process.env.PORT;
 //need to create an envrionment variable with: export DATABASEURL=<url to database>
 // to check if worked:  
 // console.log(process.env.DATABASEURL);
-console.log(process.env.DATABASEURL);
 mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(console.log("Healthy Habits Database Connected!"))
     .catch(error => console.log(error));
@@ -40,8 +39,8 @@ app.use(function(req, res, next) {
 app
     .use(express.json())
     .use(express.urlencoded({ extended: true }))
-    .use(express.static( __dirname + '/../client/dist'))
-    .use('/', express.static(path.join( __dirname , 'dist')))
+    .use(express.static(path.join(__dirname, '../dist')))
+    // .use('/', express.static(path.join( __dirname , 'dist')))
     .use('/user', userController)  
     .use('/dri', driController)
     .use('/exercise', exController)
@@ -50,8 +49,9 @@ app
     .use('/friend', friendController)
     
     .get('*', function (req, res) {
-      const homepath = path.join(__dirname, '/../dist/index.html');
-      res.sendFile(homepath);
+      res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
+      // const homepath = path.join(__dirname, '/../dist/index.html');
+      // res.sendFile(homepath);
     })
 
     .use((err, req, res, next) => {
