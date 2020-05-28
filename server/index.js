@@ -50,7 +50,7 @@ app
     .use('/friend', friendController)
     
     .get('*', function (req, res) {
-      const homepath = path.join(__dirname, '/../client/dist/index.html');
+      const homepath = path.join(__dirname, '/../dist/index.html');
       res.sendFile(homepath);
     })
 
