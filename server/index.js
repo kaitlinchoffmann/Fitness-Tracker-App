@@ -49,7 +49,7 @@ app
     .use('/update', updateController)
     .use('/friend', friendController)
     
-    .use((req, res) => {
+    .get('*', function (req, res) {
       const homepath = path.join(__dirname, '/../client/dist/index.html');
       res.sendFile(homepath);
     })
