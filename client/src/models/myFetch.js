@@ -13,6 +13,7 @@ export default async function myFetch(url, data){
 
 
     if(data){
+        console.log(api_root + url);
         response = await fetch(api_root + url, {
             method: 'POST', // *GET, POST, PUT, DELETE, etc.
             cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
@@ -23,6 +24,7 @@ export default async function myFetch(url, data){
             body: JSON.stringify(data) // body data type must match "Content-Type" header
         });
     }else{
+        console.log(api_root + url);
         response = await fetch(api_root + url, { 
             headers
          });
