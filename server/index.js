@@ -40,7 +40,7 @@ app.use(function(req, res, next) {
 app
     .use(express.json())
     .use(express.urlencoded({ extended: true }))
-    .use(express.static( __dirname + '/dist/'))
+    // .use(express.static( __dirname + '/dist/'))
     .use('/', express.static(path.join( __dirname , 'dist')))
     .use('/user', userController)  
     .use('/dri', driController)
