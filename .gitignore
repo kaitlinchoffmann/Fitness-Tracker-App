@@ -2,7 +2,7 @@
 # Edit at https://www.gitignore.io/?templates=node,vuejs,dotenv,visualstudiocode
 
 ### dotenv ###
-.env
+# .env
 
 ### Node ###
 # Logs

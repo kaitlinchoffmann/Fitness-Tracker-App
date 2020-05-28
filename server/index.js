@@ -10,7 +10,7 @@ const updateController = require('./controllers/update');
 const friendController = require('./controllers/friend');
 
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 80;
  
 //need to create an envrionment variable with: export DATABASEURL=<url to database>
 // to check if worked:  
@@ -23,6 +23,7 @@ mongoose.connect(process.env.DATABASEURL, { useNewUrlParser: true, useUnifiedTop
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); //update to accept only from domain expected request is coming from
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+  res.header("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS");  
   next();
 });
 
