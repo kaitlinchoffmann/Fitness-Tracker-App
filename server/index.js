@@ -41,7 +41,7 @@ app
     .use(express.json())
     .use(express.urlencoded({ extended: true }))
     .use(express.static( __dirname + '/../client/dist'))
-    .get('/', (req, res) => res.send('Welcome to Healthy Habits'))
+    .use('/', express.static(path.join( __dirname , 'dist')))
     .use('/user', userController)  
     .use('/dri', driController)
     .use('/exercise', exController)
