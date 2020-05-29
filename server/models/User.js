@@ -238,12 +238,13 @@ async function ChangeCurrent(uid) {
 
 async function SubmitChanges(changes) {  
     this.CurrentUser = changes; 
-    let newBMI = dris.findBMI(changes.Weight, changes.Height);
-    this.CurrentUser.BMI = newBMI;
+    this.CurrentUser.BMI = dris.findBMI(changes.Weight, changes.Height);
     let newEER = dris.findEER(changes.Age, changes.Weight, changes.Height, changes.Activity, changes.Goal, changes.Sex);
     this.CurrentUser.EER = newEER;
     let newDRI = dris.findDRI(newEER, changes.Weight, changes.Email);
     this.CurrentUser.DRI = newDRI;
+
+    await User.updateOne({"_id": changes._id}, { $set: changes });
     dris.CurrentDRI = newDRI;
     return dris.CurrentDRI;
 };
