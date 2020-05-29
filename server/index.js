@@ -10,7 +10,7 @@ const updateController = require('./controllers/update');
 const friendController = require('./controllers/friend');
 
 const app = express();
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 3000;
  
 //need to create an envrionment variable with: export DATABASEURL=<url to database>
 // to check if worked:  

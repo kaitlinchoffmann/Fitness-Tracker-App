@@ -38,13 +38,13 @@ import { getSingleUser } from "../models/Users";
 export default {
     data:()=>({
         User,
-        // allFriends,
+        allFriends,
         friendSearched: '',
-        friendSearch
+        friendSearch: allFriends
     }),
-    // mounted:function(){
-    //     this.getAllFriends();
-    // },
+    mounted:function(){
+        this.getAllFriends();
+    },
     watch: {
         friendSearched: function() {
             this.getResult();
@@ -67,7 +67,7 @@ export default {
            this.friendSearch = await findFriend(this.friendSearched);
         //    this.friendSearch = await findFriend2();
            if(this.friendSearched == '') {
-                this.friendSearch = null;
+                this.friendSearch = allFriends;
            }
        }
 
