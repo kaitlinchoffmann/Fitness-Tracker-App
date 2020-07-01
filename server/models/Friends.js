@@ -88,14 +88,9 @@ async function getPendingRequests(userID) {
 async function typeAHeadFriend(userID, friendSearched) {
     const usersFriends = await getFriends(userID);
 
-    let allResults = [];
+    const allResults = usersFriends.filter(x => x.Name.toUpperCase().includes(friendSearched.toUpperCase()))
 
-     usersFriends.map(function(x, index) {
-         if(x.Name.includes(friendSearched)) {
-             allResults.push(x);
-         }
-     }); 
-     return allResults;
+    return allResults;
 }
 
 module.exports = {

@@ -179,10 +179,16 @@ export default {
                 }
                 else {
                     document.getElementById("none").innerHTML="No food logged today ";
+                    this.nutrition = [0,0,0,0,0,0];
+                    this.findRemain(0,0,0,0,0,0);
+                    this.history = [{ date: currentDate() }];
                 }
             }
             else {
                 document.getElementById("none").innerHTML="No food logged today ";
+                this.nutrition = [0,0,0,0,0,0];
+                this.findRemain(0,0,0,0,0,0);
+                this.history = [{ date: currentDate() }];
             }
         },
         findDates() {

@@ -203,10 +203,18 @@ export default {
                 }
                 else {
                     document.getElementById("none").innerHTML="No exercises logged today";
+                    this.history = [{ date: currentDate() }];
+                    this.findRemain(0);
+                    this.type = [0,0,0,0,0,0];
+                    this.time = 0;
                 }
             }
             else {
                 document.getElementById("none").innerHTML="No exercises logged today";
+                this.history = [{ date: currentDate() }];
+                this.findRemain(0);
+                this.type = [0,0,0,0,0,0];
+                this.time = 0;
             }
         },
         findDates() {

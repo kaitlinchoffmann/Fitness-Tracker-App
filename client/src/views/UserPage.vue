@@ -2,7 +2,7 @@
     <div class="container">
         <div class="section">
         <div id="delete"></div>
-        <h2 class="title is-2 has-text-left">
+        <h2 class="title is-2 has-text">
           {{otherUser.Name}}     
         </h2>
         <div>
@@ -15,7 +15,7 @@
               <div id="ex-section">
                 <h4 class="title is-4 ex-title">Shared Exercises</h4><br/>
                 <div v-if="friendExPosts.length > 0">
-                  <div class="box table" v-for="(x,ind) in friendExPosts" :key="x.date" id:x.date>
+                  <div class="box table posts" v-for="(x,ind) in friendExPosts" :key="x.date" id:x.date>
                     <table id="reg-table" class="table exercise-post">
                       <caption class="title is-5">Date: {{x.date}}</caption>
                       <thead>
@@ -86,7 +86,7 @@
               <div id="food-section">
                 <h4 class="title is-4">Shared Food</h4><br/>
                 <div v-if="friendFoodPosts.length > 0">
-                  <div class="box table" v-for="(x,ind) in friendFoodPosts" :key="x.date" id:x.date>
+                  <div class="box table posts" v-for="(x,ind) in friendFoodPosts" :key="x.date" id:x.date>
                     <table id="reg-food-table" class="table food-post">
                       <caption class="title is-5">Date: {{x.date}}</caption>
                       <thead>
@@ -241,17 +241,18 @@ export default {
 
 <style>
 #delete-btn, #request-btn {
-  margin-left: 3%;
+  margin: auto;
+  display: block;
 }
 
 #request-btn {
   max-width: 200px;
 }
 
-@media(max-width: 911px) {
+/* @media(max-width: 911px) {
   #delete-btn, #request-btn {
     margin: auto;
     display: block;
   }
-}
+} */
 </style>

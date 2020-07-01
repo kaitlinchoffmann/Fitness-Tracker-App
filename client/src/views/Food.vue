@@ -139,30 +139,14 @@ export default {
             this.foodList.splice(i, 1);
           },
           add(){
-            if(this.calories == "") {
-              this.calories = 0;
-            }
-            if(this.protein == "") {
-              this.protein = 0;
-            }
-            if(this.carbs == "") {
-              this.carbs = 0;
-            }
-            if(this.fat == "") {
-              this.fat = 0;
-            }
-            if(this.sodium == "") {
-              this.sodium = 0;
-            }
-            if(this.sugar == "") {
-              this.sugar = 0;
-            }
-            if(this.food == "") {
-              document.getElementById("error").innerHTML="Please input a Food";
-            }
-            else if(this.date == "") {
-              document.getElementById("error").innerHTML="Please input a Date";
-            }
+            if(this.calories == "") this.calories = 0;
+            if(this.protein == "") this.protein = 0;
+            if(this.carbs == "") this.carbs = 0;
+            if(this.fat == "") this.fat = 0;
+            if(this.sodium == "") this.sodium = 0;
+            if(this.sugar == "") this.sugar = 0;
+            if(this.food == "") document.getElementById("error").innerHTML="Please input a Food";
+            else if(this.date == "") document.getElementById("error").innerHTML="Please input a Date";
             else {
                 this.foodList.push({ 
                 food: this.food,

@@ -11,8 +11,10 @@
             <h3 class="title is-3">Search Results:</h3>
             <div v-for="user in allSearches" :key="user.userID">
                 <hr/>
-                <img :src="user.Picture" id="user-pic" @click="userPage(user.userID)"/>
-                <div class="user-name" @click="userPage(user.userID)">{{user.Name}}</div>
+                <div class="link-to-profile">
+                  <img :src="user.Picture" id="user-pic" @click="userPage(user.userID)"/>
+                  <div class="user-name" @click="userPage(user.userID)">{{user.Name}}</div>
+                </div>  
             </div>
             </div>
             <div class="no-results has-text-centered" v-else>

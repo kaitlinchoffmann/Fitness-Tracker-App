@@ -2,7 +2,7 @@
 <div class="container">
     <div class="section">
       <h3 class="title is-3 update-title">Shared Progress</h3>  
-        <h2 class="title is-2 has-text-left">
+        <h2 class="title is-2 has-text-center">
           {{User.CurrentUser.Name}}     
         </h2>
         <div >
@@ -11,7 +11,7 @@
         <div id="ex-section">
           <h4 class="title is-4 ex-title">Shared Exercises</h4><br/>
           <div v-if="updatedPosts.length > 0">
-            <div class="box table" v-for="(x,ind) in updatedPosts" :key="x.date" id:x.date>
+            <div class="box table posts" v-for="(x,ind) in updatedPosts" :key="x.date" id:x.date>
               <table id="reg-table" class="table exercise-post">
                 <caption class="title is-5">Date: {{x.date}}</caption>
                 <thead>
@@ -21,7 +21,7 @@
                     <th>Sets</th>
                     <th>Reps</th>
                     <th>Weight</th>
-                    <th>Time(mins)</th>
+                    <th>Time</th>
                     <th>Intensity</th>
                   </tr>
                 </thead>
@@ -63,7 +63,7 @@
                     <td>{{x.weight}}</td>
                   </tr>
                   <tr>  
-                    <th>Time(mins):</th>
+                    <th>Time:</th>
                     <td>{{x.time}}</td>
                   </tr>
                   <tr>  
@@ -82,13 +82,13 @@
         <div id="food-section">
           <h4 class="title is-4">Shared Food</h4><br/>
           <div v-if="updatedFood.length > 0">
-            <div class="box table" v-for="(x,ind) in updatedFood" :key="x.date" id:x.date>
+            <div class="box table posts" v-for="(x,ind) in updatedFood" :key="x.date" id:x.date>
               <table id="reg-food-table" class="table food-post">
                 <caption class="title is-5">Date: {{x.date}}</caption>
                 <thead>
                   <tr>
                     <th>Food</th>
-                    <th>Group</th>
+                    <!-- <th>Group</th> -->
                     <th>Calories</th>
                     <th>Protein</th>
                     <th>Carbs</th>
@@ -100,7 +100,7 @@
                 <tbody>
                   <tr v-for="x in updatedFood[ind].data" :key="x.food" id:x.food>
                     <td>{{x.food}}</td>
-                    <td>{{x.group}}</td>
+                    <!-- <td>{{x.group}}</td> -->
                     <td>{{x.calories}}</td>
                     <td>{{x.protein}}</td>
                     <td>{{x.carbs}}</td>
@@ -203,8 +203,11 @@ export default {
 </script>
 
 <style>
-#update-pic {
+/* #update-pic {
   margin-left:3%;
+} */
+img#update-pic.card-image {
+    margin: auto;
 }
 
 #food-section {
@@ -223,11 +226,17 @@ export default {
   display:none;
 }
 
+.box.table.posts {
+    max-width: 630px;
+}
+
 table.exercise-post.table {  
  border-radius: 10px;
+ margin:auto;
 }
 table.food-post.table { 
- border-radius: 10px; 
+ border-radius: 10px;
+ margin:auto;
 }
 
 .exercise-post th, .exercise-post td {
@@ -244,6 +253,10 @@ h5.header {
 }
 
 @media(max-width: 1407px) {
+  .box.table.posts {
+    max-width: none;
+  }
+
   #food-section {
     float:none;
     max-width: 700px; 

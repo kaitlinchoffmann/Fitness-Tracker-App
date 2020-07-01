@@ -3,15 +3,17 @@
         <div class="section">
         <h2 class="title is-2 friend-title">Friends</h2><br/>  
         <!-- Searching for friends -->
-        <div style="margin-bottom:10px;">
-            <input type="text" class="input is-small" v-model="friendSearched" placeholder="search friends..." style="width:400px;">
+        <div>
+            <input id="search-bar" type="text" class="input is-small" v-model="friendSearched" placeholder="search friends...">
         </div>  
         <div class="section box" style="max-width: 1000px;margin:auto;">
             <div v-if="friendSearch != null">
               <div v-if="friendSearch.length > 0"> 
                 <div v-for="user in friendSearch" :key="user.userID">
-                  <img :src="user.Picture" id="user-pic" @click="userPage(user.userID)"/>
-                  <div class="user-name" @click="userPage(user.userID)">{{user.Name}}</div>
+                  <div class="link-to-profile" @click="userPage(user.userID)">
+                    <img :src="user.Picture" id="user-pic" />
+                    <div class="user-name">{{user.Name}}</div>
+                  </div>    
                   <button class="button is-warning" @click="DeleteFriend(user.userID)">Delete Friend</button>
                 <hr/>
                 </div>
@@ -76,6 +78,15 @@ export default {
 </script>
 
 <style>
+#search-bar {
+  margin-bottom:30px;
+  display: block;
+  border-radius: 5px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #user-pic {
     max-width: 200px;
     max-height: 150px;
@@ -90,6 +101,10 @@ export default {
 .no-friends {
     color: slateblue;
     font-size: 25px;
+}
+
+.link-to-profile:hover {
+    cursor: pointer;
 }
 
 @media(max-width: 500px) {
