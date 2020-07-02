@@ -14,17 +14,19 @@
                     <img :src="user.Picture" id="user-pic" />
                     <div class="user-name">{{user.Name}}</div>
                   </div>    
-                  <button class="button is-warning" @click="DeleteFriend(user.userID)">Delete Friend</button>
+                  <button class="button is-warning" @click="DeleteFriend(user.userID)">Delete Friend</button><br/><br/>
                 <hr/>
                 </div>
               </div> 
+              <div v-else-if="allFriends.length === 0">
+                <div class="no-friends has-text-centered">No friends yet!</div>
+              </div>
               <div v-else>
                   <div class="no-friends has-text-centered">No friends by that name</div>
               </div>  
             </div>
             <div v-else>
-              <!-- <div class="no-friends has-text-centered">No friends yet!</div> -->
-              <div class="no-friends has-text-centered">Search your friends!</div>
+              <div class="no-friends has-text-centered">No friends yet!</div>
             </div>
         </div>
         <div style="margin-bottom:150px;"></div>
@@ -58,7 +60,9 @@ export default {
            this.$router.push('/userpage');
         },
         async getAllFriends() {
+            this.friendSearched = '';
             this.allFriends = await getFriends();
+            this.friendSearch = await getFriends();
         },
         async DeleteFriend(id) {
             await deleteFriend(id);

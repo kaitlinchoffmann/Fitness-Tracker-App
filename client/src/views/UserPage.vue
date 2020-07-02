@@ -191,7 +191,7 @@ export default {
         friendExPosts,
         friendFoodPosts
     }),
-    mounted:function(){
+    mounted:function(){ 
         this.checkFriendship();
         this.allFriendPosts();
     },

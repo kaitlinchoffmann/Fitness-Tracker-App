@@ -9,7 +9,7 @@
                   <img :src="request.requestPicture" id="user-pic"/>
                   <div class="user-name">{{request.requestName}}</div>
                 </div>
-                <button class="button is-warning" @click="addUser(request.requestId)">Accept Request</button>
+                <button class="button is-warning" @click="addUser(request.requestId)">Accept Request</button><br/><br/>
               <hr/>
               </div>
             </div>
