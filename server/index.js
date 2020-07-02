@@ -53,6 +53,7 @@ app
       res.sendFile(path.resolve(__dirname, '../dist', 'index.html'));
       // const homepath = path.join(__dirname, '/../dist/index.html');
       // res.sendFile(homepath);
+      //trying to get heroku to show changes!!!
     })
 
     .use((err, req, res, next) => {

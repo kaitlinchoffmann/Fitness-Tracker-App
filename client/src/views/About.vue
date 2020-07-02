@@ -16,6 +16,7 @@
     <div style="padding-bottom: 50px;"></div>
   <footer class="footer"><div class="content has-text-centered">
     A Web App by Kaitlin Hoffmann
+    <!-- trying to get heroku to show changes!!! -->
     </div></footer> 
  </div> 
 </template>
